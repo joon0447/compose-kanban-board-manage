@@ -4,7 +4,7 @@
 ## 리팩토링
 - [x] Description, Title data class -> value class 로 변경
 - [x] ProfileState enum -> data class로 변경
-- [ ] ProgressBar 엔드포인트 수정
+- [x] ProgressBar 엔드포인트 수정
 - [ ] Preview Sample Data 만들기
 - [ ] BoardState, ModalState에서 Composable과 도메인 로직 분리
 

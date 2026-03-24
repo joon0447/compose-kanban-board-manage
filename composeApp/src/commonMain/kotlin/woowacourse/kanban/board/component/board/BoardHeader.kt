@@ -85,6 +85,7 @@ private fun ProgressBar(
             .clip(RoundedCornerShape(15.dp)),
         color = Color.Blue,
         trackColor = Color.LightGray,
+        drawStopIndicator = {}
     )
 }
 
