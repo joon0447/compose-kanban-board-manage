@@ -14,6 +14,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kanbanboard.composeapp.generated.resources.Res
+import kanbanboard.composeapp.generated.resources.profile
 import org.jetbrains.compose.resources.painterResource
 import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.model.modal.ProfileState
@@ -44,6 +46,6 @@ fun Profile(
 @Preview(showBackground = true)
 @Composable
 private fun ProfilePreview() {
-    val profile = ProfileState.DINO
+    val profile = ProfileState("Dino",Res.drawable.profile)
     Profile(profile = profile)
 }

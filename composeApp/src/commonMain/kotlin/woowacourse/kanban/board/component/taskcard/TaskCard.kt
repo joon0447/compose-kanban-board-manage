@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kanbanboard.composeapp.generated.resources.Res
+import kanbanboard.composeapp.generated.resources.profile
 import woowacourse.kanban.board.Gray70
 import woowacourse.kanban.board.Gray80
 import woowacourse.kanban.board.model.TaskState
@@ -64,7 +66,7 @@ private fun TaskCardPreview() {
             description = Description(value = "세로 스크롤 가능한 리스트 컴포넌트를 만들고 성능 최적화를 적용합니다."),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
             task = TaskState.PROGRESS,
-            profile = ProfileState.DINO,
+            profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
 }
@@ -78,7 +80,7 @@ private fun TaskCardEmptyDescriptionPreview() {
             description = Description(value = ""),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
             task = TaskState.PROGRESS,
-            profile = ProfileState.DINO,
+            profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
 }
@@ -92,7 +94,7 @@ private fun TaskCardEmptyTagPreview() {
             description = Description(value = "세로 스크롤"),
             tags = Tags(value = emptyList()),
             task = TaskState.PROGRESS,
-            profile = ProfileState.DINO,
+            profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
 }
@@ -106,7 +108,7 @@ private fun TaskCardEmptyTagAndDescriptionPreview() {
             description = Description(value = ""),
             tags = Tags(value = emptyList()),
             task = TaskState.PROGRESS,
-            profile = ProfileState.DINO,
+            profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
 }
@@ -120,7 +122,7 @@ private fun TaskCardLongTitlePreview() {
             description = Description(value = ""),
             tags = Tags(value = emptyList()),
             task = TaskState.PROGRESS,
-            profile = ProfileState.DINO,
+            profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
 }
@@ -142,7 +144,7 @@ private fun TaskCardLongDescriptionPreview() {
             ),
             tags = Tags(value = emptyList()),
             task = TaskState.PROGRESS,
-            profile = ProfileState.DINO,
+            profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
 }

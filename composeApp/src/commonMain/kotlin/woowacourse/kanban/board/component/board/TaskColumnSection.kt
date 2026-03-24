@@ -23,6 +23,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kanbanboard.composeapp.generated.resources.Res
+import kanbanboard.composeapp.generated.resources.profile
 import woowacourse.kanban.board.component.extension.toBackgroundColor
 import woowacourse.kanban.board.component.extension.toBorderColor
 import woowacourse.kanban.board.component.extension.toHeaderColor
@@ -178,7 +180,7 @@ private fun TaskColumnTodoPreview() {
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
             task = TaskState.PROGRESS,
-            profile = ProfileState.DINO,
+            profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
     TaskColumn(
@@ -196,7 +198,7 @@ private fun TaskColumnProgressPreview() {
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"), Tag("zjavh"))),
             task = TaskState.PROGRESS,
-            profile = ProfileState.DINO,
+            profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
     TaskColumn(
@@ -214,7 +216,7 @@ private fun TaskColumnDonePreview() {
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
             task = TaskState.PROGRESS,
-            profile = ProfileState.DINO,
+            profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
     TaskColumn(

@@ -4,6 +4,8 @@ import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.runComposeUiTest
+import kanbanboard.composeapp.generated.resources.Res
+import kanbanboard.composeapp.generated.resources.profile
 import kotlin.test.Test
 import woowacourse.kanban.board.model.TaskState
 import woowacourse.kanban.board.model.modal.Description
@@ -23,7 +25,7 @@ class TaskColumnSectionTest {
             description = Description("설명"),
             tags = Tags(listOf(Tag("컴포넌트"))),
             task = TaskState.TODO,
-            profile = ProfileState.DINO
+            profile = ProfileState("다이노",Res.drawable.profile)
         )
         val todoTasks = listOf(data, data, data)
         setContent {
@@ -44,7 +46,7 @@ class TaskColumnSectionTest {
             description = Description("설명"),
             tags = Tags(listOf(Tag("컴포넌트"))),
             task = TaskState.PROGRESS,
-            profile = ProfileState.DINO
+            profile = ProfileState("다이노",Res.drawable.profile)
         )
         val progressTasks = listOf(data, data, data, data, data)
         setContent {
@@ -65,7 +67,7 @@ class TaskColumnSectionTest {
             description = Description("설명"),
             tags = Tags(listOf(Tag("컴포넌트"))),
             task = TaskState.DONE,
-            profile = ProfileState.DINO
+            profile = ProfileState("다이노",Res.drawable.profile)
         )
         val doneTasks = listOf(data, data, data, data)
         setContent {

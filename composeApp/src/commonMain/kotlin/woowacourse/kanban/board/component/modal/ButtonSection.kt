@@ -16,6 +16,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kanbanboard.composeapp.generated.resources.Res
+import kanbanboard.composeapp.generated.resources.profile
 import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.model.TaskState
@@ -62,8 +64,16 @@ fun ButtonSection(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            ProfileButton(currentState = profileState, myState = ProfileState.DINO, onClick = { onProfileClick(ProfileState.DINO) })
-            ProfileButton(currentState = profileState, myState = ProfileState.PAMES, onClick = { onProfileClick(ProfileState.PAMES) })
+            ProfileButton(
+                currentState = profileState,
+                myState = ProfileState("디노",Res.drawable.profile),
+                onClick = { onProfileClick(ProfileState("Dino",Res.drawable.profile)) }
+            )
+            ProfileButton(
+                currentState = profileState,
+                myState = ProfileState("페임스",Res.drawable.profile),
+                onClick = { onProfileClick(ProfileState("페임스",Res.drawable.profile)) }
+            )
         }
     }
 }
@@ -72,7 +82,7 @@ fun ButtonSection(
 @Preview(showBackground = true)
 private fun ButtonSectionPreview() {
     var state by remember { mutableStateOf(TaskState.TODO) }
-    var profileState by remember { mutableStateOf(ProfileState.DINO) }
+    var profileState by remember { mutableStateOf(ProfileState("다이노",Res.drawable.profile)) }
     ButtonSection(
         state = TaskState.TODO,
         profileState = profileState,

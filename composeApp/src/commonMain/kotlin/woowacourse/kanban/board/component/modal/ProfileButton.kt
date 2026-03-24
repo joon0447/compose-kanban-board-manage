@@ -22,6 +22,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kanbanboard.composeapp.generated.resources.Res
+import kanbanboard.composeapp.generated.resources.profile
 import org.jetbrains.compose.resources.painterResource
 import woowacourse.kanban.board.Blue50
 import woowacourse.kanban.board.Blue80
@@ -73,8 +75,8 @@ fun ProfileButton(
 @Composable
 private fun ProfileButtonNotChoicePreview() {
     ProfileButton(
-        currentState = ProfileState.DINO,
-        myState = ProfileState.PAMES,
+        currentState = ProfileState("다이노",Res.drawable.profile),
+        myState = ProfileState("페임스",Res.drawable.profile),
         onClick = {}
     )
 }
@@ -83,8 +85,8 @@ private fun ProfileButtonNotChoicePreview() {
 @Composable
 private fun ProfileButtonChoicePreview() {
     ProfileButton(
-        currentState = ProfileState.PAMES,
-        myState = ProfileState.PAMES,
+        currentState = ProfileState("페임스",Res.drawable.profile),
+        myState = ProfileState("페임스",Res.drawable.profile),
         onClick = {}
     )
 }
