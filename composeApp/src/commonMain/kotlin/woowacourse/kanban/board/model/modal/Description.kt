@@ -1,3 +1,4 @@
 package woowacourse.kanban.board.model.modal
 
-data class Description(val value: String)
+@JvmInline
+value class Description(val value: String)

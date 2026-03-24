@@ -1,6 +1,7 @@
 package woowacourse.kanban.board.model.modal
 
-data class Title(val value: String) {
+@JvmInline
+value class Title(val value: String) {
 
     init {
         require(value.isNotBlank())
