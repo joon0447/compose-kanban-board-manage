@@ -34,7 +34,7 @@ import kotlin.math.roundToInt
 import woowacourse.kanban.board.Gray10
 import woowacourse.kanban.board.Gray30
 import woowacourse.kanban.board.component.ComponentText
-import woowacourse.kanban.board.component.state.BoardState
+import woowacourse.kanban.board.model.state.BoardState
 import woowacourse.kanban.board.model.TaskState
 import woowacourse.kanban.board.model.modal.Description
 import woowacourse.kanban.board.model.modal.ProfileState

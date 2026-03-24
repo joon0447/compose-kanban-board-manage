@@ -9,12 +9,13 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import woowacourse.kanban.board.component.state.rememberModalState
+import woowacourse.kanban.board.model.state.ModalState
 import woowacourse.kanban.board.model.modal.Description
 import woowacourse.kanban.board.model.modal.Tag
 import woowacourse.kanban.board.model.modal.Tags
@@ -24,11 +25,12 @@ import woowacourse.kanban.board.model.taskcard.TaskCardData
 
 @Composable
 fun Modal(
+    modalState: ModalState,
     onClickClose: () -> Unit,
     onClickTaskCreate: (TaskCardData) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val modalState = rememberModalState()
+    val modalState = remember { ModalState() }
     val titleInputState = TextInputState(
         value = modalState.title,
         onChange = { modalState.title = it },
@@ -96,6 +98,7 @@ fun Modal(
 @Composable
 private fun ModalPreview() {
     Modal(
+        modalState = ModalState(),
         onClickClose = {},
         onClickTaskCreate = {}
     )

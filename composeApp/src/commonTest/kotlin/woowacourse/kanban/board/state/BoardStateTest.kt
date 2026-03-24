@@ -5,7 +5,7 @@ import kanbanboard.composeapp.generated.resources.profile
 import kotlin.test.Test
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
-import woowacourse.kanban.board.component.state.BoardState
+import woowacourse.kanban.board.model.state.BoardState
 import woowacourse.kanban.board.model.TaskState
 import woowacourse.kanban.board.model.modal.Description
 import woowacourse.kanban.board.model.modal.ProfileState
@@ -19,7 +19,7 @@ class BoardStateTest {
 
     @Before
     fun setUp() {
-        boardState = BoardState()
+        boardState = BoardState(mutableListOf<TaskCardData>())
     }
 
     @Test

@@ -1,4 +1,4 @@
-package woowacourse.kanban.board.component.state
+package woowacourse.kanban.board.model.state
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -26,6 +26,3 @@ class ModalState {
         Tag.isTagValid(tags) && Tags.isTagsValid(Tag.extractedTags(tags))
     }
 }
-
-@Composable
-fun rememberModalState(): ModalState = remember { ModalState() }

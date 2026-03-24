@@ -7,28 +7,37 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.component.modal.Modal
-import woowacourse.kanban.board.component.state.rememberBoardState
+import woowacourse.kanban.board.model.state.BoardState
+import woowacourse.kanban.board.model.state.ModalState
 
 @Composable
 fun Board(
+    boardState: BoardState,
     modifier: Modifier = Modifier,
 ) {
-    val boardState = rememberBoardState()
     val snackbarHostState = remember { SnackbarHostState() }
 
-    LaunchedEffect(boardState.shouldShowSnackbar) {
-        if (boardState.shouldShowSnackbar) {
+    var shouldShowSnackbar by remember { mutableStateOf(false) }
+    var isShowModal by remember { mutableStateOf(false) }
+
+    val modalState = remember { ModalState() }
+
+    LaunchedEffect(shouldShowSnackbar) {
+        if (shouldShowSnackbar) {
             snackbarHostState.showSnackbar(
                 message = ComponentText.BOARD_TASK_CREATE_SNACKBAR,
                 withDismissAction = true,
             )
-            boardState.shouldShowSnackbar = false
+            shouldShowSnackbar = false
         }
     }
 
@@ -38,19 +47,20 @@ fun Board(
         Column(
             modifier = modifier.padding(paddingValues),
         ) {
-            if (boardState.isShowModal) {
+            if (isShowModal) {
                 Dialog(
-                    onDismissRequest = { boardState.isShowModal = false },
+                    onDismissRequest = { isShowModal = false },
                     properties = DialogProperties(
                         usePlatformDefaultWidth = false,
                     ),
                 ) {
                     Modal(
-                        onClickClose = { boardState.isShowModal = false },
+                        modalState = modalState,
+                        onClickClose = { isShowModal = false },
                         onClickTaskCreate = { task ->
                             boardState.addCard(task)
-                            boardState.shouldShowSnackbar = true
-                            boardState.isShowModal = false
+                            shouldShowSnackbar = true
+                            isShowModal = false
                         },
                     )
                 }
@@ -59,7 +69,7 @@ fun Board(
                 doneRate = boardState.calculateDoneRate(),
                 doneTasks = boardState.doneTasks.size,
                 totalTasks = boardState.allTasksCount,
-                onClickCreateTask = { boardState.toggleShowModal() },
+                onClickCreateTask = { isShowModal = isShowModal.not() },
             )
             TaskColumnSection(
                 todoTasks = boardState.todoTasks,
