@@ -1,28 +1,34 @@
-# 칸반 보드 생성(보드)
+# 칸반 보드 생성(프로젝트)
 
-# 기능 구현 사항
 
-### 1. 리팩토링
-- [x] 비즈니스 로직과 UI 로직 분리하기
-- [x] Tags 내 const 변수 가시성 private 으로 변경하기
-- [x] Modal 내 상태 분리
-- [x] TextInputState 일반 class로 변경
+## 리팩토링
+- [ ] Description, Title data class -> value class 로 변경
+- [ ] ProfileState enum -> data class로 변경
+- [ ] ProgressBar 엔드포인트 수정
+- [ ] Preview Sample Data 만들기
+- [ ] BoardState, ModalState에서 Composable과 도메인 로직 분리
 
-### 2. 비즈니스 로직
-- [x] TaskCardData를 진행 상태별로 분류해서 저장
-- [x] 전체 할 일중 완료된 일의 비율 계산
-- [x] 전체 업무 수 내보내기
+## 기능 구현 사항
 
-### 3. UI 로직
-- [x] 보드 헤더
-    - "Compose Desktop 칸반 보드" 타이틀을 출력
-    - 모든 Task 중 완료된 Task의 개수와 완료율 출력 ( 예: 완료율: 50% (3/6) )
-    - 완료율은 인디케이터바로도 출력되어야 함
-    - 새 태스크 생성 버튼 출력
-    - 새 태스크 생성 버튼을 누르면 Modal이 출력
-- [x] Modal
-    - 생성 조건 만족 후 생성 버튼을 누르면, Modal 창 닫힘
-    - TaskCard가 생성되어 Modal 창이 닫히게 되면 SnackBar를 화면 하단 센터에 출력 ("새로운 태스크가 추가되었습니다")
-- [x] TaskCard 목록
-    - TaskCard의 진행 상태별로 (To Do, In Progress, Done) 섹션 분리하여 출력
-    - 각 진행 상태의 TaskCard 개수 출력
+**드래그 앤 드랍으로 태스크 카드의 Status 값을 변경한다**
+- 비즈니스 로직
+  - [ ] TaskCardData의 taskState 바꾸기
+- UI 로직
+  - [ ] 태스크 카드의 드래그 앤 드랍이 가능하게 한다.
+  - [ ] 드랍된 위치에 Status 값으로 변경하는 함수를 호출한다.
+
+**사이드 탭을 생성한다**
+- 비즈니스 로직
+  - [ ] Project 객체 생성한다.
+  - [ ] Project 객체는 List<TaskCardData>와 프로젝트명을 가진다.
+- UI 로직
+  - [ ] 사이드 탭의 상단에 "프로젝트", "4주차 미션 보드"라는 문구를 출력한다.
+  - [ ] 프로젝트 이름들을 사이드 탭에 출력한다.
+  - [ ] 선택된 프로젝트는 배경 강조 및 텍스트 컬러 강조를 한다.
+  - [ ] 프로젝트 이름이 사이드탭을 넘어갈 때 말줄임표를 한다.
+  - [ ] 프로젝트 변경 시 보드 헤더에 있는 프로젝트명을 변경한다.
+  - [ ] WorkSpace는 SideBar와 Board로 구성 되어있다.
+  - [ ] SideBar에서 Project를 선택했을 때 Board를 업데이트한다.
+
+
+  
