@@ -18,6 +18,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -59,7 +60,7 @@ private fun TaskColumnSectionPreview() {
         MaterialTheme {
             TaskColumnSection(
                 project = project,
-                onMoveSnackBar = {}
+                onMoveSnackBar = {},
             )
         }
     }
@@ -67,13 +68,13 @@ private fun TaskColumnSectionPreview() {
 
 @Composable
 fun TaskColumnSection(
-    project : Project,
+    project: Project,
     onMoveSnackBar: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-    var draggedTask by remember { mutableStateOf<TaskCardData?>(null) }
     var currentDragPosition by remember { mutableStateOf<Offset?>(null) }
     val columnBounds = remember { mutableStateMapOf<Status, Rect>() }
+    var draggedTaskId by remember { mutableStateOf<String?>(null) }
 
     Row(
         modifier = modifier
@@ -90,41 +91,43 @@ fun TaskColumnSection(
                     currentDragPosition?.let { columnBounds[status]?.contains(it) } ?: false
                 },
                 onBoundsChanged = { rect -> columnBounds[status] = rect },
-                onTaskDragStart = { task -> draggedTask = task },
+                onTaskDragStart = { task -> draggedTaskId = task.id },
                 onTaskDragChange = { pos -> currentDragPosition = pos },
                 onTaskDragEnd = {
                     val dropPosition = currentDragPosition ?: return@TaskColumn
                     val targetStatus = columnBounds.entries
                         .firstOrNull { (_, rect) -> rect.contains(dropPosition) }?.key
 
-                    draggedTask?.let { task ->
-                        if (targetStatus != null && task.status != targetStatus) {
-                            project.updateTaskStatus(task, targetStatus)
+                    draggedTaskId?.let { id ->
+                        val task = project.findTaskById(id)
+                        if (task != null && targetStatus != null && task.status != targetStatus) {
+                            project.updateTaskStatus(id, targetStatus)
                             onMoveSnackBar()
                         }
                     }
                     currentDragPosition = null
-                    draggedTask = null
+                    draggedTaskId = null
                 },
                 onTaskDragCancel = {
                     currentDragPosition = null
-                    draggedTask = null
+                    draggedTaskId = null
                 },
             )
         }
         Spacer(
-            modifier = Modifier.weight(.7f)
+            modifier = Modifier.weight(.7f),
         )
     }
 }
 
 private fun filterTaskByStatus(status: Status, project: Project): List<TaskCardData> {
-    return when(status) {
+    return when (status) {
         Status.TODO -> project.todoTasks
         Status.PROGRESS -> project.progressTasks
         Status.DONE -> project.doneTasks
     }
 }
+
 @Composable
 private fun TaskColumn(
     status: Status,
@@ -170,7 +173,7 @@ private fun TaskColumn(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
-                items(tasks) { task ->
+                items(tasks, key = { it.id }) { task ->
                     TaskCard(
                         data = task,
                         modifier = Modifier.fillMaxWidth(),
@@ -257,7 +260,7 @@ private fun TaskColumnTodoPreview() {
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
             status = Status.PROGRESS,
-            profile = Profile("다이노",Res.drawable.profile),
+            profile = Profile("다이노", Res.drawable.profile),
         ),
     )
     TaskColumn(
@@ -275,7 +278,7 @@ private fun TaskColumnProgressPreview() {
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"), Tag("zjavh"))),
             status = Status.PROGRESS,
-            profile = Profile("다이노",Res.drawable.profile),
+            profile = Profile("다이노", Res.drawable.profile),
         ),
     )
     TaskColumn(
@@ -293,7 +296,7 @@ private fun TaskColumnDonePreview() {
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
             status = Status.PROGRESS,
-            profile = Profile("다이노",Res.drawable.profile),
+            profile = Profile("다이노", Res.drawable.profile),
         ),
     )
     TaskColumn(

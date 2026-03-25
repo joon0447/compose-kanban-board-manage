@@ -5,11 +5,9 @@ import woowacourse.kanban.board.model.taskcard.TaskCardData
 import woowacourse.kanban.board.model.taskcard.Status
 
 data class Project(
-    val title: String
+    val title: String,
 ) {
-    private val tasks = mutableStateListOf<TaskCardData>().apply {
-        mutableListOf<TaskCardData>()
-    }
+    private val tasks = mutableStateListOf<TaskCardData>()
 
     val allTasksCount get() = tasks.size
     val todoTasks get() = tasks.filter { it.status == Status.TODO }
@@ -25,8 +23,10 @@ data class Project(
         return doneTasks.size.toFloat() / totalTasks.toFloat()
     }
 
-    fun updateTaskStatus(task: TaskCardData, targetStatus: Status) {
-        val idx = tasks.indexOfFirst { it == task }
+    fun findTaskById(id: String): TaskCardData? = tasks.firstOrNull { it.id == id }
+
+    fun updateTaskStatus(id: String, targetStatus: Status) {
+        val idx = tasks.indexOfFirst { it.id == id }
         if (idx == -1) return
 
         tasks[idx] = tasks[idx].copy(status = targetStatus)
