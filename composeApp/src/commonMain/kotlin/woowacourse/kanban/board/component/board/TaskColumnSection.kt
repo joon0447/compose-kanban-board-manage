@@ -41,6 +41,7 @@ import woowacourse.kanban.board.component.extension.toBorderColor
 import woowacourse.kanban.board.component.extension.toHeaderColor
 import woowacourse.kanban.board.component.extension.toText
 import woowacourse.kanban.board.component.taskcard.TaskCard
+import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.taskcard.TaskStatus
 import woowacourse.kanban.board.model.taskcard.Description
 import woowacourse.kanban.board.model.taskcard.ProfileState
@@ -51,11 +52,13 @@ import woowacourse.kanban.board.model.taskcard.TaskCardData
 
 @Composable
 fun TaskColumnSection(
-    todoTasks: List<TaskCardData>,
-    progressTasks: List<TaskCardData>,
-    doneTasks: List<TaskCardData>,
+    project : Project,
     modifier: Modifier = Modifier
 ) {
+    val todoTasks = project.todoTasks
+    val progressTasks = project.progressTasks
+    val doneTasks = project.doneTasks
+
     var draggedTask by remember { mutableStateOf<TaskCardData?>(null) }
     var currentDragPosition by remember { mutableStateOf<Offset?>(null) }
     val columnBounds = remember { mutableStateMapOf<TaskStatus, Rect>() }
@@ -83,8 +86,7 @@ fun TaskColumnSection(
 
                 draggedTask?.let { task ->
                     if (targetStatus != null && task.task != targetStatus) {
-                        val idx = todoTasks.indexOfFirst { it == task }
-                        if (idx != -1) todoTasks[idx].task = targetStatus
+                        project.updateTaskStatus(task, targetStatus)
                     }
                 }
                 currentDragPosition = null
@@ -112,8 +114,7 @@ fun TaskColumnSection(
 
                 draggedTask?.let { task ->
                     if (targetStatus != null && task.task != targetStatus) {
-                        val idx = progressTasks.indexOfFirst { it == task }
-                        if (idx != -1) progressTasks[idx].task = targetStatus
+                        project.updateTaskStatus(task, targetStatus)
                     }
                 }
                 currentDragPosition = null
@@ -141,8 +142,7 @@ fun TaskColumnSection(
 
                 draggedTask?.let { task ->
                     if (targetStatus != null && task.task != targetStatus) {
-                        val idx = doneTasks.indexOfFirst { it == task }
-                        if (idx != -1) doneTasks[idx].task = targetStatus
+                        project.updateTaskStatus(task, targetStatus)
                     }
                 }
                 currentDragPosition = null

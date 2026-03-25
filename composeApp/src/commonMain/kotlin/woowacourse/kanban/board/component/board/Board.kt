@@ -74,9 +74,7 @@ fun Board(
                 onClickCreateTask = { isShowModal = isShowModal.not() },
             )
             TaskColumnSection(
-                todoTasks = project.todoTasks,
-                progressTasks = project.progressTasks,
-                doneTasks = project.doneTasks,
+                project = project
             )
         }
     }
