@@ -5,7 +5,7 @@ import kanbanboard.composeapp.generated.resources.profile
 import kotlin.test.Test
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
-import woowacourse.kanban.board.model.state.BoardState
+import woowacourse.kanban.board.model.state.WorkSpaceState
 import woowacourse.kanban.board.model.taskcard.TaskStatus
 import woowacourse.kanban.board.model.taskcard.Description
 import woowacourse.kanban.board.model.taskcard.ProfileState
@@ -14,12 +14,12 @@ import woowacourse.kanban.board.model.taskcard.Tags
 import woowacourse.kanban.board.model.taskcard.Title
 import woowacourse.kanban.board.model.taskcard.TaskCardData
 
-class BoardStateTest {
-    private lateinit var boardState: BoardState
+class ProjectTest {
+    private lateinit var project: WorkSpaceState
 
     @Before
     fun setUp() {
-        boardState = BoardState(mutableListOf<TaskCardData>())
+        project = WorkSpaceState(mutableListOf<TaskCardData>())
     }
 
     @Test
@@ -31,8 +31,8 @@ class BoardStateTest {
             task = TaskStatus.TODO,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
-        boardState.addCard(data)
-        assertThat(boardState.todoTasks).contains(data)
+        project.addCard(data)
+        assertThat(project.todoTasks).contains(data)
     }
 
     @Test
@@ -44,8 +44,8 @@ class BoardStateTest {
             task = TaskStatus.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
-        boardState.addCard(data)
-        assertThat(boardState.progressTasks).contains(data)
+        project.addCard(data)
+        assertThat(project.progressTasks).contains(data)
     }
 
     @Test
@@ -57,8 +57,8 @@ class BoardStateTest {
             task = TaskStatus.DONE,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
-        boardState.addCard(data)
-        assertThat(boardState.doneTasks).contains(data)
+        project.addCard(data)
+        assertThat(project.doneTasks).contains(data)
     }
 
     @Test
@@ -85,12 +85,12 @@ class BoardStateTest {
             profile = ProfileState("다이노",Res.drawable.profile)
         )
 
-        boardState.addCard(task1)
-        boardState.addCard(task1)
-        boardState.addCard(task2)
-        boardState.addCard(task3)
+        project.addCard(task1)
+        project.addCard(task1)
+        project.addCard(task2)
+        project.addCard(task3)
 
-        assertThat(boardState.calculateDoneRate()).isEqualTo(0.50f)
+        assertThat(project.calculateDoneRate()).isEqualTo(0.50f)
     }
 
     @Test
@@ -117,16 +117,16 @@ class BoardStateTest {
             profile = ProfileState("다이노",Res.drawable.profile)
         )
 
-        boardState.addCard(task1)
-        boardState.addCard(task2)
-        boardState.addCard(task3)
+        project.addCard(task1)
+        project.addCard(task2)
+        project.addCard(task3)
 
-        assertThat(boardState.allTasksCount).isEqualTo(3)
+        assertThat(project.allTasksCount).isEqualTo(3)
     }
 
     @Test
     fun `등록된 업무가 0개일 때 완료율은 0%으로 계산된다`() {
-        assertThat(boardState.calculateDoneRate()).isEqualTo(0.0f)
+        assertThat(project.calculateDoneRate()).isEqualTo(0.0f)
     }
 
     @Test
@@ -153,10 +153,10 @@ class BoardStateTest {
             profile = ProfileState("다이노",Res.drawable.profile)
         )
 
-        boardState.addCard(task1)
-        boardState.addCard(task2)
-        boardState.addCard(task3)
+        project.addCard(task1)
+        project.addCard(task2)
+        project.addCard(task3)
 
-        assertThat(boardState.calculateDoneRate()).isEqualTo(0.0f)
+        assertThat(project.calculateDoneRate()).isEqualTo(0.0f)
     }
 }

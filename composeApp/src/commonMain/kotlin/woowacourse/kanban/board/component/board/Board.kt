@@ -16,12 +16,13 @@ import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.component.modal.Modal
-import woowacourse.kanban.board.model.state.BoardState
+import woowacourse.kanban.board.model.project.Project
+import woowacourse.kanban.board.model.state.WorkSpaceState
 import woowacourse.kanban.board.model.state.ModalState
 
 @Composable
 fun Board(
-    boardState: BoardState,
+    project: Project,
     modifier: Modifier = Modifier,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
@@ -58,7 +59,7 @@ fun Board(
                         modalState = modalState,
                         onClickClose = { isShowModal = false },
                         onClickTaskCreate = { task ->
-                            boardState.addCard(task)
+                            project.addCard(task)
                             shouldShowSnackbar = true
                             isShowModal = false
                         },
@@ -66,15 +67,15 @@ fun Board(
                 }
             }
             BoardHeader(
-                doneRate = boardState.calculateDoneRate(),
-                doneTasks = boardState.doneTasks.size,
-                totalTasks = boardState.allTasksCount,
+                doneRate = project.calculateDoneRate(),
+                doneTasks = project.doneTasks.size,
+                totalTasks = project.allTasksCount,
                 onClickCreateTask = { isShowModal = isShowModal.not() },
             )
             TaskColumnSection(
-                todoTasks = boardState.todoTasks,
-                progressTasks = boardState.progressTasks,
-                doneTasks = boardState.doneTasks,
+                todoTasks = project.todoTasks,
+                progressTasks = project.progressTasks,
+                doneTasks = project.doneTasks,
             )
         }
     }

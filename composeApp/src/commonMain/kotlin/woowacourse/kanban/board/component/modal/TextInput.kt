@@ -23,7 +23,7 @@ import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.icon
 import org.jetbrains.compose.resources.painterResource
 import woowacourse.kanban.board.Gray20
-import woowacourse.kanban.board.Gray40
+import woowacourse.kanban.board.Gray50
 import woowacourse.kanban.board.Gray70
 import woowacourse.kanban.board.Red50
 import woowacourse.kanban.board.component.extension.toErrorText
@@ -70,7 +70,7 @@ fun TextInput(
             placeholder = {
                 Text(
                     text = placeholderText,
-                    color = Gray40,
+                    color = Gray50,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Normal,
                 )

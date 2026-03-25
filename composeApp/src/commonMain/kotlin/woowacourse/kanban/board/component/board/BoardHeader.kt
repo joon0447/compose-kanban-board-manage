@@ -34,7 +34,7 @@ import kotlin.math.roundToInt
 import woowacourse.kanban.board.Gray10
 import woowacourse.kanban.board.Gray30
 import woowacourse.kanban.board.component.ComponentText
-import woowacourse.kanban.board.model.state.BoardState
+import woowacourse.kanban.board.model.state.WorkSpaceState
 import woowacourse.kanban.board.model.taskcard.TaskStatus
 import woowacourse.kanban.board.model.taskcard.Description
 import woowacourse.kanban.board.model.taskcard.ProfileState
@@ -159,91 +159,91 @@ private fun TaskCreateButton(
     }
 }
 
-@Preview(showBackground = true, widthDp = 600)
-@Composable
-private fun BoardHeaderPreview() {
-    val boardState = BoardState()
-    val task1 = TaskCardData(
-        title = Title(value = "업무1"),
-        description = Description(""),
-        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-        task = TaskStatus.DONE,
-        profile = ProfileState("다이노",Res.drawable.profile),
-    )
-    val task2 = TaskCardData(
-        title = Title(value = "업무2"),
-        description = Description(""),
-        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-        task = TaskStatus.TODO,
-        profile = ProfileState("다이노",Res.drawable.profile),
-    )
-    val task3 = TaskCardData(
-        title = Title(value = "업무3"),
-        description = Description(""),
-        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-        task = TaskStatus.TODO,
-        profile = ProfileState("다이노",Res.drawable.profile),
-    )
-
-    boardState.addCard(task1)
-    boardState.addCard(task2)
-    boardState.addCard(task3)
-
-    BoardHeader(
-        doneRate = boardState.calculateDoneRate(),
-        doneTasks = boardState.doneTasks.size,
-        totalTasks = boardState.allTasksCount,
-        onClickCreateTask = {},
-    )
-}
-
-@Preview(showBackground = true, widthDp = 600)
-@Composable
-private fun BoardHeaderNoTaskPreview() {
-    val boardState = BoardState()
-
-    BoardHeader(
-        doneRate = boardState.calculateDoneRate(),
-        doneTasks = boardState.doneTasks.size,
-        totalTasks = boardState.allTasksCount,
-        onClickCreateTask = {},
-    )
-}
-
-@Preview(showBackground = true, widthDp = 600)
-@Composable
-private fun BoardHeaderAllTaskDonePreview() {
-    val boardState = BoardState()
-    val task1 = TaskCardData(
-        title = Title(value = "업무1"),
-        description = Description(""),
-        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-        task = TaskStatus.DONE,
-        profile = ProfileState("다이노",Res.drawable.profile),
-    )
-    val task2 = TaskCardData(
-        title = Title(value = "업무2"),
-        description = Description(""),
-        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-        task = TaskStatus.DONE,
-        profile = ProfileState("다이노",Res.drawable.profile),
-    )
-    val task3 = TaskCardData(
-        title = Title(value = "업무3"),
-        description = Description(""),
-        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-        task = TaskStatus.DONE,
-        profile = ProfileState("다이노",Res.drawable.profile),
-    )
-
-    boardState.addCard(task1)
-    boardState.addCard(task2)
-    boardState.addCard(task3)
-
-    BoardHeader(
-        doneRate = boardState.calculateDoneRate(),
-        doneTasks = boardState.doneTasks.size,
-        totalTasks = boardState.allTasksCount,
-        onClickCreateTask = {},
-    )
-}
+//@Preview(showBackground = true, widthDp = 600)
+//@Composable
+//private fun BoardHeaderPreview() {
+//    val project = WorkSpaceState()
+//    val task1 = TaskCardData(
+//        title = Title(value = "업무1"),
+//        description = Description(""),
+//        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
+//        task = TaskStatus.DONE,
+//        profile = ProfileState("다이노",Res.drawable.profile),
+//    )
+//    val task2 = TaskCardData(
+//        title = Title(value = "업무2"),
+//        description = Description(""),
+//        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
+//        task = TaskStatus.TODO,
+//        profile = ProfileState("다이노",Res.drawable.profile),
+//    )
+//    val task3 = TaskCardData(
+//        title = Title(value = "업무3"),
+//        description = Description(""),
+//        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
+//        task = TaskStatus.TODO,
+//        profile = ProfileState("다이노",Res.drawable.profile),
+//    )
+//
+//    project.addCard(task1)
+//    project.addCard(task2)
+//    project.addCard(task3)
+//
+//    BoardHeader(
+//        doneRate = project.calculateDoneRate(),
+//        doneTasks = project.doneTasks.size,
+//        totalTasks = project.allTasksCount,
+//        onClickCreateTask = {},
+//    )
+//}
+//
+//@Preview(showBackground = true, widthDp = 600)
+//@Composable
+//private fun BoardHeaderNoTaskPreview() {
+//    val project = WorkSpaceState()
+//
+//    BoardHeader(
+//        doneRate = project.calculateDoneRate(),
+//        doneTasks = project.doneTasks.size,
+//        totalTasks = project.allTasksCount,
+//        onClickCreateTask = {},
+//    )
+//}
+//
+//@Preview(showBackground = true, widthDp = 600)
+//@Composable
+//private fun BoardHeaderAllTaskDonePreview() {
+//    val project = WorkSpaceState()
+//    val task1 = TaskCardData(
+//        title = Title(value = "업무1"),
+//        description = Description(""),
+//        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
+//        task = TaskStatus.DONE,
+//        profile = ProfileState("다이노",Res.drawable.profile),
+//    )
+//    val task2 = TaskCardData(
+//        title = Title(value = "업무2"),
+//        description = Description(""),
+//        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
+//        task = TaskStatus.DONE,
+//        profile = ProfileState("다이노",Res.drawable.profile),
+//    )
+//    val task3 = TaskCardData(
+//        title = Title(value = "업무3"),
+//        description = Description(""),
+//        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
+//        task = TaskStatus.DONE,
+//        profile = ProfileState("다이노",Res.drawable.profile),
+//    )
+//
+//    project.addCard(task1)
+//    project.addCard(task2)
+//    project.addCard(task3)
+//
+//    BoardHeader(
+//        doneRate = project.calculateDoneRate(),
+//        doneTasks = project.doneTasks.size,
+//        totalTasks = project.allTasksCount,
+//        onClickCreateTask = {},
+//    )
+//}
