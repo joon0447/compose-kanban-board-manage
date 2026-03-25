@@ -1,5 +1,6 @@
 package woowacourse.kanban.board.component.board
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -42,7 +43,8 @@ fun BoardHeader(
     modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = modifier,
+        modifier = modifier
+            .background(Color.White),
     ) {
         Column(
             modifier = Modifier

@@ -1,5 +1,6 @@
 package woowacourse.kanban.board.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -56,9 +57,14 @@ fun WorkSpace(
     modifier: Modifier = Modifier
 ) {
     var selectedProject by remember { mutableStateOf(workSpaceState.projects[0]) }
-    Row {
+    Row(
+        modifier = modifier
+    ) {
         Column(
-            modifier = Modifier.fillMaxHeight().width(255.dp),
+            modifier = Modifier
+                .fillMaxHeight()
+                .width(255.dp)
+                .background(Color.White),
         ) {
             Text(
                 text = "프로젝트",

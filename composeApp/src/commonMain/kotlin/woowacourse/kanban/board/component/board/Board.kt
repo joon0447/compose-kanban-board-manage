@@ -1,5 +1,6 @@
 package woowacourse.kanban.board.component.board
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -12,8 +13,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import woowacourse.kanban.board.Gray10
+import woowacourse.kanban.board.Gray80
 import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.component.modal.Modal
 import woowacourse.kanban.board.model.project.Project
@@ -46,7 +50,9 @@ fun Board(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
     ) { paddingValues ->
         Column(
-            modifier = modifier.padding(paddingValues),
+            modifier = modifier
+                .padding(paddingValues)
+                .background(Gray80)
         ) {
             if (isShowModal) {
                 Dialog(
