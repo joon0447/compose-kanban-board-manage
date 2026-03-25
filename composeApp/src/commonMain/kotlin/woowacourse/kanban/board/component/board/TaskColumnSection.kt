@@ -52,6 +52,7 @@ import woowacourse.kanban.board.model.taskcard.TaskCardData
 @Composable
 fun TaskColumnSection(
     project : Project,
+    onMoveSnackBar: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var draggedTask by remember { mutableStateOf<TaskCardData?>(null) }
@@ -83,6 +84,7 @@ fun TaskColumnSection(
                     draggedTask?.let { task ->
                         if (targetStatus != null && task.status != targetStatus) {
                             project.updateTaskStatus(task, targetStatus)
+                            onMoveSnackBar()
                         }
                     }
                     currentDragPosition = null

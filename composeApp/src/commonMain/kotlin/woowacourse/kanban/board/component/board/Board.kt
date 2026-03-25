@@ -32,6 +32,7 @@ fun Board(
     val snackbarHostState = remember { SnackbarHostState() }
 
     var shouldShowSnackbar by remember { mutableStateOf(false) }
+    var shouldShowMoveSnackbar by remember { mutableStateOf(false) }
     var isShowModal by remember { mutableStateOf(false) }
 
     val modalState = remember { ModalState() }
@@ -45,6 +46,17 @@ fun Board(
             shouldShowSnackbar = false
         }
     }
+
+    LaunchedEffect(shouldShowMoveSnackbar) {
+        if (shouldShowMoveSnackbar) {
+            snackbarHostState.showSnackbar(
+                message = ComponentText.BOARD_TASK_MOVE_SNACKBAR,
+                withDismissAction = true,
+            )
+            shouldShowMoveSnackbar = false
+        }
+    }
+
 
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
@@ -80,7 +92,8 @@ fun Board(
                 onClickCreateTask = { isShowModal = isShowModal.not() },
             )
             TaskColumnSection(
-                project = project
+                project = project,
+                onMoveSnackBar = { shouldShowMoveSnackbar = true }
             )
         }
     }
