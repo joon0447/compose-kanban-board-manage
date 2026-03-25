@@ -1,14 +1,14 @@
 package woowacourse.kanban.board.model.state
 
-import woowacourse.kanban.board.model.TaskState
+import woowacourse.kanban.board.model.taskcard.TaskStatus
 import woowacourse.kanban.board.model.taskcard.TaskCardData
 
 class BoardState {
     private val tasks = mutableListOf<TaskCardData>()
     val allTasksCount get() = tasks.size
-    val todoTasks get() = tasks.filter { it.task == TaskState.TODO }
-    val progressTasks get() = tasks.filter { it.task == TaskState.PROGRESS }
-    val doneTasks get() = tasks.filter { it.task == TaskState.DONE }
+    val todoTasks get() = tasks.filter { it.task == TaskStatus.TODO }
+    val progressTasks get() = tasks.filter { it.task == TaskStatus.PROGRESS }
+    val doneTasks get() = tasks.filter { it.task == TaskStatus.DONE }
 
 
     fun addCard(data: TaskCardData) = tasks.add(data)

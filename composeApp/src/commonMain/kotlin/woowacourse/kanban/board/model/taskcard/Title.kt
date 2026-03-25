@@ -1,4 +1,4 @@
-package woowacourse.kanban.board.model.modal
+package woowacourse.kanban.board.model.taskcard
 
 @JvmInline
 value class Title(val value: String) {

@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.Gray80
-import woowacourse.kanban.board.model.modal.Tag
-import woowacourse.kanban.board.model.modal.Tags
+import woowacourse.kanban.board.model.taskcard.Tag
+import woowacourse.kanban.board.model.taskcard.Tags
 
 @Composable
 fun Tags(

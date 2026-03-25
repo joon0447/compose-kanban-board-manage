@@ -18,7 +18,7 @@ import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
 import org.jetbrains.compose.resources.painterResource
 import woowacourse.kanban.board.Gray20
-import woowacourse.kanban.board.model.modal.ProfileState
+import woowacourse.kanban.board.model.taskcard.ProfileState
 
 @Composable
 fun Profile(

@@ -20,14 +20,14 @@ import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
 import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.component.ComponentText
-import woowacourse.kanban.board.model.TaskState
-import woowacourse.kanban.board.model.modal.ProfileState
+import woowacourse.kanban.board.model.taskcard.TaskStatus
+import woowacourse.kanban.board.model.taskcard.ProfileState
 
 @Composable
 fun ButtonSection(
-    state: TaskState,
+    state: TaskStatus,
     profileState: ProfileState,
-    onStateClick: (TaskState) -> Unit,
+    onStateClick: (TaskStatus) -> Unit,
     onProfileClick: (ProfileState) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -49,9 +49,9 @@ fun ButtonSection(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            StateButton(currentState = state, myState = TaskState.TODO, onClick = { onStateClick(TaskState.TODO) })
-            StateButton(currentState = state, myState = TaskState.PROGRESS, onClick = { onStateClick(TaskState.PROGRESS) })
-            StateButton(currentState = state, myState = TaskState.DONE, onClick = { onStateClick(TaskState.DONE) })
+            StateButton(currentState = state, myState = TaskStatus.TODO, onClick = { onStateClick(TaskStatus.TODO) })
+            StateButton(currentState = state, myState = TaskStatus.PROGRESS, onClick = { onStateClick(TaskStatus.PROGRESS) })
+            StateButton(currentState = state, myState = TaskStatus.DONE, onClick = { onStateClick(TaskStatus.DONE) })
         }
         Text(
             text = ComponentText.PROFILE_BUTTON_LABEL,
@@ -81,10 +81,10 @@ fun ButtonSection(
 @Composable
 @Preview(showBackground = true)
 private fun ButtonSectionPreview() {
-    var state by remember { mutableStateOf(TaskState.TODO) }
+    var state by remember { mutableStateOf(TaskStatus.TODO) }
     var profileState by remember { mutableStateOf(ProfileState("다이노",Res.drawable.profile)) }
     ButtonSection(
-        state = TaskState.TODO,
+        state = TaskStatus.TODO,
         profileState = profileState,
         onStateClick = { state = it },
         onProfileClick = { profileState = it },

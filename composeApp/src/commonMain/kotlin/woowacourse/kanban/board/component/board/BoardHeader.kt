@@ -35,12 +35,13 @@ import woowacourse.kanban.board.Gray10
 import woowacourse.kanban.board.Gray30
 import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.model.state.BoardState
-import woowacourse.kanban.board.model.TaskState
-import woowacourse.kanban.board.model.modal.Description
-import woowacourse.kanban.board.model.modal.ProfileState
-import woowacourse.kanban.board.model.modal.Tag
-import woowacourse.kanban.board.model.modal.Tags
+import woowacourse.kanban.board.model.taskcard.TaskStatus
+import woowacourse.kanban.board.model.taskcard.Description
+import woowacourse.kanban.board.model.taskcard.ProfileState
+import woowacourse.kanban.board.model.taskcard.Tag
+import woowacourse.kanban.board.model.taskcard.Tags
 import woowacourse.kanban.board.model.taskcard.TaskCardData
+import woowacourse.kanban.board.model.taskcard.Title
 
 @Composable
 fun BoardHeader(
@@ -163,24 +164,24 @@ private fun TaskCreateButton(
 private fun BoardHeaderPreview() {
     val boardState = BoardState()
     val task1 = TaskCardData(
-        title = woowacourse.kanban.board.model.modal.Title(value = "업무1"),
+        title = Title(value = "업무1"),
         description = Description(""),
         tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-        task = TaskState.DONE,
+        task = TaskStatus.DONE,
         profile = ProfileState("다이노",Res.drawable.profile),
     )
     val task2 = TaskCardData(
-        title = woowacourse.kanban.board.model.modal.Title(value = "업무2"),
+        title = Title(value = "업무2"),
         description = Description(""),
         tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-        task = TaskState.TODO,
+        task = TaskStatus.TODO,
         profile = ProfileState("다이노",Res.drawable.profile),
     )
     val task3 = TaskCardData(
-        title = woowacourse.kanban.board.model.modal.Title(value = "업무3"),
+        title = Title(value = "업무3"),
         description = Description(""),
         tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-        task = TaskState.TODO,
+        task = TaskStatus.TODO,
         profile = ProfileState("다이노",Res.drawable.profile),
     )
 
@@ -214,24 +215,24 @@ private fun BoardHeaderNoTaskPreview() {
 private fun BoardHeaderAllTaskDonePreview() {
     val boardState = BoardState()
     val task1 = TaskCardData(
-        title = woowacourse.kanban.board.model.modal.Title(value = "업무1"),
+        title = Title(value = "업무1"),
         description = Description(""),
         tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-        task = TaskState.DONE,
+        task = TaskStatus.DONE,
         profile = ProfileState("다이노",Res.drawable.profile),
     )
     val task2 = TaskCardData(
-        title = woowacourse.kanban.board.model.modal.Title(value = "업무2"),
+        title = Title(value = "업무2"),
         description = Description(""),
         tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-        task = TaskState.DONE,
+        task = TaskStatus.DONE,
         profile = ProfileState("다이노",Res.drawable.profile),
     )
     val task3 = TaskCardData(
-        title = woowacourse.kanban.board.model.modal.Title(value = "업무3"),
+        title = Title(value = "업무3"),
         description = Description(""),
         tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-        task = TaskState.DONE,
+        task = TaskStatus.DONE,
         profile = ProfileState("다이노",Res.drawable.profile),
     )
 

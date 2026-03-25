@@ -3,7 +3,7 @@ package woowacourse.kanban.board.model
 import kotlin.test.Test
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
-import woowacourse.kanban.board.model.modal.Tag
+import woowacourse.kanban.board.model.taskcard.Tag
 
 class TagTest {
 

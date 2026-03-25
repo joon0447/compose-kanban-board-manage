@@ -1,4 +1,4 @@
-package woowacourse.kanban.board.model.modal
+package woowacourse.kanban.board.model.taskcard
 
 data class Tag(
     val value: String

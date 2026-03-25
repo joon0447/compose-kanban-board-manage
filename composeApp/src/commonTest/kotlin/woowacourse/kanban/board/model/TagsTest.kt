@@ -3,8 +3,8 @@ package woowacourse.kanban.board.model
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
-import woowacourse.kanban.board.model.modal.Tag
-import woowacourse.kanban.board.model.modal.Tags
+import woowacourse.kanban.board.model.taskcard.Tag
+import woowacourse.kanban.board.model.taskcard.Tags
 
 class TagsTest {
 

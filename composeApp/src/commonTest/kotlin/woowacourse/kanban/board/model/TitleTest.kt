@@ -5,7 +5,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
-import woowacourse.kanban.board.model.modal.Title
+import woowacourse.kanban.board.model.taskcard.Title
 
 class TitleTest {
 

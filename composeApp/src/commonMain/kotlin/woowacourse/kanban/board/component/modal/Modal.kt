@@ -16,11 +16,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import woowacourse.kanban.board.model.state.ModalState
-import woowacourse.kanban.board.model.modal.Description
-import woowacourse.kanban.board.model.modal.Tag
-import woowacourse.kanban.board.model.modal.Tags
+import woowacourse.kanban.board.model.taskcard.Description
+import woowacourse.kanban.board.model.taskcard.Tag
+import woowacourse.kanban.board.model.taskcard.Tags
 import woowacourse.kanban.board.model.modal.TextInputState
-import woowacourse.kanban.board.model.modal.Title
+import woowacourse.kanban.board.model.taskcard.Title
 import woowacourse.kanban.board.model.taskcard.TaskCardData
 
 @Composable

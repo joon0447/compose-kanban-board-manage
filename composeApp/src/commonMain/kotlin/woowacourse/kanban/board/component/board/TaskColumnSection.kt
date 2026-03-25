@@ -30,12 +30,12 @@ import woowacourse.kanban.board.component.extension.toBorderColor
 import woowacourse.kanban.board.component.extension.toHeaderColor
 import woowacourse.kanban.board.component.extension.toText
 import woowacourse.kanban.board.component.taskcard.TaskCard
-import woowacourse.kanban.board.model.TaskState
-import woowacourse.kanban.board.model.modal.Description
-import woowacourse.kanban.board.model.modal.ProfileState
-import woowacourse.kanban.board.model.modal.Tag
-import woowacourse.kanban.board.model.modal.Tags
-import woowacourse.kanban.board.model.modal.Title
+import woowacourse.kanban.board.model.taskcard.TaskStatus
+import woowacourse.kanban.board.model.taskcard.Description
+import woowacourse.kanban.board.model.taskcard.ProfileState
+import woowacourse.kanban.board.model.taskcard.Tag
+import woowacourse.kanban.board.model.taskcard.Tags
+import woowacourse.kanban.board.model.taskcard.Title
 import woowacourse.kanban.board.model.taskcard.TaskCardData
 
 @Composable
@@ -52,17 +52,17 @@ fun TaskColumnSection(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         TaskColumn(
-            taskState = TaskState.TODO,
+            taskState = TaskStatus.TODO,
             tasks = todoTasks,
             modifier = Modifier.weight(1f),
         )
         TaskColumn(
-            taskState = TaskState.PROGRESS,
+            taskState = TaskStatus.PROGRESS,
             tasks = progressTasks,
             modifier = Modifier.weight(1f),
         )
         TaskColumn(
-            taskState = TaskState.DONE,
+            taskState = TaskStatus.DONE,
             tasks = doneTasks,
             modifier = Modifier.weight(1f),
         )
@@ -73,7 +73,7 @@ fun TaskColumnSection(
 }
 @Composable
 private fun TaskColumn(
-    taskState: TaskState,
+    taskState: TaskStatus,
     tasks: List<TaskCardData>,
     modifier: Modifier = Modifier,
 ) {
@@ -110,7 +110,7 @@ private fun TaskColumn(
 
 @Composable
 private fun TaskColumnHeader(
-    taskState: TaskState,
+    taskState: TaskStatus,
     taskCount: Int,
     modifier: Modifier = Modifier,
 ) {
@@ -148,7 +148,7 @@ private fun TaskColumnHeader(
 @Composable
 private fun TaskColumnProgressHeaderPreview() {
     TaskColumnHeader(
-        taskState = TaskState.PROGRESS,
+        taskState = TaskStatus.PROGRESS,
         taskCount = 1,
     )
 }
@@ -157,7 +157,7 @@ private fun TaskColumnProgressHeaderPreview() {
 @Composable
 private fun TaskColumnDoneHeaderPreview() {
     TaskColumnHeader(
-        taskState = TaskState.DONE,
+        taskState = TaskStatus.DONE,
         taskCount = 1,
     )
 }
@@ -166,7 +166,7 @@ private fun TaskColumnDoneHeaderPreview() {
 @Composable
 private fun TaskColumnTodoHeaderPreview() {
     TaskColumnHeader(
-        taskState = TaskState.TODO,
+        taskState = TaskStatus.TODO,
         taskCount = 1,
     )
 }
@@ -179,13 +179,13 @@ private fun TaskColumnTodoPreview() {
             title = Title(value = "제목"),
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-            task = TaskState.PROGRESS,
+            task = TaskStatus.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
     TaskColumn(
         tasks = tasks,
-        taskState = TaskState.TODO,
+        taskState = TaskStatus.TODO,
     )
 }
 
@@ -197,13 +197,13 @@ private fun TaskColumnProgressPreview() {
             title = Title(value = "제목"),
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"), Tag("zjavh"))),
-            task = TaskState.PROGRESS,
+            task = TaskStatus.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
     TaskColumn(
         tasks = tasks,
-        taskState = TaskState.PROGRESS,
+        taskState = TaskStatus.PROGRESS,
     )
 }
 
@@ -215,12 +215,12 @@ private fun TaskColumnDonePreview() {
             title = Title(value = "제목"),
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-            task = TaskState.PROGRESS,
+            task = TaskStatus.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
     TaskColumn(
         tasks = tasks,
-        taskState = TaskState.DONE,
+        taskState = TaskStatus.DONE,
     )
 }
