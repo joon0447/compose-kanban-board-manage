@@ -66,7 +66,7 @@ fun ButtonSection(
         ) {
             ProfileButton(
                 currentState = profileState,
-                myState = ProfileState("디노",Res.drawable.profile),
+                myState = ProfileState("다이노",Res.drawable.profile),
                 onClick = { onProfileClick(ProfileState("Dino",Res.drawable.profile)) }
             )
             ProfileButton(

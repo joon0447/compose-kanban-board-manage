@@ -4,5 +4,4 @@ import woowacourse.kanban.board.model.project.Project
 
 data class WorkSpaceState(
     val projects : List<Project>
-) {
-}
+)
