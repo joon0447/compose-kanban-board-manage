@@ -18,6 +18,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.model.taskcard.Status
@@ -26,7 +28,8 @@ import woowacourse.kanban.board.model.taskcard.Profile
 @Composable
 fun ButtonSection(
     state: Status,
-    profile: Profile,
+    currentProfile: Profile,
+    profiles: ImmutableList<Profile>,
     onStateClick: (Status) -> Unit,
     onProfileClick: (Profile) -> Unit,
     modifier: Modifier = Modifier,
@@ -64,16 +67,13 @@ fun ButtonSection(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            ProfileButton(
-                currentState = profile,
-                myState = Profile("다이노",Res.drawable.profile),
-                onClick = { onProfileClick(Profile("Dino",Res.drawable.profile)) }
-            )
-            ProfileButton(
-                currentState = profile,
-                myState = Profile("페임스",Res.drawable.profile),
-                onClick = { onProfileClick(Profile("페임스",Res.drawable.profile)) }
-            )
+            profiles.forEach { profile ->
+                ProfileButton(
+                    currentState = currentProfile,
+                    myState = profile,
+                    onClick = { onProfileClick(profile) },
+                )
+            }
         }
     }
 }
@@ -82,10 +82,17 @@ fun ButtonSection(
 @Preview(showBackground = true)
 private fun ButtonSectionPreview() {
     var state by remember { mutableStateOf(Status.TODO) }
-    var profile by remember { mutableStateOf(Profile("다이노",Res.drawable.profile)) }
+
+    val profiles = listOf(
+        Profile("다이노",Res.drawable.profile),
+        Profile("페임스", Res.drawable.profile)
+    ).toImmutableList()
+
+    var profile by remember { mutableStateOf(profiles.first()) }
     ButtonSection(
         state = Status.TODO,
-        profile = profile,
+        currentProfile = profile,
+        profiles = profiles,
         onStateClick = { state = it },
         onProfileClick = { profile = it },
     )

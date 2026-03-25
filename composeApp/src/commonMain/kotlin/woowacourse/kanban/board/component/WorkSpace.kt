@@ -29,6 +29,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.Blue80
 import woowacourse.kanban.board.Gray10
@@ -39,6 +40,7 @@ import woowacourse.kanban.board.component.board.Board
 import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.state.WorkSpaceState
+import woowacourse.kanban.board.model.taskcard.Profile
 
 @Preview(showBackground = true, widthDp = 1500)
 @Composable

@@ -18,6 +18,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import kanbanboard.composeapp.generated.resources.Res
+import kanbanboard.composeapp.generated.resources.profile
+import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.Gray10
 import woowacourse.kanban.board.Gray80
 import woowacourse.kanban.board.component.ComponentText
@@ -26,6 +29,7 @@ import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.state.WorkSpaceState
 import woowacourse.kanban.board.model.state.ModalState
+import woowacourse.kanban.board.model.taskcard.Profile
 
 @Preview(showBackground = true)
 @Composable
@@ -42,7 +46,6 @@ fun Board(
     modifier: Modifier = Modifier,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
-
     var shouldShowSnackbar by remember { mutableStateOf(false) }
     var shouldShowMoveSnackbar by remember { mutableStateOf(false) }
     var isShowModal by remember { mutableStateOf(false) }
@@ -91,7 +94,7 @@ fun Board(
                             project.addCard(task)
                             shouldShowSnackbar = true
                             isShowModal = false
-                        },
+                        }
                     )
                 }
             }
