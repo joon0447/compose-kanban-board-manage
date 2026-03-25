@@ -1,6 +1,6 @@
 package woowacourse.kanban.board.model.taskcard
 
-enum class TaskStatus {
+enum class Status {
     TODO,
     PROGRESS,
     DONE,

@@ -22,12 +22,12 @@ import woowacourse.kanban.board.Blue80
 import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.Gray70
 import woowacourse.kanban.board.component.extension.toText
-import woowacourse.kanban.board.model.taskcard.TaskStatus
+import woowacourse.kanban.board.model.taskcard.Status
 
 @Composable
 fun StateButton(
-    currentState: TaskStatus,
-    myState: TaskStatus,
+    currentState: Status,
+    myState: Status,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {

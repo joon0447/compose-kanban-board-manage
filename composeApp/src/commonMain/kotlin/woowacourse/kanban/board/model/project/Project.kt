@@ -2,7 +2,7 @@ package woowacourse.kanban.board.model.project
 
 import androidx.compose.runtime.mutableStateListOf
 import woowacourse.kanban.board.model.taskcard.TaskCardData
-import woowacourse.kanban.board.model.taskcard.TaskStatus
+import woowacourse.kanban.board.model.taskcard.Status
 
 data class Project(
     val title: String,
@@ -13,9 +13,9 @@ data class Project(
     }
 
     val allTasksCount get() = tasks.size
-    val todoTasks get() = tasks.filter { it.task == TaskStatus.TODO }
-    val progressTasks get() = tasks.filter { it.task == TaskStatus.PROGRESS }
-    val doneTasks get() = tasks.filter { it.task == TaskStatus.DONE }
+    val todoTasks get() = tasks.filter { it.task == Status.TODO }
+    val progressTasks get() = tasks.filter { it.task == Status.PROGRESS }
+    val doneTasks get() = tasks.filter { it.task == Status.DONE }
 
 
     fun addCard(data: TaskCardData) = tasks.add(data)
@@ -26,7 +26,7 @@ data class Project(
         return doneTasks.size.toFloat() / totalTasks.toFloat()
     }
 
-    fun updateTaskStatus(task: TaskCardData, targetStatus: TaskStatus) {
+    fun updateTaskStatus(task: TaskCardData, targetStatus: Status) {
         val idx = tasks.indexOfFirst { it == task }
         if (idx == -1) return
 

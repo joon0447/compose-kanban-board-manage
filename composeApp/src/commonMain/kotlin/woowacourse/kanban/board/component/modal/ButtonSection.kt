@@ -20,14 +20,14 @@ import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
 import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.component.ComponentText
-import woowacourse.kanban.board.model.taskcard.TaskStatus
+import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.ProfileState
 
 @Composable
 fun ButtonSection(
-    state: TaskStatus,
+    state: Status,
     profileState: ProfileState,
-    onStateClick: (TaskStatus) -> Unit,
+    onStateClick: (Status) -> Unit,
     onProfileClick: (ProfileState) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -49,9 +49,9 @@ fun ButtonSection(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            StateButton(currentState = state, myState = TaskStatus.TODO, onClick = { onStateClick(TaskStatus.TODO) })
-            StateButton(currentState = state, myState = TaskStatus.PROGRESS, onClick = { onStateClick(TaskStatus.PROGRESS) })
-            StateButton(currentState = state, myState = TaskStatus.DONE, onClick = { onStateClick(TaskStatus.DONE) })
+            StateButton(currentState = state, myState = Status.TODO, onClick = { onStateClick(Status.TODO) })
+            StateButton(currentState = state, myState = Status.PROGRESS, onClick = { onStateClick(Status.PROGRESS) })
+            StateButton(currentState = state, myState = Status.DONE, onClick = { onStateClick(Status.DONE) })
         }
         Text(
             text = ComponentText.PROFILE_BUTTON_LABEL,
@@ -81,10 +81,10 @@ fun ButtonSection(
 @Composable
 @Preview(showBackground = true)
 private fun ButtonSectionPreview() {
-    var state by remember { mutableStateOf(TaskStatus.TODO) }
+    var state by remember { mutableStateOf(Status.TODO) }
     var profileState by remember { mutableStateOf(ProfileState("다이노",Res.drawable.profile)) }
     ButtonSection(
-        state = TaskStatus.TODO,
+        state = Status.TODO,
         profileState = profileState,
         onStateClick = { state = it },
         onProfileClick = { profileState = it },

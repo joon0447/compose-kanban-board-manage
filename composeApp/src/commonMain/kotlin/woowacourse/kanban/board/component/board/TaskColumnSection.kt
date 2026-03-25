@@ -42,7 +42,7 @@ import woowacourse.kanban.board.component.extension.toHeaderColor
 import woowacourse.kanban.board.component.extension.toText
 import woowacourse.kanban.board.component.taskcard.TaskCard
 import woowacourse.kanban.board.model.project.Project
-import woowacourse.kanban.board.model.taskcard.TaskStatus
+import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.Description
 import woowacourse.kanban.board.model.taskcard.ProfileState
 import woowacourse.kanban.board.model.taskcard.Tag
@@ -61,7 +61,7 @@ fun TaskColumnSection(
 
     var draggedTask by remember { mutableStateOf<TaskCardData?>(null) }
     var currentDragPosition by remember { mutableStateOf<Offset?>(null) }
-    val columnBounds = remember { mutableStateMapOf<TaskStatus, Rect>() }
+    val columnBounds = remember { mutableStateMapOf<Status, Rect>() }
 
     Row(
         modifier = modifier
@@ -70,13 +70,13 @@ fun TaskColumnSection(
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         TaskColumn(
-            taskState = TaskStatus.TODO,
+            taskState = Status.TODO,
             tasks = todoTasks,
             modifier = Modifier.weight(1f),
             getIsDropTarget = {
-                currentDragPosition?.let { columnBounds[TaskStatus.TODO]?.contains(it) } ?: false
+                currentDragPosition?.let { columnBounds[Status.TODO]?.contains(it) } ?: false
             },
-            onBoundsChanged = { rect -> columnBounds[TaskStatus.TODO] = rect },
+            onBoundsChanged = { rect -> columnBounds[Status.TODO] = rect },
             onTaskDragStart = { task -> draggedTask = task },
             onTaskDragChange = { pos -> currentDragPosition = pos },
             onTaskDragEnd = {
@@ -98,13 +98,13 @@ fun TaskColumnSection(
             },
         )
         TaskColumn(
-            taskState = TaskStatus.PROGRESS,
+            taskState = Status.PROGRESS,
             tasks = progressTasks,
             modifier = Modifier.weight(1f),
             getIsDropTarget = {
-                currentDragPosition?.let { columnBounds[TaskStatus.PROGRESS]?.contains(it) } ?: false
+                currentDragPosition?.let { columnBounds[Status.PROGRESS]?.contains(it) } ?: false
             },
-            onBoundsChanged = { rect -> columnBounds[TaskStatus.PROGRESS] = rect },
+            onBoundsChanged = { rect -> columnBounds[Status.PROGRESS] = rect },
             onTaskDragStart = { task -> draggedTask = task },
             onTaskDragChange = { pos -> currentDragPosition = pos },
             onTaskDragEnd = {
@@ -126,13 +126,13 @@ fun TaskColumnSection(
             },
         )
         TaskColumn(
-            taskState = TaskStatus.DONE,
+            taskState = Status.DONE,
             tasks = doneTasks,
             modifier = Modifier.weight(1f),
             getIsDropTarget = {
-                currentDragPosition?.let { columnBounds[TaskStatus.DONE]?.contains(it) } ?: false
+                currentDragPosition?.let { columnBounds[Status.DONE]?.contains(it) } ?: false
             },
-            onBoundsChanged = { rect -> columnBounds[TaskStatus.DONE] = rect },
+            onBoundsChanged = { rect -> columnBounds[Status.DONE] = rect },
             onTaskDragStart = { task -> draggedTask = task },
             onTaskDragChange = { pos -> currentDragPosition = pos },
             onTaskDragEnd = {
@@ -160,7 +160,7 @@ fun TaskColumnSection(
 }
 @Composable
 private fun TaskColumn(
-    taskState: TaskStatus,
+    taskState: Status,
     tasks: List<TaskCardData>,
     modifier: Modifier = Modifier,
     getIsDropTarget: () -> Boolean = { false },
@@ -220,7 +220,7 @@ private fun TaskColumn(
 
 @Composable
 private fun TaskColumnHeader(
-    taskState: TaskStatus,
+    taskState: Status,
     taskCount: Int,
     modifier: Modifier = Modifier,
 ) {
@@ -258,7 +258,7 @@ private fun TaskColumnHeader(
 @Composable
 private fun TaskColumnProgressHeaderPreview() {
     TaskColumnHeader(
-        taskState = TaskStatus.PROGRESS,
+        taskState = Status.PROGRESS,
         taskCount = 1,
     )
 }
@@ -267,7 +267,7 @@ private fun TaskColumnProgressHeaderPreview() {
 @Composable
 private fun TaskColumnDoneHeaderPreview() {
     TaskColumnHeader(
-        taskState = TaskStatus.DONE,
+        taskState = Status.DONE,
         taskCount = 1,
     )
 }
@@ -276,7 +276,7 @@ private fun TaskColumnDoneHeaderPreview() {
 @Composable
 private fun TaskColumnTodoHeaderPreview() {
     TaskColumnHeader(
-        taskState = TaskStatus.TODO,
+        taskState = Status.TODO,
         taskCount = 1,
     )
 }
@@ -289,13 +289,13 @@ private fun TaskColumnTodoPreview() {
             title = Title(value = "제목"),
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-            task = TaskStatus.PROGRESS,
+            task = Status.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
     TaskColumn(
         tasks = tasks,
-        taskState = TaskStatus.TODO,
+        taskState = Status.TODO,
     )
 }
 
@@ -307,13 +307,13 @@ private fun TaskColumnProgressPreview() {
             title = Title(value = "제목"),
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"), Tag("zjavh"))),
-            task = TaskStatus.PROGRESS,
+            task = Status.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
     TaskColumn(
         tasks = tasks,
-        taskState = TaskStatus.PROGRESS,
+        taskState = Status.PROGRESS,
     )
 }
 
@@ -325,12 +325,12 @@ private fun TaskColumnDonePreview() {
             title = Title(value = "제목"),
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-            task = TaskStatus.PROGRESS,
+            task = Status.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
     TaskColumn(
         tasks = tasks,
-        taskState = TaskStatus.DONE,
+        taskState = Status.DONE,
     )
 }

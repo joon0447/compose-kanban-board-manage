@@ -6,7 +6,7 @@ import androidx.compose.ui.test.runComposeUiTest
 import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
 import kotlin.test.Test
-import woowacourse.kanban.board.model.taskcard.TaskStatus
+import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.Description
 import woowacourse.kanban.board.model.taskcard.ProfileState
 import woowacourse.kanban.board.model.taskcard.Tag
@@ -24,7 +24,7 @@ class TaskCardTest {
             title = Title("LazyColumn 컴포넌트 구현"),
             description = Description("세로 스크롤 가능한 리스트 컴포넌트를 만들고 성능 최적화를 적용합니다."),
             tags = Tags(listOf(Tag("컴포넌트"), Tag("성능"))),
-            task = TaskStatus.PROGRESS,
+            task = Status.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile),
         )
         setContent {

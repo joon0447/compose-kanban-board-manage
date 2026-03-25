@@ -11,28 +11,28 @@ import woowacourse.kanban.board.Yellow60
 import woowacourse.kanban.board.Yellow70
 import woowacourse.kanban.board.Yellow90
 import woowacourse.kanban.board.component.ComponentText
-import woowacourse.kanban.board.model.taskcard.TaskStatus
+import woowacourse.kanban.board.model.taskcard.Status
 
-fun TaskStatus.toText(): String = when (this) {
-    TaskStatus.TODO -> ComponentText.STATE_BUTTON_TODO
-    TaskStatus.PROGRESS -> ComponentText.STATE_BUTTON_PROGRESS
-    TaskStatus.DONE -> ComponentText.STATE_BUTTON_DONE
+fun Status.toText(): String = when (this) {
+    Status.TODO -> ComponentText.STATE_BUTTON_TODO
+    Status.PROGRESS -> ComponentText.STATE_BUTTON_PROGRESS
+    Status.DONE -> ComponentText.STATE_BUTTON_DONE
 }
 
-fun TaskStatus.toBackgroundColor(): Color = when (this) {
-    TaskStatus.TODO -> Blue90
-    TaskStatus.PROGRESS -> Yellow90
-    TaskStatus.DONE -> Green90
+fun Status.toBackgroundColor(): Color = when (this) {
+    Status.TODO -> Blue90
+    Status.PROGRESS -> Yellow90
+    Status.DONE -> Green90
 }
 
-fun TaskStatus.toBorderColor(): Color = when (this) {
-    TaskStatus.TODO -> Blue70
-    TaskStatus.PROGRESS -> Yellow70
-    TaskStatus.DONE -> Green70
+fun Status.toBorderColor(): Color = when (this) {
+    Status.TODO -> Blue70
+    Status.PROGRESS -> Yellow70
+    Status.DONE -> Green70
 }
 
-fun TaskStatus.toHeaderColor(): Color = when (this) {
-    TaskStatus.TODO -> Blue60
-    TaskStatus.PROGRESS -> Yellow60
-    TaskStatus.DONE -> Green60
+fun Status.toHeaderColor(): Color = when (this) {
+    Status.TODO -> Blue60
+    Status.PROGRESS -> Yellow60
+    Status.DONE -> Green60
 }

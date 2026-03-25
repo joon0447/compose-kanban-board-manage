@@ -25,23 +25,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kanbanboard.composeapp.generated.resources.Res
-import kanbanboard.composeapp.generated.resources.profile
 import kotlin.math.roundToInt
 import woowacourse.kanban.board.Gray10
 import woowacourse.kanban.board.Gray30
 import woowacourse.kanban.board.component.ComponentText
-import woowacourse.kanban.board.model.state.WorkSpaceState
-import woowacourse.kanban.board.model.taskcard.TaskStatus
-import woowacourse.kanban.board.model.taskcard.Description
-import woowacourse.kanban.board.model.taskcard.ProfileState
-import woowacourse.kanban.board.model.taskcard.Tag
-import woowacourse.kanban.board.model.taskcard.Tags
-import woowacourse.kanban.board.model.taskcard.TaskCardData
-import woowacourse.kanban.board.model.taskcard.Title
 
 @Composable
 fun BoardHeader(
