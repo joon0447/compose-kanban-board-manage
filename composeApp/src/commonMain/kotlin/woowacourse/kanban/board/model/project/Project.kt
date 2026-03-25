@@ -5,11 +5,10 @@ import woowacourse.kanban.board.model.taskcard.TaskCardData
 import woowacourse.kanban.board.model.taskcard.Status
 
 data class Project(
-    val title: String,
-    val initialTasks: MutableList<TaskCardData>
+    val title: String
 ) {
     private val tasks = mutableStateListOf<TaskCardData>().apply {
-        addAll(initialTasks)
+        mutableListOf<TaskCardData>()
     }
 
     val allTasksCount get() = tasks.size

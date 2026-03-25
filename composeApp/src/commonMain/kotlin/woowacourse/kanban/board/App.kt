@@ -13,9 +13,9 @@ import woowacourse.kanban.board.model.taskcard.TaskCardData
 fun App() {
     val workSpace = WorkSpaceState(
         listOf(
-            Project("Compose1", mutableListOf()),
-            Project("Compose2", mutableListOf()),
-            Project("Compose3너무너무긴문장은말줄임표로표시합니다", mutableListOf()),
+            Project("Compose1"),
+            Project("Compose2"),
+            Project("Compose3너무너무긴문장은말줄임표로표시합니다"),
             )
     )
     WorkSpace(workSpaceState = workSpace)
