@@ -15,16 +15,27 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
+import woowacourse.kanban.board.Gray40
 import woowacourse.kanban.board.component.extension.toBackgroundColor
 import woowacourse.kanban.board.component.extension.toBorderColor
 import woowacourse.kanban.board.component.extension.toHeaderColor
@@ -45,6 +56,10 @@ fun TaskColumnSection(
     doneTasks: List<TaskCardData>,
     modifier: Modifier = Modifier
 ) {
+    var draggedTask by remember { mutableStateOf<TaskCardData?>(null) }
+    var currentDragPosition by remember { mutableStateOf<Offset?>(null) }
+    val columnBounds = remember { mutableStateMapOf<TaskStatus, Rect>() }
+
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -55,16 +70,88 @@ fun TaskColumnSection(
             taskState = TaskStatus.TODO,
             tasks = todoTasks,
             modifier = Modifier.weight(1f),
+            getIsDropTarget = {
+                currentDragPosition?.let { columnBounds[TaskStatus.TODO]?.contains(it) } ?: false
+            },
+            onBoundsChanged = { rect -> columnBounds[TaskStatus.TODO] = rect },
+            onTaskDragStart = { task -> draggedTask = task },
+            onTaskDragChange = { pos -> currentDragPosition = pos },
+            onTaskDragEnd = {
+                val dropPosition = currentDragPosition ?: return@TaskColumn
+                val targetStatus = columnBounds.entries
+                    .firstOrNull { (_, rect) -> rect.contains(dropPosition) }?.key
+
+                draggedTask?.let { task ->
+                    if (targetStatus != null && task.task != targetStatus) {
+                        val idx = todoTasks.indexOfFirst { it == task }
+                        if (idx != -1) todoTasks[idx].task = targetStatus
+                    }
+                }
+                currentDragPosition = null
+                draggedTask = null
+            },
+            onTaskDragCancel = {
+                currentDragPosition = null
+                draggedTask = null
+            },
         )
         TaskColumn(
             taskState = TaskStatus.PROGRESS,
             tasks = progressTasks,
             modifier = Modifier.weight(1f),
+            getIsDropTarget = {
+                currentDragPosition?.let { columnBounds[TaskStatus.PROGRESS]?.contains(it) } ?: false
+            },
+            onBoundsChanged = { rect -> columnBounds[TaskStatus.PROGRESS] = rect },
+            onTaskDragStart = { task -> draggedTask = task },
+            onTaskDragChange = { pos -> currentDragPosition = pos },
+            onTaskDragEnd = {
+                val dropPosition = currentDragPosition ?: return@TaskColumn
+                val targetStatus = columnBounds.entries
+                    .firstOrNull { (_, rect) -> rect.contains(dropPosition) }?.key
+
+                draggedTask?.let { task ->
+                    if (targetStatus != null && task.task != targetStatus) {
+                        val idx = progressTasks.indexOfFirst { it == task }
+                        if (idx != -1) progressTasks[idx].task = targetStatus
+                    }
+                }
+                currentDragPosition = null
+                draggedTask = null
+            },
+            onTaskDragCancel = {
+                currentDragPosition = null
+                draggedTask = null
+            },
         )
         TaskColumn(
             taskState = TaskStatus.DONE,
             tasks = doneTasks,
             modifier = Modifier.weight(1f),
+            getIsDropTarget = {
+                currentDragPosition?.let { columnBounds[TaskStatus.DONE]?.contains(it) } ?: false
+            },
+            onBoundsChanged = { rect -> columnBounds[TaskStatus.DONE] = rect },
+            onTaskDragStart = { task -> draggedTask = task },
+            onTaskDragChange = { pos -> currentDragPosition = pos },
+            onTaskDragEnd = {
+                val dropPosition = currentDragPosition ?: return@TaskColumn
+                val targetStatus = columnBounds.entries
+                    .firstOrNull { (_, rect) -> rect.contains(dropPosition) }?.key
+
+                draggedTask?.let { task ->
+                    if (targetStatus != null && task.task != targetStatus) {
+                        val idx = doneTasks.indexOfFirst { it == task }
+                        if (idx != -1) doneTasks[idx].task = targetStatus
+                    }
+                }
+                currentDragPosition = null
+                draggedTask = null
+            },
+            onTaskDragCancel = {
+                currentDragPosition = null
+                draggedTask = null
+            },
         )
         Spacer(
             modifier = Modifier.weight(.7f)
@@ -76,9 +163,28 @@ private fun TaskColumn(
     taskState: TaskStatus,
     tasks: List<TaskCardData>,
     modifier: Modifier = Modifier,
+    getIsDropTarget: () -> Boolean = { false },
+    onBoundsChanged: (Rect) -> Unit = {},
+    onTaskDragStart: (TaskCardData) -> Unit = {},
+    onTaskDragChange: (Offset) -> Unit = {},
+    onTaskDragEnd: () -> Unit = {},
+    onTaskDragCancel: () -> Unit = {},
 ) {
+    val isDropTarget by remember { derivedStateOf { getIsDropTarget() } }
+    val lastBoundsHolder = remember { mutableStateOf<Rect?>(null) }
+
     Box(
         modifier = modifier
+            .onGloballyPositioned {
+                val newBounds = it.boundsInWindow()
+                if (newBounds != lastBoundsHolder.value) {
+                    lastBoundsHolder.value = newBounds
+                    onBoundsChanged(newBounds)
+                }
+            }
+            .then(
+                if (isDropTarget) modifier.border(2.dp, Gray40, RoundedCornerShape(12.dp)) else modifier,
+            )
             .clip(RoundedCornerShape(15.dp))
             .border(1.dp, taskState.toBorderColor(), shape = RoundedCornerShape(15.dp))
             .background(taskState.toBackgroundColor()),
@@ -101,6 +207,10 @@ private fun TaskColumn(
                     TaskCard(
                         data = task,
                         modifier = Modifier.fillMaxWidth(),
+                        onDragStart = { onTaskDragStart(task) },
+                        onDragChange = onTaskDragChange,
+                        onDragEnd = onTaskDragEnd,
+                        onDragCancel = onTaskDragCancel,
                     )
                 }
             }
