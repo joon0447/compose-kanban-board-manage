@@ -159,21 +159,21 @@ private fun TaskCreateButton(
 //        title = Title(value = "업무1"),
 //        description = Description(""),
 //        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-//        task = TaskStatus.DONE,
+//        status = TaskStatus.DONE,
 //        profile = ProfileState("다이노",Res.drawable.profile),
 //    )
 //    val task2 = TaskCardData(
 //        title = Title(value = "업무2"),
 //        description = Description(""),
 //        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-//        task = TaskStatus.TODO,
+//        status = TaskStatus.TODO,
 //        profile = ProfileState("다이노",Res.drawable.profile),
 //    )
 //    val task3 = TaskCardData(
 //        title = Title(value = "업무3"),
 //        description = Description(""),
 //        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-//        task = TaskStatus.TODO,
+//        status = TaskStatus.TODO,
 //        profile = ProfileState("다이노",Res.drawable.profile),
 //    )
 //
@@ -210,21 +210,21 @@ private fun TaskCreateButton(
 //        title = Title(value = "업무1"),
 //        description = Description(""),
 //        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-//        task = TaskStatus.DONE,
+//        status = TaskStatus.DONE,
 //        profile = ProfileState("다이노",Res.drawable.profile),
 //    )
 //    val task2 = TaskCardData(
 //        title = Title(value = "업무2"),
 //        description = Description(""),
 //        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-//        task = TaskStatus.DONE,
+//        status = TaskStatus.DONE,
 //        profile = ProfileState("다이노",Res.drawable.profile),
 //    )
 //    val task3 = TaskCardData(
 //        title = Title(value = "업무3"),
 //        description = Description(""),
 //        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-//        task = TaskStatus.DONE,
+//        status = TaskStatus.DONE,
 //        profile = ProfileState("다이노",Res.drawable.profile),
 //    )
 //

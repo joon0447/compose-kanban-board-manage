@@ -92,7 +92,7 @@ private fun TaskCardPreview() {
             title = Title(value = "LazyColumn 컴포넌트 구현"),
             description = Description(value = "세로 스크롤 가능한 리스트 컴포넌트를 만들고 성능 최적화를 적용합니다."),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-            task = Status.PROGRESS,
+            status = Status.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
@@ -106,7 +106,7 @@ private fun TaskCardEmptyDescriptionPreview() {
             title = Title(value = "LazyColumn 컴포넌트 구현"),
             description = Description(value = ""),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-            task = Status.PROGRESS,
+            status = Status.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
@@ -120,7 +120,7 @@ private fun TaskCardEmptyTagPreview() {
             title = Title(value = "LazyColumn 컴포넌트 구현"),
             description = Description(value = "세로 스크롤"),
             tags = Tags(value = emptyList()),
-            task = Status.PROGRESS,
+            status = Status.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
@@ -134,7 +134,7 @@ private fun TaskCardEmptyTagAndDescriptionPreview() {
             title = Title(value = "LazyColumn 컴포넌트 구현"),
             description = Description(value = ""),
             tags = Tags(value = emptyList()),
-            task = Status.PROGRESS,
+            status = Status.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
@@ -148,7 +148,7 @@ private fun TaskCardLongTitlePreview() {
             title = Title(value = "LazyColumn 컴포넌트 구현LazyColumn 컴포넌트 구현"),
             description = Description(value = ""),
             tags = Tags(value = emptyList()),
-            task = Status.PROGRESS,
+            status = Status.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
@@ -170,7 +170,7 @@ private fun TaskCardLongDescriptionPreview() {
                     "  세로 스크롤세로 스크롤 세로 스크롤"
             ),
             tags = Tags(value = emptyList()),
-            task = Status.PROGRESS,
+            status = Status.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )

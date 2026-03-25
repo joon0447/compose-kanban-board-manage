@@ -24,7 +24,7 @@ class TaskColumnSectionTest {
             title = Title(value = "제목"),
             description = Description("설명"),
             tags = Tags(listOf(Tag("컴포넌트"))),
-            task = Status.TODO,
+            status = Status.TODO,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
         val todoTasks = listOf(data, data, data)
@@ -45,7 +45,7 @@ class TaskColumnSectionTest {
             title = Title(value = "제목"),
             description = Description("설명"),
             tags = Tags(listOf(Tag("컴포넌트"))),
-            task = Status.PROGRESS,
+            status = Status.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
         val progressTasks = listOf(data, data, data, data, data)
@@ -66,7 +66,7 @@ class TaskColumnSectionTest {
             title = Title(value = "제목"),
             description = Description("설명"),
             tags = Tags(listOf(Tag("컴포넌트"))),
-            task = Status.DONE,
+            status = Status.DONE,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
         val doneTasks = listOf(data, data, data, data)

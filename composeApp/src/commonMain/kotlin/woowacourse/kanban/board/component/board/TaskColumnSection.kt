@@ -85,7 +85,7 @@ fun TaskColumnSection(
                     .firstOrNull { (_, rect) -> rect.contains(dropPosition) }?.key
 
                 draggedTask?.let { task ->
-                    if (targetStatus != null && task.task != targetStatus) {
+                    if (targetStatus != null && task.status != targetStatus) {
                         project.updateTaskStatus(task, targetStatus)
                     }
                 }
@@ -113,7 +113,7 @@ fun TaskColumnSection(
                     .firstOrNull { (_, rect) -> rect.contains(dropPosition) }?.key
 
                 draggedTask?.let { task ->
-                    if (targetStatus != null && task.task != targetStatus) {
+                    if (targetStatus != null && task.status != targetStatus) {
                         project.updateTaskStatus(task, targetStatus)
                     }
                 }
@@ -141,7 +141,7 @@ fun TaskColumnSection(
                     .firstOrNull { (_, rect) -> rect.contains(dropPosition) }?.key
 
                 draggedTask?.let { task ->
-                    if (targetStatus != null && task.task != targetStatus) {
+                    if (targetStatus != null && task.status != targetStatus) {
                         project.updateTaskStatus(task, targetStatus)
                     }
                 }
@@ -289,7 +289,7 @@ private fun TaskColumnTodoPreview() {
             title = Title(value = "제목"),
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-            task = Status.PROGRESS,
+            status = Status.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
@@ -307,7 +307,7 @@ private fun TaskColumnProgressPreview() {
             title = Title(value = "제목"),
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"), Tag("zjavh"))),
-            task = Status.PROGRESS,
+            status = Status.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )
@@ -325,7 +325,7 @@ private fun TaskColumnDonePreview() {
             title = Title(value = "제목"),
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-            task = Status.PROGRESS,
+            status = Status.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile),
         ),
     )

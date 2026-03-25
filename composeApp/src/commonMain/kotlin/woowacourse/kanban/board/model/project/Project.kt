@@ -13,9 +13,9 @@ data class Project(
     }
 
     val allTasksCount get() = tasks.size
-    val todoTasks get() = tasks.filter { it.task == Status.TODO }
-    val progressTasks get() = tasks.filter { it.task == Status.PROGRESS }
-    val doneTasks get() = tasks.filter { it.task == Status.DONE }
+    val todoTasks get() = tasks.filter { it.status == Status.TODO }
+    val progressTasks get() = tasks.filter { it.status == Status.PROGRESS }
+    val doneTasks get() = tasks.filter { it.status == Status.DONE }
 
 
     fun addCard(data: TaskCardData) = tasks.add(data)
@@ -30,6 +30,6 @@ data class Project(
         val idx = tasks.indexOfFirst { it == task }
         if (idx == -1) return
 
-        tasks[idx] = tasks[idx].copy(task = targetStatus)
+        tasks[idx] = tasks[idx].copy(status = targetStatus)
     }
 }

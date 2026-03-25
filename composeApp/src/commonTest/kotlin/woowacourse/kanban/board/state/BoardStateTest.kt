@@ -28,7 +28,7 @@ class ProjectTest {
             title = Title(value = "업무1"),
             description = Description(""),
             tags = Tags(value = listOf(Tag("컴포넌트"))),
-            task = Status.TODO,
+            status = Status.TODO,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
         project.addCard(data)
@@ -41,7 +41,7 @@ class ProjectTest {
             title = Title(value = "업무1"),
             description = Description(""),
             tags = Tags(value = listOf(Tag("컴포넌트"))),
-            task = Status.PROGRESS,
+            status = Status.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
         project.addCard(data)
@@ -54,7 +54,7 @@ class ProjectTest {
             title = Title(value = "업무1"),
             description = Description(""),
             tags = Tags(value = listOf(Tag("컴포넌트"))),
-            task = Status.DONE,
+            status = Status.DONE,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
         project.addCard(data)
@@ -67,21 +67,21 @@ class ProjectTest {
             title = Title(value = "업무1"),
             description = Description(""),
             tags = Tags(value = listOf(Tag("컴포넌트"))),
-            task = Status.DONE,
+            status = Status.DONE,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
         val task2 = TaskCardData(
             title = Title(value = "업무2"),
             description = Description(""),
             tags = Tags(value = listOf(Tag("컴포넌트"))),
-            task = Status.TODO,
+            status = Status.TODO,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
         val task3 = TaskCardData(
             title = Title(value = "업무3"),
             description = Description(""),
             tags = Tags(value = listOf(Tag("컴포넌트"))),
-            task = Status.TODO,
+            status = Status.TODO,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
 
@@ -99,21 +99,21 @@ class ProjectTest {
             title = Title(value = "업무1"),
             description = Description(""),
             tags = Tags(value = listOf(Tag("컴포넌트"))),
-            task = Status.TODO,
+            status = Status.TODO,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
         val task2 = TaskCardData(
             title = Title(value = "업무2"),
             description = Description(""),
             tags = Tags(value = listOf(Tag("컴포넌트"))),
-            task = Status.DONE,
+            status = Status.DONE,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
         val task3 = TaskCardData(
             title = Title(value = "업무3"),
             description = Description(""),
             tags = Tags(value = listOf(Tag("컴포넌트"))),
-            task = Status.PROGRESS,
+            status = Status.PROGRESS,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
 
@@ -135,21 +135,21 @@ class ProjectTest {
             title = Title(value = "업무1"),
             description = Description(""),
             tags = Tags(value = listOf(Tag("컴포넌트"))),
-            task = Status.TODO,
+            status = Status.TODO,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
         val task2 = TaskCardData(
             title = Title(value = "업무2"),
             description = Description(""),
             tags = Tags(value = listOf(Tag("컴포넌트"))),
-            task = Status.TODO,
+            status = Status.TODO,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
         val task3 = TaskCardData(
             title = Title(value = "업무3"),
             description = Description(""),
             tags = Tags(value = listOf(Tag("컴포넌트"))),
-            task = Status.TODO,
+            status = Status.TODO,
             profile = ProfileState("다이노",Res.drawable.profile)
         )
 
