@@ -2,6 +2,7 @@ package woowacourse.kanban.board
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import woowacourse.kanban.board.component.WorkSpace
 import woowacourse.kanban.board.component.board.Board
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.state.WorkSpaceState
@@ -16,6 +17,5 @@ fun App() {
             Project("Compose3너무너무긴문장은말줄임표로표시합니다", mutableListOf()),
             )
     )
-//    val project = remember { WorkSpaceState() }
-//    Board(project = project)
+    WorkSpace(workSpaceState = workSpace)
 }
