@@ -71,9 +71,9 @@ fun Modal(
                 tagsInputState = tagsInputState,
             )
             ButtonSection(
-                state = modalState.taskState,
+                state = modalState.status,
                 profileState = modalState.profileState,
-                onStateClick = { modalState.taskState = it },
+                onStateClick = { modalState.status = it },
                 onProfileClick = { modalState.profileState = it },
             )
             Footer(
@@ -83,7 +83,7 @@ fun Modal(
                         title = Title(value = modalState.title),
                         description = Description(value = modalState.description),
                         tags = Tags(Tag.extractedTags(modalState.tags)),
-                        status = modalState.taskState,
+                        status = modalState.status,
                         profile = modalState.profileState,
                     )
                     onClickTaskCreate(data)

@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
-import woowacourse.kanban.board.Gray40
 import woowacourse.kanban.board.component.extension.toBackgroundColor
 import woowacourse.kanban.board.component.extension.toBorderColor
 import woowacourse.kanban.board.component.extension.toHeaderColor
@@ -67,7 +66,7 @@ fun TaskColumnSection(
     ) {
         Status.entries.forEach { status ->
             TaskColumn(
-                taskState = status,
+                status = status,
                 tasks = filterTaskByStatus(status, project),
                 modifier = Modifier.weight(1f),
                 getIsDropTarget = {
@@ -110,7 +109,7 @@ private fun filterTaskByStatus(status: Status, project: Project): List<TaskCardD
 }
 @Composable
 private fun TaskColumn(
-    taskState: Status,
+    status: Status,
     tasks: List<TaskCardData>,
     modifier: Modifier = Modifier,
     getIsDropTarget: () -> Boolean = { false },
@@ -133,15 +132,15 @@ private fun TaskColumn(
                 }
             }
             .then(
-                if (isDropTarget) modifier.border(2.dp, Gray40, RoundedCornerShape(12.dp)) else modifier,
+                if (isDropTarget) modifier.border(2.dp, status.toBorderColor(), RoundedCornerShape(12.dp)) else modifier,
             )
             .clip(RoundedCornerShape(15.dp))
-            .border(1.dp, taskState.toBorderColor(), shape = RoundedCornerShape(15.dp))
-            .background(taskState.toBackgroundColor()),
+            .border(1.dp, status.toBorderColor(), shape = RoundedCornerShape(15.dp))
+            .background(status.toBackgroundColor()),
     ) {
         Column {
             TaskColumnHeader(
-                taskState = taskState,
+                status = status,
                 taskCount = tasks.size,
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -170,19 +169,19 @@ private fun TaskColumn(
 
 @Composable
 private fun TaskColumnHeader(
-    taskState: Status,
+    status: Status,
     taskCount: Int,
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
-            .background(taskState.toHeaderColor())
+            .background(status.toHeaderColor())
             .padding(horizontal = 16.dp, vertical = 12.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = taskState.toText(),
+            text = status.toText(),
             color = Color.White,
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold,
@@ -208,7 +207,7 @@ private fun TaskColumnHeader(
 @Composable
 private fun TaskColumnProgressHeaderPreview() {
     TaskColumnHeader(
-        taskState = Status.PROGRESS,
+        status = Status.PROGRESS,
         taskCount = 1,
     )
 }
@@ -217,7 +216,7 @@ private fun TaskColumnProgressHeaderPreview() {
 @Composable
 private fun TaskColumnDoneHeaderPreview() {
     TaskColumnHeader(
-        taskState = Status.DONE,
+        status = Status.DONE,
         taskCount = 1,
     )
 }
@@ -226,7 +225,7 @@ private fun TaskColumnDoneHeaderPreview() {
 @Composable
 private fun TaskColumnTodoHeaderPreview() {
     TaskColumnHeader(
-        taskState = Status.TODO,
+        status = Status.TODO,
         taskCount = 1,
     )
 }
@@ -245,7 +244,7 @@ private fun TaskColumnTodoPreview() {
     )
     TaskColumn(
         tasks = tasks,
-        taskState = Status.TODO,
+        status = Status.TODO,
     )
 }
 
@@ -263,7 +262,7 @@ private fun TaskColumnProgressPreview() {
     )
     TaskColumn(
         tasks = tasks,
-        taskState = Status.PROGRESS,
+        status = Status.PROGRESS,
     )
 }
 
@@ -281,6 +280,6 @@ private fun TaskColumnDonePreview() {
     )
     TaskColumn(
         tasks = tasks,
-        taskState = Status.DONE,
+        status = Status.DONE,
     )
 }

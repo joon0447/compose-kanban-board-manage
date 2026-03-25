@@ -16,7 +16,7 @@ class ModalState {
     var title by mutableStateOf("")
     var description by mutableStateOf("")
     var tags by mutableStateOf("")
-    var taskState by mutableStateOf(Status.TODO)
+    var status by mutableStateOf(Status.TODO)
     var profileState by mutableStateOf(ProfileState("다이노",Res.drawable.profile))
 
     val isTitleValid by derivedStateOf { Title.Companion.isTitleValid(title) }
