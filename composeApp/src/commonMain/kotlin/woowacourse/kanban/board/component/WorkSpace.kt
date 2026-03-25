@@ -1,5 +1,6 @@
 package woowacourse.kanban.board.component
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ButtonElevation
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -66,21 +68,26 @@ fun WorkSpace(
                 .width(255.dp)
                 .background(Color.White),
         ) {
-            Text(
-                text = "프로젝트",
-                style = TextStyle(
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Gray10
-                ),
-            )
-            Text(
-                text = "4주차 미션 보드",
-                style = TextStyle(
-                    fontSize = 14.sp,
-                    color = Gray40
+            Column(
+                modifier = Modifier.padding(20.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp)
+            ) {
+                Text(
+                    text = "프로젝트",
+                    style = TextStyle(
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Gray10
+                    ),
                 )
-            )
+                Text(
+                    text = "4주차 미션 보드",
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        color = Gray40
+                    ),
+                )
+            }
             HorizontalDivider()
             workSpaceState.projects.forEach { project ->
                 val backgroundColor =
@@ -92,9 +99,15 @@ fun WorkSpace(
                 Button(
                     onClick = { selectedProject = project },
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = backgroundColor
+                        containerColor = backgroundColor,
+                        contentColor = textColor
                     ),
-                    modifier = Modifier.fillMaxWidth().padding(10.dp),
+                    elevation = ButtonDefaults.buttonElevation(
+                        hoveredElevation = 0.dp
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 10.dp),
                     shape = RoundedCornerShape(10.dp),
                 ) {
                     Row(
@@ -106,7 +119,6 @@ fun WorkSpace(
                             style = TextStyle(
                                 fontSize = 16.sp,
                                 fontWeight = FontWeight.Normal,
-                                color = textColor
                             ),
                             overflow = TextOverflow.Ellipsis,
                             maxLines = 1
