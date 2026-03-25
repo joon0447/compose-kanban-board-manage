@@ -45,6 +45,7 @@ import woowacourse.kanban.board.model.taskcard.Title
 
 @Composable
 fun BoardHeader(
+    title: String,
     doneRate: Float,
     doneTasks: Int,
     totalTasks: Int,
@@ -60,6 +61,7 @@ fun BoardHeader(
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             BoardHeaderTitle(
+                title = title,
                 doneTasks = doneTasks,
                 doneRate = doneRate,
                 totalTasks = totalTasks,
@@ -92,6 +94,7 @@ private fun ProgressBar(
 
 @Composable
 private fun BoardHeaderTitle(
+    title: String,
     doneTasks: Int,
     doneRate: Float,
     totalTasks: Int,
@@ -108,7 +111,7 @@ private fun BoardHeaderTitle(
     ) {
         Column {
             Text(
-                text = ComponentText.BOARD_HEADER_TITLE,
+                text = title,
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Normal,
                 color = Gray10,

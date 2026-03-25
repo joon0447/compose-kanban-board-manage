@@ -67,6 +67,7 @@ fun Board(
                 }
             }
             BoardHeader(
+                title = project.title,
                 doneRate = project.calculateDoneRate(),
                 doneTasks = project.doneTasks.size,
                 totalTasks = project.allTasksCount,
