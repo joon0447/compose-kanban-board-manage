@@ -29,12 +29,12 @@ import woowacourse.kanban.board.Blue50
 import woowacourse.kanban.board.Blue80
 import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.Gray70
-import woowacourse.kanban.board.model.taskcard.ProfileState
+import woowacourse.kanban.board.model.taskcard.Profile
 
 @Composable
 fun ProfileButton(
-    currentState: ProfileState,
-    myState: ProfileState,
+    currentState: Profile,
+    myState: Profile,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -75,8 +75,8 @@ fun ProfileButton(
 @Composable
 private fun ProfileButtonNotChoicePreview() {
     ProfileButton(
-        currentState = ProfileState("다이노",Res.drawable.profile),
-        myState = ProfileState("페임스",Res.drawable.profile),
+        currentState = Profile("다이노",Res.drawable.profile),
+        myState = Profile("페임스",Res.drawable.profile),
         onClick = {}
     )
 }
@@ -85,8 +85,8 @@ private fun ProfileButtonNotChoicePreview() {
 @Composable
 private fun ProfileButtonChoicePreview() {
     ProfileButton(
-        currentState = ProfileState("페임스",Res.drawable.profile),
-        myState = ProfileState("페임스",Res.drawable.profile),
+        currentState = Profile("페임스",Res.drawable.profile),
+        myState = Profile("페임스",Res.drawable.profile),
         onClick = {}
     )
 }

@@ -35,6 +35,7 @@ import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.Gray40
 import woowacourse.kanban.board.Purple50
 import woowacourse.kanban.board.component.board.Board
+import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.state.WorkSpaceState
 
@@ -42,11 +43,7 @@ import woowacourse.kanban.board.model.state.WorkSpaceState
 @Composable
 private fun WorkSpacePreview() {
     val workSpace = WorkSpaceState(
-        listOf(
-            Project("Compose1", mutableListOf()),
-            Project("Compose2", mutableListOf()),
-            Project("Compose3너무너무긴문장은말줄임표로표시합니다", mutableListOf()),
-        )
+        ProjectPreviewData().values.toMutableList()
     )
     MaterialTheme {
         WorkSpace(workSpace)

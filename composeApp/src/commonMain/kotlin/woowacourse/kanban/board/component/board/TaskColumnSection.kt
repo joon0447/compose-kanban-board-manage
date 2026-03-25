@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -39,15 +40,30 @@ import woowacourse.kanban.board.component.extension.toBackgroundColor
 import woowacourse.kanban.board.component.extension.toBorderColor
 import woowacourse.kanban.board.component.extension.toHeaderColor
 import woowacourse.kanban.board.component.extension.toText
+import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.component.taskcard.TaskCard
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.Description
-import woowacourse.kanban.board.model.taskcard.ProfileState
+import woowacourse.kanban.board.model.taskcard.Profile
 import woowacourse.kanban.board.model.taskcard.Tag
 import woowacourse.kanban.board.model.taskcard.Tags
 import woowacourse.kanban.board.model.taskcard.Title
 import woowacourse.kanban.board.model.taskcard.TaskCardData
+
+@Preview(showBackground = true)
+@Composable
+private fun TaskColumnSectionPreview() {
+    val project = ProjectPreviewData().values.toMutableList()
+    project.forEach { project ->
+        MaterialTheme {
+            TaskColumnSection(
+                project = project,
+                onMoveSnackBar = {}
+            )
+        }
+    }
+}
 
 @Composable
 fun TaskColumnSection(
@@ -241,7 +257,7 @@ private fun TaskColumnTodoPreview() {
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
             status = Status.PROGRESS,
-            profile = ProfileState("다이노",Res.drawable.profile),
+            profile = Profile("다이노",Res.drawable.profile),
         ),
     )
     TaskColumn(
@@ -259,7 +275,7 @@ private fun TaskColumnProgressPreview() {
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"), Tag("zjavh"))),
             status = Status.PROGRESS,
-            profile = ProfileState("다이노",Res.drawable.profile),
+            profile = Profile("다이노",Res.drawable.profile),
         ),
     )
     TaskColumn(
@@ -277,7 +293,7 @@ private fun TaskColumnDonePreview() {
             description = Description(value = "설명"),
             tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
             status = Status.PROGRESS,
-            profile = ProfileState("다이노",Res.drawable.profile),
+            profile = Profile("다이노",Res.drawable.profile),
         ),
     )
     TaskColumn(

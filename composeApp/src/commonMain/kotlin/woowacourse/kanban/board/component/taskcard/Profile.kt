@@ -18,11 +18,11 @@ import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
 import org.jetbrains.compose.resources.painterResource
 import woowacourse.kanban.board.Gray20
-import woowacourse.kanban.board.model.taskcard.ProfileState
+import woowacourse.kanban.board.model.taskcard.Profile
 
 @Composable
 fun Profile(
-    profile: ProfileState,
+    profile: Profile,
     modifier: Modifier = Modifier,
 ) {
     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -46,6 +46,6 @@ fun Profile(
 @Preview(showBackground = true)
 @Composable
 private fun ProfilePreview() {
-    val profile = ProfileState("Dino",Res.drawable.profile)
+    val profile = Profile("다이노",Res.drawable.profile)
     Profile(profile = profile)
 }

@@ -9,7 +9,7 @@ import kanbanboard.composeapp.generated.resources.profile
 import kotlin.test.Test
 import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.Description
-import woowacourse.kanban.board.model.taskcard.ProfileState
+import woowacourse.kanban.board.model.taskcard.Profile
 import woowacourse.kanban.board.model.taskcard.Tag
 import woowacourse.kanban.board.model.taskcard.Tags
 import woowacourse.kanban.board.model.taskcard.Title
@@ -25,7 +25,7 @@ class TaskColumnSectionTest {
             description = Description("설명"),
             tags = Tags(listOf(Tag("컴포넌트"))),
             status = Status.TODO,
-            profile = ProfileState("다이노",Res.drawable.profile)
+            profile = Profile("다이노",Res.drawable.profile)
         )
         val todoTasks = listOf(data, data, data)
         setContent {
@@ -46,7 +46,7 @@ class TaskColumnSectionTest {
             description = Description("설명"),
             tags = Tags(listOf(Tag("컴포넌트"))),
             status = Status.PROGRESS,
-            profile = ProfileState("다이노",Res.drawable.profile)
+            profile = Profile("다이노",Res.drawable.profile)
         )
         val progressTasks = listOf(data, data, data, data, data)
         setContent {
@@ -67,7 +67,7 @@ class TaskColumnSectionTest {
             description = Description("설명"),
             tags = Tags(listOf(Tag("컴포넌트"))),
             status = Status.DONE,
-            profile = ProfileState("다이노",Res.drawable.profile)
+            profile = Profile("다이노",Res.drawable.profile)
         )
         val doneTasks = listOf(data, data, data, data)
         setContent {

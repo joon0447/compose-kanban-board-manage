@@ -3,6 +3,7 @@ package woowacourse.kanban.board.component.board
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
@@ -14,15 +15,26 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import woowacourse.kanban.board.Gray10
 import woowacourse.kanban.board.Gray80
 import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.component.modal.Modal
+import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.state.WorkSpaceState
 import woowacourse.kanban.board.model.state.ModalState
+
+@Preview(showBackground = true)
+@Composable
+private fun BoardPreview() {
+    val project = ProjectPreviewData().values.toMutableList()[0]
+    MaterialTheme {
+        Board(project)
+    }
+}
 
 @Composable
 fun Board(

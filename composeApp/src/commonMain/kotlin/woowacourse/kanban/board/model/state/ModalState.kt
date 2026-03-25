@@ -7,7 +7,7 @@ import androidx.compose.runtime.setValue
 import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
 import woowacourse.kanban.board.model.taskcard.Status
-import woowacourse.kanban.board.model.taskcard.ProfileState
+import woowacourse.kanban.board.model.taskcard.Profile
 import woowacourse.kanban.board.model.taskcard.Tag
 import woowacourse.kanban.board.model.taskcard.Tags
 import woowacourse.kanban.board.model.taskcard.Title
@@ -17,7 +17,7 @@ class ModalState {
     var description by mutableStateOf("")
     var tags by mutableStateOf("")
     var status by mutableStateOf(Status.TODO)
-    var profileState by mutableStateOf(ProfileState("다이노",Res.drawable.profile))
+    var profile by mutableStateOf(Profile("다이노",Res.drawable.profile))
 
     val isTitleValid by derivedStateOf { Title.Companion.isTitleValid(title) }
     val isTagsValid by derivedStateOf {

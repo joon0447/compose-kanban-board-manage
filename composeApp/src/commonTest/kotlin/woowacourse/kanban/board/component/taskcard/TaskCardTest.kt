@@ -8,7 +8,7 @@ import kanbanboard.composeapp.generated.resources.profile
 import kotlin.test.Test
 import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.Description
-import woowacourse.kanban.board.model.taskcard.ProfileState
+import woowacourse.kanban.board.model.taskcard.Profile
 import woowacourse.kanban.board.model.taskcard.Tag
 import woowacourse.kanban.board.model.taskcard.Tags
 import woowacourse.kanban.board.model.taskcard.Title
@@ -25,7 +25,7 @@ class TaskCardTest {
             description = Description("세로 스크롤 가능한 리스트 컴포넌트를 만들고 성능 최적화를 적용합니다."),
             tags = Tags(listOf(Tag("컴포넌트"), Tag("성능"))),
             status = Status.PROGRESS,
-            profile = ProfileState("다이노",Res.drawable.profile),
+            profile = Profile("다이노",Res.drawable.profile),
         )
         setContent {
             TaskCard(data = taskCardData)

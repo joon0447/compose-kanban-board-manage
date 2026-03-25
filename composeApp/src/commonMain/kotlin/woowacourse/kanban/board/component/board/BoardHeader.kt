@@ -18,6 +18,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,12 +27,29 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kotlin.math.roundToInt
 import woowacourse.kanban.board.Gray10
 import woowacourse.kanban.board.Gray30
 import woowacourse.kanban.board.component.ComponentText
+import woowacourse.kanban.board.component.sample.ProjectPreviewData
+
+@Preview(showBackground = true)
+@Composable
+private fun BoardHeaderPreview() {
+    val project = ProjectPreviewData().values.toMutableList()[0]
+    MaterialTheme {
+        BoardHeader(
+            title = project.title,
+            doneRate = project.calculateDoneRate(),
+            doneTasks = project.doneTasks.size,
+            totalTasks = project.allTasksCount,
+            onClickCreateTask = {},
+        )
+    }
+}
 
 @Composable
 fun BoardHeader(
@@ -152,92 +170,3 @@ private fun TaskCreateButton(
         }
     }
 }
-
-//@Preview(showBackground = true, widthDp = 600)
-//@Composable
-//private fun BoardHeaderPreview() {
-//    val project = WorkSpaceState()
-//    val task1 = TaskCardData(
-//        title = Title(value = "업무1"),
-//        description = Description(""),
-//        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-//        status = TaskStatus.DONE,
-//        profile = ProfileState("다이노",Res.drawable.profile),
-//    )
-//    val task2 = TaskCardData(
-//        title = Title(value = "업무2"),
-//        description = Description(""),
-//        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-//        status = TaskStatus.TODO,
-//        profile = ProfileState("다이노",Res.drawable.profile),
-//    )
-//    val task3 = TaskCardData(
-//        title = Title(value = "업무3"),
-//        description = Description(""),
-//        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-//        status = TaskStatus.TODO,
-//        profile = ProfileState("다이노",Res.drawable.profile),
-//    )
-//
-//    project.addCard(task1)
-//    project.addCard(task2)
-//    project.addCard(task3)
-//
-//    BoardHeader(
-//        doneRate = project.calculateDoneRate(),
-//        doneTasks = project.doneTasks.size,
-//        totalTasks = project.allTasksCount,
-//        onClickCreateTask = {},
-//    )
-//}
-//
-//@Preview(showBackground = true, widthDp = 600)
-//@Composable
-//private fun BoardHeaderNoTaskPreview() {
-//    val project = WorkSpaceState()
-//
-//    BoardHeader(
-//        doneRate = project.calculateDoneRate(),
-//        doneTasks = project.doneTasks.size,
-//        totalTasks = project.allTasksCount,
-//        onClickCreateTask = {},
-//    )
-//}
-//
-//@Preview(showBackground = true, widthDp = 600)
-//@Composable
-//private fun BoardHeaderAllTaskDonePreview() {
-//    val project = WorkSpaceState()
-//    val task1 = TaskCardData(
-//        title = Title(value = "업무1"),
-//        description = Description(""),
-//        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-//        status = TaskStatus.DONE,
-//        profile = ProfileState("다이노",Res.drawable.profile),
-//    )
-//    val task2 = TaskCardData(
-//        title = Title(value = "업무2"),
-//        description = Description(""),
-//        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-//        status = TaskStatus.DONE,
-//        profile = ProfileState("다이노",Res.drawable.profile),
-//    )
-//    val task3 = TaskCardData(
-//        title = Title(value = "업무3"),
-//        description = Description(""),
-//        tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
-//        status = TaskStatus.DONE,
-//        profile = ProfileState("다이노",Res.drawable.profile),
-//    )
-//
-//    project.addCard(task1)
-//    project.addCard(task2)
-//    project.addCard(task3)
-//
-//    BoardHeader(
-//        doneRate = project.calculateDoneRate(),
-//        doneTasks = project.doneTasks.size,
-//        totalTasks = project.allTasksCount,
-//        onClickCreateTask = {},
-//    )
-//}

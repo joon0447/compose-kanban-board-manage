@@ -21,14 +21,14 @@ import kanbanboard.composeapp.generated.resources.profile
 import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.model.taskcard.Status
-import woowacourse.kanban.board.model.taskcard.ProfileState
+import woowacourse.kanban.board.model.taskcard.Profile
 
 @Composable
 fun ButtonSection(
     state: Status,
-    profileState: ProfileState,
+    profile: Profile,
     onStateClick: (Status) -> Unit,
-    onProfileClick: (ProfileState) -> Unit,
+    onProfileClick: (Profile) -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -65,14 +65,14 @@ fun ButtonSection(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             ProfileButton(
-                currentState = profileState,
-                myState = ProfileState("다이노",Res.drawable.profile),
-                onClick = { onProfileClick(ProfileState("Dino",Res.drawable.profile)) }
+                currentState = profile,
+                myState = Profile("다이노",Res.drawable.profile),
+                onClick = { onProfileClick(Profile("Dino",Res.drawable.profile)) }
             )
             ProfileButton(
-                currentState = profileState,
-                myState = ProfileState("페임스",Res.drawable.profile),
-                onClick = { onProfileClick(ProfileState("페임스",Res.drawable.profile)) }
+                currentState = profile,
+                myState = Profile("페임스",Res.drawable.profile),
+                onClick = { onProfileClick(Profile("페임스",Res.drawable.profile)) }
             )
         }
     }
@@ -82,11 +82,11 @@ fun ButtonSection(
 @Preview(showBackground = true)
 private fun ButtonSectionPreview() {
     var state by remember { mutableStateOf(Status.TODO) }
-    var profileState by remember { mutableStateOf(ProfileState("다이노",Res.drawable.profile)) }
+    var profile by remember { mutableStateOf(Profile("다이노",Res.drawable.profile)) }
     ButtonSection(
         state = Status.TODO,
-        profileState = profileState,
+        profile = profile,
         onStateClick = { state = it },
-        onProfileClick = { profileState = it },
+        onProfileClick = { profile = it },
     )
 }

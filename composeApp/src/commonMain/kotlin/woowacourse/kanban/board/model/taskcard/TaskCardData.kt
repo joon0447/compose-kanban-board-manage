@@ -5,5 +5,5 @@ data class TaskCardData(
     val description: Description,
     val tags: Tags,
     val status: Status,
-    val profile: ProfileState,
+    val profile: Profile,
 )

@@ -72,9 +72,9 @@ fun Modal(
             )
             ButtonSection(
                 state = modalState.status,
-                profileState = modalState.profileState,
+                profile = modalState.profile,
                 onStateClick = { modalState.status = it },
-                onProfileClick = { modalState.profileState = it },
+                onProfileClick = { modalState.profile = it },
             )
             Footer(
                 onClickClose = onClickClose,
@@ -84,7 +84,7 @@ fun Modal(
                         description = Description(value = modalState.description),
                         tags = Tags(Tag.extractedTags(modalState.tags)),
                         status = modalState.status,
-                        profile = modalState.profileState,
+                        profile = modalState.profile,
                     )
                     onClickTaskCreate(data)
                 },
