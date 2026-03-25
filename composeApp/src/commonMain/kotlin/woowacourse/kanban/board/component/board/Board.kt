@@ -86,7 +86,6 @@ fun Board(
                     ),
                 ) {
                     Modal(
-                        modalState = modalState,
                         onClickClose = { isShowModal = false },
                         onClickTaskCreate = { task ->
                             project.addCard(task)

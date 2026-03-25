@@ -1,5 +1,6 @@
 package woowacourse.kanban.board.model.state
 
+import androidx.compose.runtime.Stable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

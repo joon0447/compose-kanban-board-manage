@@ -37,6 +37,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.immutableListOf
+import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.component.extension.toBackgroundColor
 import woowacourse.kanban.board.component.extension.toBorderColor
 import woowacourse.kanban.board.component.extension.toHeaderColor
@@ -120,7 +123,7 @@ fun TaskColumnSection(
     }
 }
 
-private fun filterTaskByStatus(status: Status, project: Project): List<TaskCardData> {
+private fun filterTaskByStatus(status: Status, project: Project): ImmutableList<TaskCardData> {
     return when (status) {
         Status.TODO -> project.todoTasks
         Status.PROGRESS -> project.progressTasks
@@ -131,7 +134,7 @@ private fun filterTaskByStatus(status: Status, project: Project): List<TaskCardD
 @Composable
 private fun TaskColumn(
     status: Status,
-    tasks: List<TaskCardData>,
+    tasks: ImmutableList<TaskCardData>,
     modifier: Modifier = Modifier,
     getIsDropTarget: () -> Boolean = { false },
     onBoundsChanged: (Rect) -> Unit = {},
@@ -254,11 +257,11 @@ private fun TaskColumnTodoHeaderPreview() {
 @Preview(heightDp = 400)
 @Composable
 private fun TaskColumnTodoPreview() {
-    val tasks = listOf(
+    val tasks = immutableListOf(
         TaskCardData(
             title = Title(value = "제목"),
             description = Description(value = "설명"),
-            tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
+            tags = Tags(value = listOf(Tag(value = "컴포넌트")).toImmutableList()),
             status = Status.PROGRESS,
             profile = Profile("다이노", Res.drawable.profile),
         ),
@@ -272,11 +275,11 @@ private fun TaskColumnTodoPreview() {
 @Preview(heightDp = 400)
 @Composable
 private fun TaskColumnProgressPreview() {
-    val tasks = listOf(
+    val tasks = immutableListOf(
         TaskCardData(
             title = Title(value = "제목"),
             description = Description(value = "설명"),
-            tags = Tags(value = listOf(Tag(value = "컴포넌트"), Tag("zjavh"))),
+            tags = Tags(value = listOf(Tag(value = "컴포넌트"), Tag("zjavh")).toImmutableList()),
             status = Status.PROGRESS,
             profile = Profile("다이노", Res.drawable.profile),
         ),
@@ -290,11 +293,11 @@ private fun TaskColumnProgressPreview() {
 @Preview(heightDp = 400)
 @Composable
 private fun TaskColumnDonePreview() {
-    val tasks = listOf(
+    val tasks = immutableListOf(
         TaskCardData(
             title = Title(value = "제목"),
             description = Description(value = "설명"),
-            tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
+            tags = Tags(value = listOf(Tag(value = "컴포넌트")).toImmutableList()),
             status = Status.PROGRESS,
             profile = Profile("다이노", Res.drawable.profile),
         ),
