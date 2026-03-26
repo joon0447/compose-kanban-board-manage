@@ -77,3 +77,11 @@ class TaskCardPreviewData: PreviewParameterProvider<TaskCardData> {
         ),
     )
 }
+
+
+class ProfilePreviewData: PreviewParameterProvider<Profile> {
+    override val values: Sequence<Profile> = sequenceOf(
+        Profile("다이노", Res.drawable.profile),
+        Profile("페임스", Res.drawable.profile)
+    )
+}

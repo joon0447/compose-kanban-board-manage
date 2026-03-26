@@ -29,6 +29,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.Blue80
 import woowacourse.kanban.board.Gray10
@@ -36,9 +37,11 @@ import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.Gray40
 import woowacourse.kanban.board.Purple50
 import woowacourse.kanban.board.component.board.Board
+import woowacourse.kanban.board.component.sample.ProfilePreviewData
 import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.state.WorkSpaceState
+import woowacourse.kanban.board.model.taskcard.Profile
 
 @Preview(showBackground = true, widthDp = 1500)
 @Composable
@@ -46,14 +49,16 @@ private fun WorkSpacePreview() {
     val workSpace = WorkSpaceState(
         ProjectPreviewData().values.toImmutableList()
     )
+    val profiles = ProfilePreviewData().values.toImmutableList()
     MaterialTheme {
-        WorkSpace(workSpace)
+        WorkSpace(workSpace, profiles)
     }
 }
 
 @Composable
 fun WorkSpace(
     workSpaceState: WorkSpaceState,
+    profiles: ImmutableList<Profile>,
     modifier: Modifier = Modifier
 ) {
     var selectedProject by remember { mutableStateOf(workSpaceState.projects[0]) }
@@ -125,7 +130,10 @@ fun WorkSpace(
                 }
             }
         }
-        Board(selectedProject)
+        Board(
+            project = selectedProject,
+            profiles = profiles
+        )
     }
 }
 

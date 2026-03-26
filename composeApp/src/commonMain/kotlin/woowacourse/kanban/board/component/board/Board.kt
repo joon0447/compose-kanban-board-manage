@@ -18,27 +18,33 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.Gray10
 import woowacourse.kanban.board.Gray80
 import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.component.modal.Modal
+import woowacourse.kanban.board.component.sample.ProfilePreviewData
 import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.state.WorkSpaceState
 import woowacourse.kanban.board.model.state.ModalState
+import woowacourse.kanban.board.model.taskcard.Profile
 
 @Preview(showBackground = true)
 @Composable
 private fun BoardPreview() {
     val project = ProjectPreviewData().values.toMutableList()[0]
+    val profiles = ProfilePreviewData().values.toImmutableList()
     MaterialTheme {
-        Board(project)
+        Board(project, profiles)
     }
 }
 
 @Composable
 fun Board(
     project: Project,
+    profiles: ImmutableList<Profile>,
     modifier: Modifier = Modifier,
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
@@ -84,6 +90,7 @@ fun Board(
                     ),
                 ) {
                     Modal(
+                        profiles = profiles,
                         onClickClose = { isShowModal = false },
                         onClickTaskCreate = { task ->
                             project.addCard(task)

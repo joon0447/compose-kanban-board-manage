@@ -15,22 +15,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import woowacourse.kanban.board.component.sample.ProfilePreviewData
 import woowacourse.kanban.board.model.state.ModalState
 import woowacourse.kanban.board.model.taskcard.Description
 import woowacourse.kanban.board.model.taskcard.Tag
 import woowacourse.kanban.board.model.taskcard.Tags
 import woowacourse.kanban.board.model.modal.TextInputState
+import woowacourse.kanban.board.model.taskcard.Profile
 import woowacourse.kanban.board.model.taskcard.Title
 import woowacourse.kanban.board.model.taskcard.TaskCardData
 
 @Composable
 fun Modal(
+    profiles: ImmutableList<Profile>,
     onClickClose: () -> Unit,
     onClickTaskCreate: (TaskCardData) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val modalState = remember { ModalState() }
+    val modalState = remember { ModalState(profiles) }
     val titleInputState = TextInputState(
         value = modalState.title,
         onChange = { modalState.title = it },
@@ -62,7 +66,7 @@ fun Modal(
             verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {
             Header(
-                onClickClose = onClickClose
+                onClickClose = onClickClose,
             )
             HorizontalDivider()
             TextInputSection(
@@ -72,7 +76,8 @@ fun Modal(
             )
             ButtonSection(
                 state = modalState.status,
-                profile = modalState.profile,
+                currentProfile = modalState.profile,
+                profiles = profiles,
                 onStateClick = { modalState.status = it },
                 onProfileClick = { modalState.profile = it },
             )
@@ -97,8 +102,10 @@ fun Modal(
 @Preview(showBackground = true)
 @Composable
 private fun ModalPreview() {
+    val profiles = ProfilePreviewData().values.toImmutableList()
     Modal(
+        profiles = profiles,
         onClickClose = {},
-        onClickTaskCreate = {}
+        onClickTaskCreate = {},
     )
 }
