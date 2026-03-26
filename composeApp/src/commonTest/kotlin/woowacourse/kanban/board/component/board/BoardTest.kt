@@ -11,16 +11,27 @@ import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performSemanticsAction
 import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.runComposeUiTest
+import kotlinx.collections.immutable.toImmutableList
+import org.junit.Before
 import kotlin.test.Test
 import woowacourse.kanban.board.component.ComponentText
+import woowacourse.kanban.board.component.sample.ProjectPreviewData
+import woowacourse.kanban.board.model.project.Project
+import woowacourse.kanban.board.model.state.WorkSpaceState
+import woowacourse.kanban.board.model.taskcard.TaskCardData
 
 @OptIn(ExperimentalTestApi::class)
 class BoardTest {
+    private lateinit var project: Project
 
+    @Before
+    fun setUp() {
+        project = ProjectPreviewData().values.toImmutableList()[0]
+    }
     @Test
     fun `새 태스크 생성 버튼을 누르면 다이얼로그가 열린다`() = runComposeUiTest {
         setContent {
-            Board()
+            Board(project)
         }
         onNodeWithText(ComponentText.BOARD_TASK_CREATE_BUTTON).performClick()
         onNodeWithText(ComponentText.TITLE_PLACEHOLDER).assertIsDisplayed()
@@ -29,7 +40,7 @@ class BoardTest {
     @Test
     fun `다이얼로그 내 취소 버튼을 누르면 다이얼로그가 닫힌다`() = runComposeUiTest {
         setContent {
-            Board()
+            Board(project)
         }
         onNodeWithText(ComponentText.BOARD_TASK_CREATE_BUTTON).performClick()
         onNodeWithText(ComponentText.TITLE_PLACEHOLDER).assertIsDisplayed()
@@ -40,7 +51,7 @@ class BoardTest {
     @Test
     fun `다이얼로그 헤더의 x 버튼을 누르면 다이얼로그가 닫힌다`() = runComposeUiTest {
         setContent {
-            Board()
+            Board(project)
         }
         onNodeWithText(ComponentText.BOARD_TASK_CREATE_BUTTON).performClick()
         onNodeWithText(ComponentText.TITLE_PLACEHOLDER).assertIsDisplayed()
@@ -51,7 +62,7 @@ class BoardTest {
     @Test
     fun `모달을 통해 생성한 태스크 카드가 출력된다`() = runComposeUiTest {
         setContent {
-            Board()
+            Board(project)
         }
         onNodeWithText(ComponentText.BOARD_TASK_CREATE_BUTTON).performClick()
         onAllNodes(isEditable())[0].performClick()
@@ -63,7 +74,7 @@ class BoardTest {
     @Test
     fun `태스크 카드를 생성하면 스낵바가 출력된다`() = runComposeUiTest {
         setContent {
-            Board()
+            Board(project)
         }
         onNodeWithText(ComponentText.BOARD_TASK_CREATE_BUTTON).performClick()
         onAllNodes(isEditable())[0].performClick()

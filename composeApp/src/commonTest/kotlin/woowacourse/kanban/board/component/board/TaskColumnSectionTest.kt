@@ -6,6 +6,9 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.runComposeUiTest
 import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
+import kotlinx.collections.immutable.toImmutableList
+import woowacourse.kanban.board.component.sample.ProjectPreviewData
+import woowacourse.kanban.board.model.project.Project
 import kotlin.test.Test
 import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.Description
@@ -20,19 +23,36 @@ class TaskColumnSectionTest {
 
     @Test
     fun `todoTasks에 등록된 태스크가 3개면 3이 출력된다`() = runComposeUiTest {
-        val data = TaskCardData(
+        val data1 = TaskCardData(
             title = Title(value = "제목"),
             description = Description("설명"),
-            tags = Tags(listOf(Tag("컴포넌트"))),
+            tags = Tags(listOf(Tag("컴포넌트")).toImmutableList()),
             status = Status.TODO,
             profile = Profile("다이노",Res.drawable.profile)
         )
-        val todoTasks = listOf(data, data, data)
+        val data2 = TaskCardData(
+            title = Title(value = "제목"),
+            description = Description("설명"),
+            tags = Tags(listOf(Tag("컴포넌트")).toImmutableList()),
+            status = Status.TODO,
+            profile = Profile("다이노",Res.drawable.profile)
+        )
+        val data3 = TaskCardData(
+            title = Title(value = "제목"),
+            description = Description("설명"),
+            tags = Tags(listOf(Tag("컴포넌트")).toImmutableList()),
+            status = Status.TODO,
+            profile = Profile("다이노",Res.drawable.profile)
+        )
+        val todoTasks = listOf(data1, data2, data3)
+        val project = Project(
+            title = "title",
+            initialTasks = todoTasks.toImmutableList()
+        )
         setContent {
             TaskColumnSection(
-                todoTasks = todoTasks,
-                progressTasks = emptyList(),
-                doneTasks = emptyList()
+                project = project,
+                onMoveSnackBar = {}
             )
         }
 
@@ -41,19 +61,50 @@ class TaskColumnSectionTest {
 
     @Test
     fun `progressTasks에 등록된 태스크가 5개면 5가 출력된다`() = runComposeUiTest {
-        val data = TaskCardData(
+        val data1 = TaskCardData(
             title = Title(value = "제목"),
             description = Description("설명"),
-            tags = Tags(listOf(Tag("컴포넌트"))),
+            tags = Tags(listOf(Tag("컴포넌트")).toImmutableList()),
             status = Status.PROGRESS,
             profile = Profile("다이노",Res.drawable.profile)
         )
-        val progressTasks = listOf(data, data, data, data, data)
+        val data2 = TaskCardData(
+            title = Title(value = "제목"),
+            description = Description("설명"),
+            tags = Tags(listOf(Tag("컴포넌트")).toImmutableList()),
+            status = Status.PROGRESS,
+            profile = Profile("다이노",Res.drawable.profile)
+        )
+        val data3 = TaskCardData(
+            title = Title(value = "제목"),
+            description = Description("설명"),
+            tags = Tags(listOf(Tag("컴포넌트")).toImmutableList()),
+            status = Status.PROGRESS,
+            profile = Profile("다이노",Res.drawable.profile)
+        )
+        val data4 = TaskCardData(
+            title = Title(value = "제목"),
+            description = Description("설명"),
+            tags = Tags(listOf(Tag("컴포넌트")).toImmutableList()),
+            status = Status.PROGRESS,
+            profile = Profile("다이노",Res.drawable.profile)
+        )
+        val data5 = TaskCardData(
+            title = Title(value = "제목"),
+            description = Description("설명"),
+            tags = Tags(listOf(Tag("컴포넌트")).toImmutableList()),
+            status = Status.PROGRESS,
+            profile = Profile("다이노",Res.drawable.profile)
+        )
+        val progressTasks = listOf(data1, data2, data3, data4, data5)
+        val project = Project(
+            title = "title",
+            initialTasks = progressTasks.toImmutableList()
+        )
         setContent {
             TaskColumnSection(
-                todoTasks = emptyList(),
-                progressTasks = progressTasks,
-                doneTasks = emptyList()
+                project = project,
+                onMoveSnackBar = {}
             )
         }
 
@@ -62,19 +113,43 @@ class TaskColumnSectionTest {
 
     @Test
     fun `doneTasks에 등록된 태스크가 4개면 4가 출력된다`() = runComposeUiTest {
-        val data = TaskCardData(
+        val data1 = TaskCardData(
             title = Title(value = "제목"),
             description = Description("설명"),
-            tags = Tags(listOf(Tag("컴포넌트"))),
+            tags = Tags(listOf(Tag("컴포넌트")).toImmutableList()),
             status = Status.DONE,
             profile = Profile("다이노",Res.drawable.profile)
         )
-        val doneTasks = listOf(data, data, data, data)
+        val data2 = TaskCardData(
+            title = Title(value = "제목"),
+            description = Description("설명"),
+            tags = Tags(listOf(Tag("컴포넌트")).toImmutableList()),
+            status = Status.DONE,
+            profile = Profile("다이노",Res.drawable.profile)
+        )
+        val data3 = TaskCardData(
+            title = Title(value = "제목"),
+            description = Description("설명"),
+            tags = Tags(listOf(Tag("컴포넌트")).toImmutableList()),
+            status = Status.DONE,
+            profile = Profile("다이노",Res.drawable.profile)
+        )
+        val data4 = TaskCardData(
+            title = Title(value = "제목"),
+            description = Description("설명"),
+            tags = Tags(listOf(Tag("컴포넌트")).toImmutableList()),
+            status = Status.DONE,
+            profile = Profile("다이노",Res.drawable.profile)
+        )
+        val doneTasks = listOf(data1, data2, data3, data4)
+        val project = Project(
+            title = "title",
+            initialTasks = doneTasks.toImmutableList()
+        )
         setContent {
             TaskColumnSection(
-                todoTasks = emptyList(),
-                progressTasks = emptyList(),
-                doneTasks = doneTasks
+                project = project,
+                onMoveSnackBar = {}
             )
         }
 

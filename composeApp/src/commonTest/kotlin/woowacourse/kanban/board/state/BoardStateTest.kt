@@ -2,9 +2,11 @@ package woowacourse.kanban.board.state
 
 import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
+import kotlinx.collections.immutable.toImmutableList
 import kotlin.test.Test
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
+import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.state.WorkSpaceState
 import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.Description
@@ -15,11 +17,15 @@ import woowacourse.kanban.board.model.taskcard.Title
 import woowacourse.kanban.board.model.taskcard.TaskCardData
 
 class ProjectTest {
-    private lateinit var project: WorkSpaceState
+    private lateinit var workSpace : WorkSpaceState
 
     @Before
     fun setUp() {
-        project = WorkSpaceState(mutableListOf<TaskCardData>())
+        workSpace = WorkSpaceState(listOf<Project>(
+            Project("Compose1", listOf<TaskCardData>().toImmutableList()),
+            Project("Compose2", listOf<TaskCardData>().toImmutableList()),
+            Project("Compose3너무너무긴문장은말줄임표로표시합니다", listOf<TaskCardData>().toImmutableList()),
+        ).toImmutableList())
     }
 
     @Test
@@ -27,12 +33,12 @@ class ProjectTest {
         val data = TaskCardData(
             title = Title(value = "업무1"),
             description = Description(""),
-            tags = Tags(value = listOf(Tag("컴포넌트"))),
+            tags = Tags(value = listOf(Tag("컴포넌트")).toImmutableList()),
             status = Status.TODO,
             profile = Profile("다이노",Res.drawable.profile)
         )
-        project.addCard(data)
-        assertThat(project.todoTasks).contains(data)
+        workSpace.projects.first().addCard(data)
+        assertThat(workSpace.projects.first().todoTasks).contains(data)
     }
 
     @Test
@@ -40,12 +46,12 @@ class ProjectTest {
         val data = TaskCardData(
             title = Title(value = "업무1"),
             description = Description(""),
-            tags = Tags(value = listOf(Tag("컴포넌트"))),
+            tags = Tags(value = listOf(Tag("컴포넌트")).toImmutableList()),
             status = Status.PROGRESS,
             profile = Profile("다이노",Res.drawable.profile)
         )
-        project.addCard(data)
-        assertThat(project.progressTasks).contains(data)
+        workSpace.projects.first().addCard(data)
+        assertThat(workSpace.projects.first().progressTasks).contains(data)
     }
 
     @Test
@@ -53,12 +59,12 @@ class ProjectTest {
         val data = TaskCardData(
             title = Title(value = "업무1"),
             description = Description(""),
-            tags = Tags(value = listOf(Tag("컴포넌트"))),
+            tags = Tags(value = listOf(Tag("컴포넌트")).toImmutableList()),
             status = Status.DONE,
             profile = Profile("다이노",Res.drawable.profile)
         )
-        project.addCard(data)
-        assertThat(project.doneTasks).contains(data)
+        workSpace.projects.first().addCard(data)
+        assertThat(workSpace.projects.first().doneTasks).contains(data)
     }
 
     @Test
@@ -66,31 +72,31 @@ class ProjectTest {
         val task1 = TaskCardData(
             title = Title(value = "업무1"),
             description = Description(""),
-            tags = Tags(value = listOf(Tag("컴포넌트"))),
+            tags = Tags(value = listOf(Tag("컴포넌트")).toImmutableList()),
             status = Status.DONE,
             profile = Profile("다이노",Res.drawable.profile)
         )
         val task2 = TaskCardData(
             title = Title(value = "업무2"),
             description = Description(""),
-            tags = Tags(value = listOf(Tag("컴포넌트"))),
+            tags = Tags(value = listOf(Tag("컴포넌트")).toImmutableList()),
             status = Status.TODO,
             profile = Profile("다이노",Res.drawable.profile)
         )
         val task3 = TaskCardData(
             title = Title(value = "업무3"),
             description = Description(""),
-            tags = Tags(value = listOf(Tag("컴포넌트"))),
+            tags = Tags(value = listOf(Tag("컴포넌트")).toImmutableList()),
             status = Status.TODO,
             profile = Profile("다이노",Res.drawable.profile)
         )
 
-        project.addCard(task1)
-        project.addCard(task1)
-        project.addCard(task2)
-        project.addCard(task3)
+        workSpace.projects.first().addCard(task1)
+        workSpace.projects.first().addCard(task1)
+        workSpace.projects.first().addCard(task2)
+        workSpace.projects.first().addCard(task3)
 
-        assertThat(project.calculateDoneRate()).isEqualTo(0.50f)
+        assertThat(workSpace.projects.first().calculateDoneRate()).isEqualTo(0.50f)
     }
 
     @Test
@@ -98,35 +104,35 @@ class ProjectTest {
         val task1 = TaskCardData(
             title = Title(value = "업무1"),
             description = Description(""),
-            tags = Tags(value = listOf(Tag("컴포넌트"))),
+            tags = Tags(value = listOf(Tag("컴포넌트")).toImmutableList()),
             status = Status.TODO,
             profile = Profile("다이노",Res.drawable.profile)
         )
         val task2 = TaskCardData(
             title = Title(value = "업무2"),
             description = Description(""),
-            tags = Tags(value = listOf(Tag("컴포넌트"))),
+            tags = Tags(value = listOf(Tag("컴포넌트")).toImmutableList()),
             status = Status.DONE,
             profile = Profile("다이노",Res.drawable.profile)
         )
         val task3 = TaskCardData(
             title = Title(value = "업무3"),
             description = Description(""),
-            tags = Tags(value = listOf(Tag("컴포넌트"))),
+            tags = Tags(value = listOf(Tag("컴포넌트")).toImmutableList()),
             status = Status.PROGRESS,
             profile = Profile("다이노",Res.drawable.profile)
         )
 
-        project.addCard(task1)
-        project.addCard(task2)
-        project.addCard(task3)
+        workSpace.projects.first().addCard(task1)
+        workSpace.projects.first().addCard(task2)
+        workSpace.projects.first().addCard(task3)
 
-        assertThat(project.allTasksCount).isEqualTo(3)
+        assertThat(workSpace.projects.first().allTasksCount).isEqualTo(3)
     }
 
     @Test
     fun `등록된 업무가 0개일 때 완료율은 0%으로 계산된다`() {
-        assertThat(project.calculateDoneRate()).isEqualTo(0.0f)
+        assertThat(workSpace.projects.first().calculateDoneRate()).isEqualTo(0.0f)
     }
 
     @Test
@@ -134,29 +140,29 @@ class ProjectTest {
         val task1 = TaskCardData(
             title = Title(value = "업무1"),
             description = Description(""),
-            tags = Tags(value = listOf(Tag("컴포넌트"))),
+            tags = Tags(value = listOf(Tag("컴포넌트")).toImmutableList()),
             status = Status.TODO,
             profile = Profile("다이노",Res.drawable.profile)
         )
         val task2 = TaskCardData(
             title = Title(value = "업무2"),
             description = Description(""),
-            tags = Tags(value = listOf(Tag("컴포넌트"))),
+            tags = Tags(value = listOf(Tag("컴포넌트")).toImmutableList()),
             status = Status.TODO,
             profile = Profile("다이노",Res.drawable.profile)
         )
         val task3 = TaskCardData(
             title = Title(value = "업무3"),
             description = Description(""),
-            tags = Tags(value = listOf(Tag("컴포넌트"))),
+            tags = Tags(value = listOf(Tag("컴포넌트")).toImmutableList()),
             status = Status.TODO,
             profile = Profile("다이노",Res.drawable.profile)
         )
 
-        project.addCard(task1)
-        project.addCard(task2)
-        project.addCard(task3)
+        workSpace.projects.first().addCard(task1)
+        workSpace.projects.first().addCard(task2)
+        workSpace.projects.first().addCard(task3)
 
-        assertThat(project.calculateDoneRate()).isEqualTo(0.0f)
+        assertThat(workSpace.projects.first().calculateDoneRate()).isEqualTo(0.0f)
     }
 }
