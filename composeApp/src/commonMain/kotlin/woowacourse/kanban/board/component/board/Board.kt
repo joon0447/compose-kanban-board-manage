@@ -47,8 +47,6 @@ fun Board(
     var shouldShowMoveSnackbar by remember { mutableStateOf(false) }
     var isShowModal by remember { mutableStateOf(false) }
 
-    val modalState = remember { ModalState() }
-
     LaunchedEffect(shouldShowSnackbar) {
         if (shouldShowSnackbar) {
             snackbarHostState.showSnackbar(
@@ -76,7 +74,7 @@ fun Board(
         Column(
             modifier = modifier
                 .padding(paddingValues)
-                .background(Gray80)
+                .background(Gray80),
         ) {
             if (isShowModal) {
                 Dialog(
@@ -86,7 +84,6 @@ fun Board(
                     ),
                 ) {
                     Modal(
-                        modalState = modalState,
                         onClickClose = { isShowModal = false },
                         onClickTaskCreate = { task ->
                             project.addCard(task)
@@ -105,7 +102,7 @@ fun Board(
             )
             TaskColumnSection(
                 project = project,
-                onMoveSnackBar = { shouldShowMoveSnackbar = true }
+                onMoveSnackBar = { shouldShowMoveSnackbar = true },
             )
         }
     }

@@ -1,6 +1,8 @@
 package woowacourse.kanban.board.model.taskcard
 
-data class Tags(val value: List<Tag>) {
+import kotlinx.collections.immutable.ImmutableList
+
+data class Tags(val value: ImmutableList<Tag>) {
 
     init {
         require(value.size <= MAX_TAGS)

@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.model.state.ModalState
 import woowacourse.kanban.board.model.taskcard.Description
 import woowacourse.kanban.board.model.taskcard.Tag
@@ -25,7 +26,6 @@ import woowacourse.kanban.board.model.taskcard.TaskCardData
 
 @Composable
 fun Modal(
-    modalState: ModalState,
     onClickClose: () -> Unit,
     onClickTaskCreate: (TaskCardData) -> Unit,
     modifier: Modifier = Modifier,
@@ -82,7 +82,7 @@ fun Modal(
                     val data = TaskCardData(
                         title = Title(value = modalState.title),
                         description = Description(value = modalState.description),
-                        tags = Tags(Tag.extractedTags(modalState.tags)),
+                        tags = Tags(Tag.extractedTags(modalState.tags).toImmutableList()),
                         status = modalState.status,
                         profile = modalState.profile,
                     )
@@ -98,7 +98,6 @@ fun Modal(
 @Composable
 private fun ModalPreview() {
     Modal(
-        modalState = ModalState(),
         onClickClose = {},
         onClickTaskCreate = {}
     )

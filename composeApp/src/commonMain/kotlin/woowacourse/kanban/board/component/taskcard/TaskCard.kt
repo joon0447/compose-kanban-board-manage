@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
+import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.Gray70
 import woowacourse.kanban.board.Gray80
 import woowacourse.kanban.board.component.sample.TaskCardPreviewData
@@ -49,7 +50,6 @@ fun TaskCard(
     Card(
         modifier = modifier
             .onGloballyPositioned { cardWindowPosition = it.positionInWindow() }
-            // 2) 드래그 제스처 감지
             .pointerInput(Unit) {
                 detectDragGestures(
                     onDragStart = { onDragStart() },
@@ -100,7 +100,7 @@ private fun TaskCardEmptyDescriptionPreview() {
         data = TaskCardData(
             title = Title(value = "LazyColumn 컴포넌트 구현"),
             description = Description(value = ""),
-            tags = Tags(value = listOf(Tag(value = "컴포넌트"))),
+            tags = Tags(value = listOf(Tag(value = "컴포넌트")).toImmutableList()),
             status = Status.PROGRESS,
             profile = Profile("다이노",Res.drawable.profile),
         ),
@@ -114,7 +114,7 @@ private fun TaskCardEmptyTagPreview() {
         data = TaskCardData(
             title = Title(value = "LazyColumn 컴포넌트 구현"),
             description = Description(value = "세로 스크롤"),
-            tags = Tags(value = emptyList()),
+            tags = Tags(value = listOf<Tag>().toImmutableList()),
             status = Status.PROGRESS,
             profile = Profile("다이노",Res.drawable.profile),
         ),
@@ -128,7 +128,7 @@ private fun TaskCardEmptyTagAndDescriptionPreview() {
         data = TaskCardData(
             title = Title(value = "LazyColumn 컴포넌트 구현"),
             description = Description(value = ""),
-            tags = Tags(value = emptyList()),
+            tags = Tags(value = listOf<Tag>().toImmutableList()),
             status = Status.PROGRESS,
             profile = Profile("다이노",Res.drawable.profile),
         ),
@@ -142,7 +142,7 @@ private fun TaskCardLongTitlePreview() {
         data = TaskCardData(
             title = Title(value = "LazyColumn 컴포넌트 구현LazyColumn 컴포넌트 구현"),
             description = Description(value = ""),
-            tags = Tags(value = emptyList()),
+            tags = Tags(value = listOf<Tag>().toImmutableList()),
             status = Status.PROGRESS,
             profile = Profile("다이노",Res.drawable.profile),
         ),
@@ -164,7 +164,7 @@ private fun TaskCardLongDescriptionPreview() {
                     "세로 스크롤 세로 스크롤세로 스크롤" +
                     "  세로 스크롤세로 스크롤 세로 스크롤"
             ),
-            tags = Tags(value = emptyList()),
+            tags = Tags(value = listOf<Tag>().toImmutableList()),
             status = Status.PROGRESS,
             profile = Profile("다이노",Res.drawable.profile),
         ),
