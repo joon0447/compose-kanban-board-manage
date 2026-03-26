@@ -5,10 +5,12 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.model.taskcard.TaskCardData
 import woowacourse.kanban.board.model.taskcard.Status
+import java.util.UUID
 
 data class Project(
     val title: String,
     val initialTasks: ImmutableList<TaskCardData>,
+    val id: String = UUID.randomUUID().toString()
 ) {
     private val tasks = mutableStateListOf<TaskCardData>().apply {
         addAll(initialTasks)
