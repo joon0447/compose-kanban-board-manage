@@ -12,18 +12,22 @@ import woowacourse.kanban.board.model.taskcard.Tag
 import woowacourse.kanban.board.model.taskcard.Tags
 import woowacourse.kanban.board.model.taskcard.TaskCardData
 import woowacourse.kanban.board.model.taskcard.Title
+import java.util.UUID
 
 class ProjectPreviewData: PreviewParameterProvider<Project> {
     val taskCards = TaskCardPreviewData().values.toMutableList()
     override val values: Sequence<Project> = sequenceOf(
         Project(
             title = "Compose1",
+            id = UUID.randomUUID().toString()
         ),
         Project(
             title = "Compose2",
+            id = UUID.randomUUID().toString()
         ),
         Project(
             title = "Compose3너무너무길경우에는 말줄임표로 표시됩니다.",
+            id = UUID.randomUUID().toString()
         ),
     )
 }

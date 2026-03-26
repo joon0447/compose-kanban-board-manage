@@ -4,9 +4,11 @@ import androidx.compose.runtime.mutableStateListOf
 import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.model.taskcard.TaskCardData
 import woowacourse.kanban.board.model.taskcard.Status
+import java.util.UUID
 
 data class Project(
     val title: String,
+    val id: String
 ) {
     private val tasks = mutableStateListOf<TaskCardData>()
 

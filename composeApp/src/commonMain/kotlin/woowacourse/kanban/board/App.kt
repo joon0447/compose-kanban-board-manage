@@ -13,14 +13,15 @@ import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.state.WorkSpaceState
 import woowacourse.kanban.board.model.taskcard.Profile
 import woowacourse.kanban.board.model.taskcard.TaskCardData
+import java.util.UUID
 
 @Composable
 fun App() {
     val workSpace = WorkSpaceState(
         listOf(
-            Project("Compose1"),
-            Project("Compose2"),
-            Project("Compose3너무너무긴문장은말줄임표로표시합니다"),
+            Project(title = "Compose1", id = UUID.randomUUID().toString()),
+            Project(title = "Compose1", id = UUID.randomUUID().toString()),
+            Project(title = "Compose3너무너무긴문장은말줄임표로표시합니다", id = UUID.randomUUID().toString()),
             ).toImmutableList()
     )
     WorkSpace(workSpaceState = workSpace)
