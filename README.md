@@ -31,7 +31,7 @@
 ## 테스트 시나리오
 
 **단위 테스트**
-- [ ] updateTaskStatus의 taskCardId와 변경하고자 하는 status 값을 입력했을 때, 
+- [x] updateTaskStatus의 taskCardId와 변경하고자 하는 status 값을 입력했을 때, 
 해당 id를 가진 태스크 카드가 변경값으로 입력한 status로 변경된다.
 - [ ] 찾고자 하는 태스크 카드의 id값을 넣었을 때 해당 id 값을 가진 TaskCardData를 찾을 수 있다.
 
