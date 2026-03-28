@@ -6,13 +6,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.window.Dialog
@@ -33,56 +28,53 @@ fun Board(
     assignees: ImmutableList<Assignee>,
     modifier: Modifier = Modifier,
 ) {
-    val snackbarHostState = remember { SnackbarHostState() }
+    val boardState = rememberBoardState()
 
-    var shouldShowSnackbar by remember { mutableStateOf(false) }
-    var shouldShowMoveSnackbar by remember { mutableStateOf(false) }
-    var isShowModal by remember { mutableStateOf(false) }
 
-    LaunchedEffect(shouldShowSnackbar) {
-        if (shouldShowSnackbar) {
-            snackbarHostState.showSnackbar(
+    LaunchedEffect(boardState.shouldShowSnackbar) {
+        if (boardState.shouldShowSnackbar) {
+            boardState.snackbarHostState.showSnackbar(
                 message = ComponentText.BOARD_TASK_CREATE_SNACKBAR,
                 withDismissAction = true,
             )
-            shouldShowSnackbar = false
+            boardState.shouldShowSnackbar = false
         }
     }
 
-    LaunchedEffect(shouldShowMoveSnackbar) {
-        if (shouldShowMoveSnackbar) {
-            snackbarHostState.showSnackbar(
+    LaunchedEffect(boardState.shouldShowMoveSnackbar) {
+        if (boardState.shouldShowMoveSnackbar) {
+            boardState.snackbarHostState.showSnackbar(
                 message = ComponentText.BOARD_TASK_MOVE_SNACKBAR,
                 withDismissAction = true,
             )
-            shouldShowMoveSnackbar = false
+            boardState.shouldShowMoveSnackbar = false
         }
     }
 
 
     Scaffold(
         modifier = modifier,
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+        snackbarHost = { SnackbarHost(hostState = boardState.snackbarHostState) },
     ) { paddingValues ->
         Column(
             modifier = Modifier
                 .padding(paddingValues)
                 .background(Gray80),
         ) {
-            if (isShowModal) {
+            if (boardState.isShowModal) {
                 Dialog(
-                    onDismissRequest = { isShowModal = false },
+                    onDismissRequest = { boardState.isShowModal = false },
                     properties = DialogProperties(
                         usePlatformDefaultWidth = false,
                     ),
                 ) {
                     Modal(
                         assignees = assignees,
-                        onClickClose = { isShowModal = false },
+                        onClickClose = { boardState.isShowModal = false },
                         onClickTaskCreate = { task ->
                             project.addCard(task)
-                            shouldShowSnackbar = true
-                            isShowModal = false
+                            boardState.showSnackBar()
+                            boardState.closeModal()
                         },
                     )
                 }
@@ -92,11 +84,11 @@ fun Board(
                 doneRate = project.calculateDoneRate(),
                 doneTasks = project.doneTasks.size,
                 totalTasks = project.allTasksCount,
-                onClickCreateTask = { isShowModal = isShowModal.not() },
+                onClickCreateTask = { boardState.isShowModal = boardState.isShowModal.not() },
             )
             TaskColumnSection(
                 project = project,
-                onMoveSnackBar = { shouldShowMoveSnackbar = true },
+                onMoveSnackBar = { boardState.shouldShowMoveSnackbar = true },
             )
         }
     }
