@@ -1,7 +1,7 @@
 package woowacourse.kanban.board.model.taskcard
 
 @JvmInline
-value class Title(val value: String) {
+value class TaskTitle(val value: String) {
 
     init {
         require(value.isNotBlank())

@@ -17,22 +17,22 @@ import androidx.compose.ui.unit.sp
 import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.Gray80
-import woowacourse.kanban.board.model.taskcard.Tag
-import woowacourse.kanban.board.model.taskcard.Tags
+import woowacourse.kanban.board.model.taskcard.TaskTag
+import woowacourse.kanban.board.model.taskcard.TaskTags
 
 @Composable
-fun Tags(
-    tags: Tags,
+fun TagsSection(
+    taskTags: TaskTags,
     modifier: Modifier = Modifier,
 ) {
-    if (tags.value.isNotEmpty()) {
+    if (taskTags.value.isNotEmpty()) {
         FlowRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp),
             modifier = modifier
                 .fillMaxWidth(),
         ) {
-            tags.value.forEach { tag ->
+            taskTags.value.forEach { tag ->
                 TagBox(tag)
             }
         }
@@ -40,7 +40,7 @@ fun Tags(
 }
 
 @Composable
-private fun TagBox(tag: Tag) {
+private fun TagBox(taskTag: TaskTag) {
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(14.dp))
@@ -50,7 +50,7 @@ private fun TagBox(tag: Tag) {
             .padding(vertical = 4.dp, horizontal = 6.dp),
     ) {
         Text(
-            text = tag.value,
+            text = taskTag.value,
             fontSize = 12.sp,
             color = Gray20,
         )
@@ -59,7 +59,7 @@ private fun TagBox(tag: Tag) {
 
 @Preview(showBackground = true)
 @Composable
-private fun TagsPreview() {
-    val tags = Tags(value = listOf(Tag(value = "컴포넌트")).toImmutableList())
-    Tags(tags = tags)
+private fun TagsSectionPreview() {
+    val taskTags = TaskTags(value = listOf(TaskTag(value = "컴포넌트")).toImmutableList())
+    TagsSection(taskTags = taskTags)
 }

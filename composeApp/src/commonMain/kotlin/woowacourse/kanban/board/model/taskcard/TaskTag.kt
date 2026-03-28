@@ -1,6 +1,6 @@
 package woowacourse.kanban.board.model.taskcard
 
-data class Tag(
+data class TaskTag(
     val value: String
 ) {
 
@@ -18,10 +18,10 @@ data class Tag(
             return splitTags.all { it.isNotEmpty() && it.length <= TAG_MAX_TEXT_LENGTH }
         }
 
-        fun extractedTags(value: String): List<Tag> =
+        fun extractedTags(value: String): List<TaskTag> =
             value.split(",")
                 .map { it.trim() }
                 .filter { it.isNotEmpty() }
-                .map { Tag(it) }
+                .map { TaskTag(it) }
     }
 }

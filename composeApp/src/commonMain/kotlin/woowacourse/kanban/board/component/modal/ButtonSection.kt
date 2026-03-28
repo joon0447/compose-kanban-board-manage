@@ -18,15 +18,15 @@ import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.component.sample.ProfilePreviewData
 import woowacourse.kanban.board.model.taskcard.Status
-import woowacourse.kanban.board.model.taskcard.Profile
+import woowacourse.kanban.board.model.taskcard.Assignee
 
 @Composable
 fun ButtonSection(
     state: Status,
-    currentProfile: Profile,
-    profiles: ImmutableList<Profile>,
+    currentAssignee: Assignee,
+    assignees: ImmutableList<Assignee>,
     onStateClick: (Status) -> Unit,
-    onProfileClick: (Profile) -> Unit,
+    onProfileClick: (Assignee) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -46,9 +46,9 @@ fun ButtonSection(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            StateButton(currentState = state, myState = Status.TODO, onClick = { onStateClick(Status.TODO) })
-            StateButton(currentState = state, myState = Status.PROGRESS, onClick = { onStateClick(Status.PROGRESS) })
-            StateButton(currentState = state, myState = Status.DONE, onClick = { onStateClick(Status.DONE) })
+            StatusButton(currentStatus = state, myStatus = Status.TODO, onClick = { onStateClick(Status.TODO) })
+            StatusButton(currentStatus = state, myStatus = Status.PROGRESS, onClick = { onStateClick(Status.PROGRESS) })
+            StatusButton(currentStatus = state, myStatus = Status.DONE, onClick = { onStateClick(Status.DONE) })
         }
         Text(
             text = ComponentText.PROFILE_BUTTON_LABEL,
@@ -61,9 +61,9 @@ fun ButtonSection(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            profiles.forEach { profile ->
-                ProfileButton(
-                    currentState = currentProfile,
+            assignees.forEach { profile ->
+                AssigneeProfileButton(
+                    currentState = currentAssignee,
                     myState = profile,
                     onClick = { onProfileClick(profile) }
                 )
@@ -78,8 +78,8 @@ private fun ButtonSectionTodoStatusPreview() {
     val profiles = ProfilePreviewData().values.toImmutableList()
     ButtonSection(
         state = Status.TODO,
-        currentProfile = profiles[0],
-        profiles = profiles,
+        currentAssignee = profiles[0],
+        assignees = profiles,
         onStateClick = { },
         onProfileClick = {},
     )

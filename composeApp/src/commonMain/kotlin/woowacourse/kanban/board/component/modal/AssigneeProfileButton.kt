@@ -29,12 +29,12 @@ import woowacourse.kanban.board.Blue50
 import woowacourse.kanban.board.Blue80
 import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.Gray70
-import woowacourse.kanban.board.model.taskcard.Profile
+import woowacourse.kanban.board.model.taskcard.Assignee
 
 @Composable
-fun ProfileButton(
-    currentState: Profile,
-    myState: Profile,
+fun AssigneeProfileButton(
+    currentState: Assignee,
+    myState: Assignee,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -73,20 +73,20 @@ fun ProfileButton(
 
 @Preview(showBackground = true)
 @Composable
-private fun ProfileButtonNotChoicePreview() {
-    ProfileButton(
-        currentState = Profile("다이노",Res.drawable.profile),
-        myState = Profile("페임스",Res.drawable.profile),
+private fun AssigneeProfileButtonNotChoicePreview() {
+    AssigneeProfileButton(
+        currentState = Assignee("다이노",Res.drawable.profile),
+        myState = Assignee("페임스",Res.drawable.profile),
         onClick = {}
     )
 }
 
 @Preview(showBackground = true)
 @Composable
-private fun ProfileButtonChoicePreview() {
-    ProfileButton(
-        currentState = Profile("페임스",Res.drawable.profile),
-        myState = Profile("페임스",Res.drawable.profile),
+private fun AssigneeProfileButtonChoicePreview() {
+    AssigneeProfileButton(
+        currentState = Assignee("페임스",Res.drawable.profile),
+        myState = Assignee("페임스",Res.drawable.profile),
         onClick = {}
     )
 }

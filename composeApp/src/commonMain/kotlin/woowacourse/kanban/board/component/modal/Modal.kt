@@ -18,27 +18,27 @@ import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.component.sample.ProfilePreviewData
-import woowacourse.kanban.board.model.state.ModalState
-import woowacourse.kanban.board.model.taskcard.Description
-import woowacourse.kanban.board.model.taskcard.Tag
-import woowacourse.kanban.board.model.taskcard.Tags
 import woowacourse.kanban.board.model.modal.TextInputState
-import woowacourse.kanban.board.model.taskcard.Profile
-import woowacourse.kanban.board.model.taskcard.Title
+import woowacourse.kanban.board.model.state.ModalState
+import woowacourse.kanban.board.model.taskcard.Assignee
+import woowacourse.kanban.board.model.taskcard.TaskDescription
+import woowacourse.kanban.board.model.taskcard.TaskTag
+import woowacourse.kanban.board.model.taskcard.TaskTags
 import woowacourse.kanban.board.model.taskcard.TaskCardData
+import woowacourse.kanban.board.model.taskcard.TaskTitle
 
 @Composable
 fun Modal(
-    profiles: ImmutableList<Profile>,
+    assignees: ImmutableList<Assignee>,
     onClickClose: () -> Unit,
     onClickTaskCreate: (TaskCardData) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val modalState = remember { ModalState(profiles) }
+    val modalState = remember { ModalState(assignees) }
     val titleInputState = TextInputState(
         value = modalState.title,
         onChange = { modalState.title = it },
-        isError = modalState.isTitleValid.not(),
+        isError = modalState.isTaskTitleValid.not(),
     )
     val descriptionInputState = TextInputState(
         value = modalState.description,
@@ -47,7 +47,7 @@ fun Modal(
     val tagsInputState = TextInputState(
         value = modalState.tags,
         onChange = { modalState.tags = it },
-        isError = modalState.isTagsValid.not(),
+        isError = modalState.isTaskTagsValid.not(),
     )
 
     Card(
@@ -76,24 +76,24 @@ fun Modal(
             )
             ButtonSection(
                 state = modalState.status,
-                currentProfile = modalState.profile,
-                profiles = profiles,
+                currentAssignee = modalState.assignees,
+                assignees = assignees,
                 onStateClick = { modalState.status = it },
-                onProfileClick = { modalState.profile = it },
+                onProfileClick = { modalState.assignees = it },
             )
             Footer(
                 onClickClose = onClickClose,
                 onClickTaskCreate = {
                     val data = TaskCardData(
-                        title = Title(value = modalState.title),
-                        description = Description(value = modalState.description),
-                        tags = Tags(Tag.extractedTags(modalState.tags).toImmutableList()),
+                        taskTitle = TaskTitle(value = modalState.title),
+                        taskDescription = TaskDescription(value = modalState.description),
+                        taskTags = TaskTags(TaskTag.extractedTags(modalState.tags).toImmutableList()),
                         status = modalState.status,
-                        profile = modalState.profile,
+                        assignee = modalState.assignees,
                     )
                     onClickTaskCreate(data)
                 },
-                isButtonEnabled = modalState.isTitleValid && modalState.isTagsValid,
+                isButtonEnabled = modalState.isTaskTitleValid && modalState.isTaskTagsValid,
             )
         }
     }
@@ -104,7 +104,7 @@ fun Modal(
 private fun ModalPreview() {
     val profiles = ProfilePreviewData().values.toImmutableList()
     Modal(
-        profiles = profiles,
+        assignees = profiles,
         onClickClose = {},
         onClickTaskCreate = {},
     )

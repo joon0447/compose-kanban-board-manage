@@ -29,13 +29,13 @@ import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.Gray70
 import woowacourse.kanban.board.Gray80
 import woowacourse.kanban.board.component.sample.TaskCardPreviewData
+import woowacourse.kanban.board.model.taskcard.Assignee
 import woowacourse.kanban.board.model.taskcard.Status
-import woowacourse.kanban.board.model.taskcard.Description
-import woowacourse.kanban.board.model.taskcard.Profile
-import woowacourse.kanban.board.model.taskcard.Tag
-import woowacourse.kanban.board.model.taskcard.Tags
-import woowacourse.kanban.board.model.taskcard.Title
 import woowacourse.kanban.board.model.taskcard.TaskCardData
+import woowacourse.kanban.board.model.taskcard.TaskDescription
+import woowacourse.kanban.board.model.taskcard.TaskTag
+import woowacourse.kanban.board.model.taskcard.TaskTags
+import woowacourse.kanban.board.model.taskcard.TaskTitle
 
 @Composable
 fun TaskCard(
@@ -73,14 +73,14 @@ fun TaskCard(
                 .padding(17.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            Title(title = data.title.value)
-            Description(description = data.description.value)
-            Tags(tags = data.tags)
+            TaskTitleText(title = data.taskTitle.value)
+            TaskDescriptionText(description = data.taskDescription.value)
+            TagsSection(taskTags = data.taskTags)
             HorizontalDivider(
                 thickness = 1.dp,
                 color = Gray80,
             )
-            Profile(profile = data.profile)
+            AssigneeProfile(assignee = data.assignee)
         }
     }
 }
@@ -98,11 +98,11 @@ private fun TaskCardPreview() {
 private fun TaskCardEmptyDescriptionPreview() {
     TaskCard(
         data = TaskCardData(
-            title = Title(value = "LazyColumn 컴포넌트 구현"),
-            description = Description(value = ""),
-            tags = Tags(value = listOf(Tag(value = "컴포넌트")).toImmutableList()),
+            taskTitle = TaskTitle(value = "LazyColumn 컴포넌트 구현"),
+            taskDescription = TaskDescription(value = ""),
+            taskTags = TaskTags(value = listOf(TaskTag(value = "컴포넌트")).toImmutableList()),
             status = Status.PROGRESS,
-            profile = Profile("다이노",Res.drawable.profile),
+            assignee = Assignee("다이노",Res.drawable.profile),
         ),
     )
 }
@@ -112,11 +112,11 @@ private fun TaskCardEmptyDescriptionPreview() {
 private fun TaskCardEmptyTagPreview() {
     TaskCard(
         data = TaskCardData(
-            title = Title(value = "LazyColumn 컴포넌트 구현"),
-            description = Description(value = "세로 스크롤"),
-            tags = Tags(value = listOf<Tag>().toImmutableList()),
+            taskTitle = TaskTitle(value = "LazyColumn 컴포넌트 구현"),
+            taskDescription = TaskDescription(value = "세로 스크롤"),
+            taskTags = TaskTags(value = listOf<TaskTag>().toImmutableList()),
             status = Status.PROGRESS,
-            profile = Profile("다이노",Res.drawable.profile),
+            assignee = Assignee("다이노",Res.drawable.profile),
         ),
     )
 }
@@ -126,11 +126,11 @@ private fun TaskCardEmptyTagPreview() {
 private fun TaskCardEmptyTagAndDescriptionPreview() {
     TaskCard(
         data = TaskCardData(
-            title = Title(value = "LazyColumn 컴포넌트 구현"),
-            description = Description(value = ""),
-            tags = Tags(value = listOf<Tag>().toImmutableList()),
+            taskTitle = TaskTitle(value = "LazyColumn 컴포넌트 구현"),
+            taskDescription = TaskDescription(value = ""),
+            taskTags = TaskTags(value = listOf<TaskTag>().toImmutableList()),
             status = Status.PROGRESS,
-            profile = Profile("다이노",Res.drawable.profile),
+            assignee = Assignee("다이노",Res.drawable.profile),
         ),
     )
 }
@@ -140,11 +140,11 @@ private fun TaskCardEmptyTagAndDescriptionPreview() {
 private fun TaskCardLongTitlePreview() {
     TaskCard(
         data = TaskCardData(
-            title = Title(value = "LazyColumn 컴포넌트 구현LazyColumn 컴포넌트 구현"),
-            description = Description(value = ""),
-            tags = Tags(value = listOf<Tag>().toImmutableList()),
+            taskTitle = TaskTitle(value = "LazyColumn 컴포넌트 구현LazyColumn 컴포넌트 구현"),
+            taskDescription = TaskDescription(value = ""),
+            taskTags = TaskTags(value = listOf<TaskTag>().toImmutableList()),
             status = Status.PROGRESS,
-            profile = Profile("다이노",Res.drawable.profile),
+            assignee = Assignee("다이노",Res.drawable.profile),
         ),
     )
 }
@@ -154,8 +154,8 @@ private fun TaskCardLongTitlePreview() {
 private fun TaskCardLongDescriptionPreview() {
     TaskCard(
         data = TaskCardData(
-            title = Title(value = "LazyColumn 컴포넌트 구현"),
-            description = Description(
+            taskTitle = TaskTitle(value = "LazyColumn 컴포넌트 구현"),
+            taskDescription = TaskDescription(
                 value = "세로 스크롤  세로 스크롤" +
                     "세로 스크롤 세로 스크롤세로 스크롤 " +
                     " 세로 스크롤세로 스크롤 세로 스크롤" +
@@ -164,9 +164,9 @@ private fun TaskCardLongDescriptionPreview() {
                     "세로 스크롤 세로 스크롤세로 스크롤" +
                     "  세로 스크롤세로 스크롤 세로 스크롤"
             ),
-            tags = Tags(value = listOf<Tag>().toImmutableList()),
+            taskTags = TaskTags(value = listOf<TaskTag>().toImmutableList()),
             status = Status.PROGRESS,
-            profile = Profile("다이노",Res.drawable.profile),
+            assignee = Assignee("다이노",Res.drawable.profile),
         ),
     )
 }

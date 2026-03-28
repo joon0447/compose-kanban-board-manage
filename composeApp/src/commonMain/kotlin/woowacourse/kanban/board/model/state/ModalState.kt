@@ -4,26 +4,24 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import kanbanboard.composeapp.generated.resources.Res
-import kanbanboard.composeapp.generated.resources.profile
 import kotlinx.collections.immutable.ImmutableList
+import woowacourse.kanban.board.model.taskcard.Assignee
 import woowacourse.kanban.board.model.taskcard.Status
-import woowacourse.kanban.board.model.taskcard.Profile
-import woowacourse.kanban.board.model.taskcard.Tag
-import woowacourse.kanban.board.model.taskcard.Tags
-import woowacourse.kanban.board.model.taskcard.Title
+import woowacourse.kanban.board.model.taskcard.TaskTag
+import woowacourse.kanban.board.model.taskcard.TaskTags
+import woowacourse.kanban.board.model.taskcard.TaskTitle
 
 class ModalState(
-    profiles: ImmutableList<Profile>
+    assignees: ImmutableList<Assignee>
 ) {
     var title by mutableStateOf("")
     var description by mutableStateOf("")
     var tags by mutableStateOf("")
     var status by mutableStateOf(Status.TODO)
-    var profile by mutableStateOf(profiles.first())
+    var assignees by mutableStateOf(assignees.first())
 
-    val isTitleValid by derivedStateOf { Title.Companion.isTitleValid(title) }
-    val isTagsValid by derivedStateOf {
-        Tag.isTagValid(tags) && Tags.isTagsValid(Tag.extractedTags(tags))
+    val isTaskTitleValid by derivedStateOf { TaskTitle.Companion.isTitleValid(title) }
+    val isTaskTagsValid by derivedStateOf {
+        TaskTag.isTagValid(tags) && TaskTags.isTagsValid(TaskTag.extractedTags(tags))
     }
 }

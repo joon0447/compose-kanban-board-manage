@@ -8,11 +8,11 @@ import kanbanboard.composeapp.generated.resources.profile
 import kotlinx.collections.immutable.toImmutableList
 import kotlin.test.Test
 import woowacourse.kanban.board.model.taskcard.Status
-import woowacourse.kanban.board.model.taskcard.Description
-import woowacourse.kanban.board.model.taskcard.Profile
-import woowacourse.kanban.board.model.taskcard.Tag
-import woowacourse.kanban.board.model.taskcard.Tags
-import woowacourse.kanban.board.model.taskcard.Title
+import woowacourse.kanban.board.model.taskcard.TaskDescription
+import woowacourse.kanban.board.model.taskcard.Assignee
+import woowacourse.kanban.board.model.taskcard.TaskTag
+import woowacourse.kanban.board.model.taskcard.TaskTags
+import woowacourse.kanban.board.model.taskcard.TaskTitle
 import woowacourse.kanban.board.model.taskcard.TaskCardData
 
 @OptIn(ExperimentalTestApi::class)
@@ -22,11 +22,11 @@ class TaskCardTest {
     fun `모든 필드가 있는 카드 - 제목, 설명, 태그, 닉네임 출력`() = runComposeUiTest {
         val tags = listOf("컴포넌트", "성능")
         val taskCardData = TaskCardData(
-            title = Title("LazyColumn 컴포넌트 구현"),
-            description = Description("세로 스크롤 가능한 리스트 컴포넌트를 만들고 성능 최적화를 적용합니다."),
-            tags = Tags(listOf(Tag("컴포넌트"), Tag("성능")).toImmutableList()),
+            taskTitle = TaskTitle("LazyColumn 컴포넌트 구현"),
+            taskDescription = TaskDescription("세로 스크롤 가능한 리스트 컴포넌트를 만들고 성능 최적화를 적용합니다."),
+            taskTags = TaskTags(listOf(TaskTag("컴포넌트"), TaskTag("성능")).toImmutableList()),
             status = Status.PROGRESS,
-            profile = Profile("다이노",Res.drawable.profile),
+            assignee = Assignee("다이노",Res.drawable.profile),
         )
         setContent {
             TaskCard(data = taskCardData)

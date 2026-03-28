@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.sp
 import woowacourse.kanban.board.Gray10
 
 @Composable
-fun Title(
+fun TaskTitleText(
     title: String,
     modifier: Modifier = Modifier,
 ) {
@@ -27,8 +27,8 @@ fun Title(
 
 @Preview(showBackground = true)
 @Composable
-private fun TitlePreview() {
-    Title(
+private fun TaskTitleTextPreview() {
+    TaskTitleText(
         title = "너 무 긴 제 목너 무 긴 제 목너 무 긴 제 목너 무 긴 제 목너 무 긴 제 목너 무 긴 제 목너 무 긴 제 목너 무 긴 제 목너 무 긴 제 목",
     )
 }

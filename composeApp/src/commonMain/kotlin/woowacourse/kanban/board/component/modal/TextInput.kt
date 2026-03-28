@@ -30,10 +30,10 @@ import woowacourse.kanban.board.component.extension.toErrorText
 import woowacourse.kanban.board.component.extension.toLabel
 import woowacourse.kanban.board.component.extension.toPlaceholder
 import woowacourse.kanban.board.component.extension.toSupportingText
-import woowacourse.kanban.board.model.taskcard.Tag
-import woowacourse.kanban.board.model.taskcard.Tags
+import woowacourse.kanban.board.model.taskcard.TaskTag
+import woowacourse.kanban.board.model.taskcard.TaskTags
 import woowacourse.kanban.board.model.modal.TextInputValue
-import woowacourse.kanban.board.model.taskcard.Title
+import woowacourse.kanban.board.model.taskcard.TaskTitle
 
 @Composable
 fun TextInput(
@@ -112,9 +112,9 @@ fun TextInput(
 private fun TitleInputEmptyPreview() {
     var title by remember { mutableStateOf("") }
 
-    val isTitleValid by remember {
+    val isTaskTitleValid by remember {
         derivedStateOf {
-            Title.isTitleValid(title)
+            TaskTitle.isTitleValid(title)
         }
     }
 
@@ -123,7 +123,7 @@ private fun TitleInputEmptyPreview() {
             textInputValue = TextInputValue.TITLE,
             value = title,
             onTextChange = { title = it },
-            isError = isTitleValid.not(),
+            isError = isTaskTitleValid.not(),
         )
     }
 }
@@ -133,9 +133,9 @@ private fun TitleInputEmptyPreview() {
 private fun TitleInputPreview() {
     var title by remember { mutableStateOf("제목") }
 
-    val isTitleValid by remember {
+    val isTaskTitleValid by remember {
         derivedStateOf {
-            Title.isTitleValid(title)
+            TaskTitle.isTitleValid(title)
         }
     }
 
@@ -144,7 +144,7 @@ private fun TitleInputPreview() {
             textInputValue = TextInputValue.TITLE,
             value = title,
             onTextChange = { title = it },
-            isError = isTitleValid.not(),
+            isError = isTaskTitleValid.not(),
         )
     }
 }
@@ -186,8 +186,8 @@ private fun InvalidTagsInputPreview() {
 
     val isTagValid by remember {
         derivedStateOf {
-            val extractedTags = Tag.extractedTags(tags)
-            Tags.isTagsValid(extractedTags)
+            val extractedTaskTags = TaskTag.extractedTags(tags)
+            TaskTags.isTagsValid(extractedTaskTags)
         }
     }
 
@@ -209,8 +209,8 @@ private fun ValidTagsInputPreview() {
 
     val isTagValid by remember {
         derivedStateOf {
-            val extractedTags = Tag.extractedTags(tags)
-            Tags.isTagsValid(extractedTags)
+            val extractedTaskTags = TaskTag.extractedTags(tags)
+            TaskTags.isTagsValid(extractedTaskTags)
         }
     }
 

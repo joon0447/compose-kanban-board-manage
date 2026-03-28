@@ -39,11 +39,11 @@ import woowacourse.kanban.board.component.sample.ProfilePreviewData
 import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.state.WorkSpaceState
-import woowacourse.kanban.board.model.taskcard.Profile
+import woowacourse.kanban.board.model.taskcard.Assignee
 @Composable
 fun WorkSpace(
     workSpaceState: WorkSpaceState,
-    profiles: ImmutableList<Profile>,
+    assignees: ImmutableList<Assignee>,
     modifier: Modifier = Modifier
 ) {
     var selectedProject by remember { mutableStateOf(workSpaceState.projects[0]) }
@@ -57,7 +57,7 @@ fun WorkSpace(
         )
         Board(
             project = selectedProject,
-            profiles = profiles
+            assignees = assignees
         )
     }
 }
@@ -142,8 +142,8 @@ private fun WorkSpacePreview() {
     val workSpace = WorkSpaceState(
         ProjectPreviewData().values.toImmutableList()
     )
-    val profiles = ProfilePreviewData().values.toImmutableList()
+    val assignees = ProfilePreviewData().values.toImmutableList()
     MaterialTheme {
-        WorkSpace(workSpace, profiles)
+        WorkSpace(workSpace, assignees)
     }
 }

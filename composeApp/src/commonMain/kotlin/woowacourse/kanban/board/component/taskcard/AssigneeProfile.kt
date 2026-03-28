@@ -18,22 +18,22 @@ import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
 import org.jetbrains.compose.resources.painterResource
 import woowacourse.kanban.board.Gray20
-import woowacourse.kanban.board.model.taskcard.Profile
+import woowacourse.kanban.board.model.taskcard.Assignee
 
 @Composable
-fun Profile(
-    profile: Profile,
+fun AssigneeProfile(
+    assignee: Assignee,
     modifier: Modifier = Modifier,
 ) {
     Row(verticalAlignment = Alignment.CenterVertically) {
         Image(
-            painter = painterResource(profile.icon),
+            painter = painterResource(assignee.icon),
             contentDescription = "프로필 이미지",
             modifier = modifier.size(24.dp),
         )
         Spacer(modifier = modifier.width(8.dp))
         Text(
-            text = profile.nickname,
+            text = assignee.nickname,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
             color = Gray20,
@@ -45,7 +45,7 @@ fun Profile(
 
 @Preview(showBackground = true)
 @Composable
-private fun ProfilePreview() {
-    val profile = Profile("다이노",Res.drawable.profile)
-    Profile(profile = profile)
+private fun AssigneeProfilePreview() {
+    val assignee = Assignee("다이노",Res.drawable.profile)
+    AssigneeProfile(assignee = assignee)
 }

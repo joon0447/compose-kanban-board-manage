@@ -1,4 +1,4 @@
 package woowacourse.kanban.board.model.taskcard
 
 @JvmInline
-value class Description(val value: String)
+value class TaskDescription(val value: String)

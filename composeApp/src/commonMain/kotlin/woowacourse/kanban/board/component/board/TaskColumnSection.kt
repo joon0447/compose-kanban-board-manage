@@ -45,13 +45,13 @@ import woowacourse.kanban.board.component.extension.toText
 import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.component.taskcard.TaskCard
 import woowacourse.kanban.board.model.project.Project
-import woowacourse.kanban.board.model.taskcard.Description
-import woowacourse.kanban.board.model.taskcard.Profile
+import woowacourse.kanban.board.model.taskcard.Assignee
+import woowacourse.kanban.board.model.taskcard.TaskDescription
 import woowacourse.kanban.board.model.taskcard.Status
-import woowacourse.kanban.board.model.taskcard.Tag
-import woowacourse.kanban.board.model.taskcard.Tags
+import woowacourse.kanban.board.model.taskcard.TaskTag
+import woowacourse.kanban.board.model.taskcard.TaskTags
 import woowacourse.kanban.board.model.taskcard.TaskCardData
-import woowacourse.kanban.board.model.taskcard.Title
+import woowacourse.kanban.board.model.taskcard.TaskTitle
 
 @Composable
 fun TaskColumnSection(
@@ -236,11 +236,11 @@ private fun TaskColumnTodoHeaderPreview() {
 private fun TaskColumnTodoPreview() {
     val tasks = listOf(
         TaskCardData(
-            title = Title(value = "제목"),
-            description = Description(value = "설명"),
-            tags = Tags(value = listOf(Tag(value = "컴포넌트")).toImmutableList()),
+            taskTitle = TaskTitle(value = "제목"),
+            taskDescription = TaskDescription(value = "설명"),
+            taskTags = TaskTags(value = listOf(TaskTag(value = "컴포넌트")).toImmutableList()),
             status = Status.PROGRESS,
-            profile = Profile("다이노", Res.drawable.profile),
+            assignee = Assignee("다이노", Res.drawable.profile),
         ),
     ).toImmutableList()
     TaskColumn(
@@ -254,11 +254,11 @@ private fun TaskColumnTodoPreview() {
 private fun TaskColumnProgressPreview() {
     val tasks = listOf(
         TaskCardData(
-            title = Title(value = "제목"),
-            description = Description(value = "설명"),
-            tags = Tags(value = listOf(Tag(value = "컴포넌트"), Tag("zjavh")).toImmutableList()),
+            taskTitle = TaskTitle(value = "제목"),
+            taskDescription = TaskDescription(value = "설명"),
+            taskTags = TaskTags(value = listOf(TaskTag(value = "컴포넌트"), TaskTag("zjavh")).toImmutableList()),
             status = Status.PROGRESS,
-            profile = Profile("다이노", Res.drawable.profile),
+            assignee = Assignee("다이노", Res.drawable.profile),
         ),
     ).toImmutableList()
     TaskColumn(
@@ -272,11 +272,11 @@ private fun TaskColumnProgressPreview() {
 private fun TaskColumnDonePreview() {
     val tasks = listOf(
         TaskCardData(
-            title = Title(value = "제목"),
-            description = Description(value = "설명"),
-            tags = Tags(value = listOf(Tag(value = "컴포넌트")).toImmutableList()),
+            taskTitle = TaskTitle(value = "제목"),
+            taskDescription = TaskDescription(value = "설명"),
+            taskTags = TaskTags(value = listOf(TaskTag(value = "컴포넌트")).toImmutableList()),
             status = Status.PROGRESS,
-            profile = Profile("다이노", Res.drawable.profile),
+            assignee = Assignee("다이노", Res.drawable.profile),
         ),
     ).toImmutableList()
     TaskColumn(

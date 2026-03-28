@@ -7,7 +7,7 @@ import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.component.WorkSpace
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.state.WorkSpaceState
-import woowacourse.kanban.board.model.taskcard.Profile
+import woowacourse.kanban.board.model.taskcard.Assignee
 import woowacourse.kanban.board.model.taskcard.TaskCardData
 
 @Composable
@@ -20,13 +20,13 @@ fun App() {
             ).toImmutableList()
     )
 
-    val profiles = listOf(
-        Profile("다이노", Res.drawable.profile),
-        Profile("페임스", Res.drawable.profile)
+    val assignees = listOf(
+        Assignee("다이노", Res.drawable.profile),
+        Assignee("페임스", Res.drawable.profile)
     ).toImmutableList()
 
     WorkSpace(
         workSpaceState = workSpace,
-        profiles = profiles,
+        assignees = assignees,
         )
 }

@@ -20,21 +20,19 @@ import kotlin.test.Test
 import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.model.project.Project
-import woowacourse.kanban.board.model.state.WorkSpaceState
-import woowacourse.kanban.board.model.taskcard.Profile
-import woowacourse.kanban.board.model.taskcard.TaskCardData
+import woowacourse.kanban.board.model.taskcard.Assignee
 
 @OptIn(ExperimentalTestApi::class)
 class BoardTest {
     private lateinit var project: Project
-    private lateinit var profiles: ImmutableList<Profile>
+    private lateinit var assignees: ImmutableList<Assignee>
 
     @Before
     fun setUp() {
         project = ProjectPreviewData().values.toImmutableList()[0]
-        profiles = listOf(
-            Profile("다이노", Res.drawable.profile),
-            Profile("페임스", Res.drawable.profile)
+        assignees = listOf(
+            Assignee("다이노", Res.drawable.profile),
+            Assignee("페임스", Res.drawable.profile)
         ).toImmutableList()
     }
     @Test
@@ -42,7 +40,7 @@ class BoardTest {
         setContent {
             Board(
                 project = project,
-                profiles = profiles)
+                assignees = assignees)
         }
         onNodeWithText(ComponentText.BOARD_TASK_CREATE_BUTTON).performClick()
         onNodeWithText(ComponentText.TITLE_PLACEHOLDER).assertIsDisplayed()
@@ -53,7 +51,7 @@ class BoardTest {
         setContent {
             Board(
                 project = project,
-                profiles = profiles)
+                assignees = assignees)
         }
         onNodeWithText(ComponentText.BOARD_TASK_CREATE_BUTTON).performClick()
         onNodeWithText(ComponentText.TITLE_PLACEHOLDER).assertIsDisplayed()
@@ -66,7 +64,7 @@ class BoardTest {
         setContent {
             Board(
                 project = project,
-                profiles = profiles)
+                assignees = assignees)
         }
         onNodeWithText(ComponentText.BOARD_TASK_CREATE_BUTTON).performClick()
         onNodeWithText(ComponentText.TITLE_PLACEHOLDER).assertIsDisplayed()
@@ -79,7 +77,7 @@ class BoardTest {
         setContent {
             Board(
                 project = project,
-                profiles = profiles)
+                assignees = assignees)
         }
         onNodeWithText(ComponentText.BOARD_TASK_CREATE_BUTTON).performClick()
         onAllNodes(isEditable())[0].performClick()
@@ -93,7 +91,7 @@ class BoardTest {
         setContent {
             Board(
                 project = project,
-                profiles = profiles)
+                assignees = assignees)
         }
         onNodeWithText(ComponentText.BOARD_TASK_CREATE_BUTTON).performClick()
         onAllNodes(isEditable())[0].performClick()

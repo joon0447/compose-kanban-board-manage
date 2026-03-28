@@ -25,16 +25,16 @@ import woowacourse.kanban.board.component.extension.toText
 import woowacourse.kanban.board.model.taskcard.Status
 
 @Composable
-fun StateButton(
-    currentState: Status,
-    myState: Status,
+fun StatusButton(
+    currentStatus: Status,
+    myStatus: Status,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
-    val backgroundColor = if (currentState == myState) Blue80 else Color.Transparent
-    val borderColor = if (currentState == myState) Blue50 else Gray70
-    val textColor = if (currentState == myState) Blue50 else Gray20
+    val backgroundColor = if (currentStatus == myStatus) Blue80 else Color.Transparent
+    val borderColor = if (currentStatus == myStatus) Blue50 else Gray70
+    val textColor = if (currentStatus == myStatus) Blue50 else Gray20
 
     Box(
         modifier = modifier
@@ -51,7 +51,7 @@ fun StateButton(
 
     ) {
         Text(
-            text = myState.toText(),
+            text = myStatus.toText(),
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
             fontSize = 16.sp,
