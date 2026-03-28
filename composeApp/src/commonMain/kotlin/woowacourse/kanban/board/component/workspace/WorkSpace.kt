@@ -1,4 +1,4 @@
-package woowacourse.kanban.board.component
+package woowacourse.kanban.board.component.workspace
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -15,10 +15,6 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
@@ -38,33 +34,35 @@ import woowacourse.kanban.board.component.board.Board
 import woowacourse.kanban.board.component.sample.ProfilePreviewData
 import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.model.project.Project
-import woowacourse.kanban.board.model.state.WorkSpaceState
 import woowacourse.kanban.board.model.taskcard.Assignee
+
 @Composable
 fun WorkSpace(
-    workSpaceState: WorkSpaceState,
+    projects: ImmutableList<Project>,
     assignees: ImmutableList<Assignee>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
-    var selectedProject by remember { mutableStateOf(workSpaceState.projects[0]) }
+
+    val workSpaceState = rememberWorkSpaceState(projects)
+
     Row(
-        modifier = modifier
+        modifier = modifier,
     ) {
         SideBar(
-            workSpaceState = workSpaceState,
-            selectedProject = selectedProject,
-            onChangeProject = { selectedProject = it }
+            projects = workSpaceState.projects,
+            selectedProject = workSpaceState.selectedProject,
+            onChangeProject = { workSpaceState.selectedProject = it },
         )
         Board(
-            project = selectedProject,
-            assignees = assignees
+            project = workSpaceState.selectedProject,
+            assignees = assignees,
         )
     }
 }
 
 @Composable
 private fun SideBar(
-    workSpaceState: WorkSpaceState,
+    projects: ImmutableList<Project>,
     selectedProject: Project,
     onChangeProject: (Project) -> Unit,
     modifier: Modifier = Modifier,
@@ -77,26 +75,26 @@ private fun SideBar(
     ) {
         Column(
             modifier = Modifier.padding(20.dp),
-            verticalArrangement = Arrangement.spacedBy(4.dp)
+            verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             Text(
                 text = "프로젝트",
                 style = TextStyle(
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Gray10
+                    color = Gray10,
                 ),
             )
             Text(
                 text = "4주차 미션 보드",
                 style = TextStyle(
                     fontSize = 14.sp,
-                    color = Gray40
+                    color = Gray40,
                 ),
             )
         }
         HorizontalDivider()
-        workSpaceState.projects.forEach { project ->
+        projects.forEach { project ->
             val backgroundColor =
                 if (project == selectedProject) Blue80
                 else Color.Transparent
@@ -107,10 +105,10 @@ private fun SideBar(
                 onClick = { onChangeProject(project) },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = backgroundColor,
-                    contentColor = textColor
+                    contentColor = textColor,
                 ),
                 elevation = ButtonDefaults.buttonElevation(
-                    hoveredElevation = 0.dp
+                    hoveredElevation = 0.dp,
                 ),
                 modifier = Modifier
                     .fillMaxWidth()
@@ -119,7 +117,7 @@ private fun SideBar(
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Start
+                    horizontalArrangement = Arrangement.Start,
                 ) {
                     Text(
                         text = project.title,
@@ -128,7 +126,7 @@ private fun SideBar(
                             fontWeight = FontWeight.Normal,
                         ),
                         overflow = TextOverflow.Ellipsis,
-                        maxLines = 1
+                        maxLines = 1,
                     )
                 }
             }
@@ -139,11 +137,10 @@ private fun SideBar(
 @Preview(showBackground = true, widthDp = 1500)
 @Composable
 private fun WorkSpacePreview() {
-    val workSpace = WorkSpaceState(
-        ProjectPreviewData().values.toImmutableList()
-    )
     val assignees = ProfilePreviewData().values.toImmutableList()
     MaterialTheme {
-        WorkSpace(workSpace, assignees)
+        WorkSpace(
+            projects = ProjectPreviewData().values.toImmutableList(),
+            assignees = assignees)
     }
 }

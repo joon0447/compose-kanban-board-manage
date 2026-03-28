@@ -1,8 +1,10 @@
-package woowacourse.kanban.board.model.state
+package woowacourse.kanban.board.component.modal
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import kotlinx.collections.immutable.ImmutableList
 import woowacourse.kanban.board.model.taskcard.Assignee
@@ -22,6 +24,13 @@ class ModalState(
 
     val isTaskTitleValid by derivedStateOf { TaskTitle.Companion.isTitleValid(title) }
     val isTaskTagsValid by derivedStateOf {
-        TaskTag.isTagValid(tags) && TaskTags.isTagsValid(TaskTag.extractedTags(tags))
+        TaskTag.Companion.isTagValid(tags) && TaskTags.Companion.isTagsValid(
+            TaskTag.Companion.extractedTags(
+                tags
+            )
+        )
     }
 }
+
+@Composable
+fun rememberModalState(assignees: ImmutableList<Assignee>): ModalState = remember { ModalState(assignees) }
