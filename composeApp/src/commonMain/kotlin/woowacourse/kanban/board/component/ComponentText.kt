@@ -20,9 +20,11 @@ object ComponentText {
     const val CANCEL_BUTTON = "취소"
     const val CREATE_BUTTON = "생성"
 
-    const val BOARD_HEADER_TITLE = "Compose Desktop 칸반 보드"
+    const val SIDEBAR_HEADER_TITLE = "프로젝트"
+    const val SIDEBAR_HEADER_SUBTITLE = "4주차 미션 보드"
     const val BOARD_HEADER_PROGRESS = "완료율:"
     const val BOARD_TASK_CREATE_BUTTON = "새 태스크 생성"
     const val BOARD_TASK_CREATE_SNACKBAR = "새로운 태스크가 추가되었습니다."
     const val BOARD_TASK_MOVE_SNACKBAR = "태스크가 이동되었습니다."
+
 }

@@ -2,9 +2,9 @@ package woowacourse.kanban.board.component
 
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
 import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
@@ -15,11 +15,11 @@ import woowacourse.kanban.board.model.taskcard.Assignee
 import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
-class WorkSpaceTest {
+class SideBarTest {
 
     @Test
-    fun `사이드바의 탭을 누르면 헤더 타이틀이 프로젝트 이름으로 변경된다`() = runComposeUiTest {
-    val projects = ProjectPreviewData().values.toImmutableList()
+    fun `사이트바에 등록된 프로젝트의 타이틀이 모두 출력된다`() = runComposeUiTest {
+        val projects = ProjectPreviewData().values.toImmutableList()
         val assignees = listOf(
             Assignee("다이노", Res.drawable.profile),
             Assignee("페임스", Res.drawable.profile)
@@ -31,8 +31,7 @@ class WorkSpaceTest {
             )
         }
         onAllNodesWithText("Compose1").assertCountEquals(2)
-        onNodeWithText("Compose2").performClick()
-        onAllNodesWithText("Compose1").assertCountEquals(1)
-        onAllNodesWithText("Compose2").assertCountEquals(2)
+        onNodeWithText("Compose2").assertIsDisplayed()
+        onNodeWithText("Compose3너무너무길경우에는 말줄임표로 표시됩니다.").assertIsDisplayed()
     }
 }
