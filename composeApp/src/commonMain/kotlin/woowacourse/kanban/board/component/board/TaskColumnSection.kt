@@ -40,19 +40,18 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.component.extension.toBackgroundColor
 import woowacourse.kanban.board.component.extension.toBorderColor
-import woowacourse.kanban.board.component.extension.toFilterTask
 import woowacourse.kanban.board.component.extension.toHeaderColor
 import woowacourse.kanban.board.component.extension.toText
 import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.component.taskcard.TaskCard
 import woowacourse.kanban.board.model.project.Project
-import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.Description
 import woowacourse.kanban.board.model.taskcard.Profile
+import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.Tag
 import woowacourse.kanban.board.model.taskcard.Tags
-import woowacourse.kanban.board.model.taskcard.Title
 import woowacourse.kanban.board.model.taskcard.TaskCardData
+import woowacourse.kanban.board.model.taskcard.Title
 
 @Composable
 fun TaskColumnSection(
@@ -73,7 +72,7 @@ fun TaskColumnSection(
         Status.entries.forEach { status ->
             TaskColumn(
                 status = status,
-                tasks = status.toFilterTask(status, project),
+                tasks = project.getTasksByStatus(status),
                 modifier = Modifier.weight(1f),
                 getIsDropTarget = {
                     currentDragPosition?.let { columnBounds[status]?.contains(it) } ?: false
