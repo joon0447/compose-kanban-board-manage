@@ -17,8 +17,8 @@ import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.component.sample.ProfilePreviewData
-import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.Assignee
+import woowacourse.kanban.board.model.taskcard.Status
 
 @Composable
 fun ButtonSection(
@@ -51,7 +51,7 @@ fun ButtonSection(
             StatusButton(currentStatus = state, myStatus = Status.DONE, onClick = { onStateClick(Status.DONE) })
         }
         Text(
-            text = ComponentText.PROFILE_BUTTON_LABEL,
+            text = ComponentText.ASSIGNEE_LABEL_BUTTON_LABEL,
             fontSize = 14.sp,
             fontWeight = FontWeight.SemiBold,
             color = Gray20,
@@ -62,7 +62,7 @@ fun ButtonSection(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             assignees.forEach { profile ->
-                AssigneeProfileButton(
+                AssigneeLabelButton(
                     currentState = currentAssignee,
                     myState = profile,
                     onClick = { onProfileClick(profile) }

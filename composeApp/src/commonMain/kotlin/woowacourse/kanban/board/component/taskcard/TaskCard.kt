@@ -80,7 +80,7 @@ fun TaskCard(
                 thickness = 1.dp,
                 color = Gray80,
             )
-            AssigneeProfile(assignee = data.assignee)
+            AssigneeLabel(assignee = data.assignee)
         }
     }
 }

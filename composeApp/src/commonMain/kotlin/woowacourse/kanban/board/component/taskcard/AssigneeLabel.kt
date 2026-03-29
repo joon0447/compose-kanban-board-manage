@@ -21,7 +21,7 @@ import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.model.taskcard.Assignee
 
 @Composable
-fun AssigneeProfile(
+fun AssigneeLabel(
     assignee: Assignee,
     modifier: Modifier = Modifier,
 ) {
@@ -45,7 +45,7 @@ fun AssigneeProfile(
 
 @Preview(showBackground = true)
 @Composable
-private fun AssigneeProfilePreview() {
+private fun AssigneeLabelPreview() {
     val assignee = Assignee("다이노",Res.drawable.profile)
-    AssigneeProfile(assignee = assignee)
+    AssigneeLabel(assignee = assignee)
 }

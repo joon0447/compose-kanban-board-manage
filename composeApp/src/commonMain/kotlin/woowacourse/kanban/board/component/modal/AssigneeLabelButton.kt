@@ -32,7 +32,7 @@ import woowacourse.kanban.board.Gray70
 import woowacourse.kanban.board.model.taskcard.Assignee
 
 @Composable
-fun AssigneeProfileButton(
+fun AssigneeLabelButton(
     currentState: Assignee,
     myState: Assignee,
     onClick: () -> Unit,
@@ -73,8 +73,8 @@ fun AssigneeProfileButton(
 
 @Preview(showBackground = true)
 @Composable
-private fun AssigneeProfileButtonNotChoicePreview() {
-    AssigneeProfileButton(
+private fun AssigneeLabelButtonNotChoicePreview() {
+    AssigneeLabelButton(
         currentState = Assignee("다이노",Res.drawable.profile),
         myState = Assignee("페임스",Res.drawable.profile),
         onClick = {}
@@ -83,8 +83,8 @@ private fun AssigneeProfileButtonNotChoicePreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun AssigneeProfileButtonChoicePreview() {
-    AssigneeProfileButton(
+private fun AssigneeLabelButtonChoicePreview() {
+    AssigneeLabelButton(
         currentState = Assignee("페임스",Res.drawable.profile),
         myState = Assignee("페임스",Res.drawable.profile),
         onClick = {}
