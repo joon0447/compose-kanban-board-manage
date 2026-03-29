@@ -19,21 +19,21 @@ fun WorkSpace(
     assignees: ImmutableList<Assignee>,
     modifier: Modifier = Modifier,
 ) {
-
     val workSpaceState = rememberWorkSpaceState(projects)
-
-    Row(
-        modifier = modifier,
-    ) {
-        SideBar(
-            projects = workSpaceState.projects,
-            selectedProject = workSpaceState.selectedProject,
-            onChangeProject = { workSpaceState.selectedProject = it },
-        )
-        Board(
-            project = workSpaceState.selectedProject,
-            assignees = assignees,
-        )
+    workSpaceState.selectedProject?.let { selectedProject ->
+        Row(
+            modifier = modifier,
+        ) {
+            SideBar(
+                projects = workSpaceState.projects,
+                selectedProject = selectedProject,
+                onChangeProject = { workSpaceState.selectedProject = it },
+            )
+            Board(
+                project = selectedProject,
+                assignees = assignees,
+            )
+        }
     }
 }
 

@@ -11,11 +11,7 @@ import woowacourse.kanban.board.model.project.Project
 class WorkSpaceState(
     val projects: ImmutableList<Project>,
 ) {
-    init {
-        require(projects.isNotEmpty()) { "프로젝트는 1개 이상이어야 합니다." }
-    }
-
-    var selectedProject by mutableStateOf(projects.first())
+    var selectedProject by mutableStateOf(projects.firstOrNull())
 }
 
 @Composable
