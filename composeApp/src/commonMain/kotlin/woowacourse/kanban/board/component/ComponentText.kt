@@ -15,6 +15,7 @@ object ComponentText {
     const val STATE_BUTTON_LABEL = "상태"
     const val STATE_BUTTON_TODO = "To Do"
     const val STATE_BUTTON_PROGRESS = "In Progress"
+    const val STATE_BUTTON_REVIEW = "Review"
     const val STATE_BUTTON_DONE = "Done"
     const val ASSIGNEE_LABEL_BUTTON_LABEL = "담당자"
     const val CANCEL_BUTTON = "취소"
@@ -26,5 +27,4 @@ object ComponentText {
     const val BOARD_TASK_CREATE_BUTTON = "새 태스크 생성"
     const val BOARD_TASK_CREATE_SNACKBAR = "새로운 태스크가 추가되었습니다."
     const val BOARD_TASK_MOVE_SNACKBAR = "태스크가 이동되었습니다."
-
 }

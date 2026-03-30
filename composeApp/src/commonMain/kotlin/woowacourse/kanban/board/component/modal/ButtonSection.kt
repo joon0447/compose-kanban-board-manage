@@ -46,9 +46,14 @@ fun ButtonSection(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            StatusButton(currentStatus = state, myStatus = Status.TODO, onClick = { onStateClick(Status.TODO) })
-            StatusButton(currentStatus = state, myStatus = Status.PROGRESS, onClick = { onStateClick(Status.PROGRESS) })
-            StatusButton(currentStatus = state, myStatus = Status.DONE, onClick = { onStateClick(Status.DONE) })
+            Status.entries.forEach { status ->
+                StatusButton(
+                    modifier = modifier.weight(1f),
+                    currentStatus = state,
+                    myStatus = status,
+                    onClick = { onStateClick(status) }
+                )
+            }
         }
         Text(
             text = ComponentText.ASSIGNEE_LABEL_BUTTON_LABEL,

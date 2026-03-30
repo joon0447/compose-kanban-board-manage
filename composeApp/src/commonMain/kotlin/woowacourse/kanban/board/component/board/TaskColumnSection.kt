@@ -2,6 +2,7 @@ package woowacourse.kanban.board.component.board
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -46,11 +48,11 @@ import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.component.taskcard.TaskCard
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.taskcard.Assignee
-import woowacourse.kanban.board.model.taskcard.TaskDescription
 import woowacourse.kanban.board.model.taskcard.Status
+import woowacourse.kanban.board.model.taskcard.TaskCardData
+import woowacourse.kanban.board.model.taskcard.TaskDescription
 import woowacourse.kanban.board.model.taskcard.TaskTag
 import woowacourse.kanban.board.model.taskcard.TaskTags
-import woowacourse.kanban.board.model.taskcard.TaskCardData
 import woowacourse.kanban.board.model.taskcard.TaskTitle
 
 @Composable
@@ -66,7 +68,8 @@ fun TaskColumnSection(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(24.dp),
+            .padding(24.dp)
+            .horizontalScroll(rememberScrollState()),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         Status.entries.forEach { status ->
