@@ -46,6 +46,6 @@ fun AssigneeLabel(
 @Preview(showBackground = true)
 @Composable
 private fun AssigneeLabelPreview() {
-    val assignee = Assignee("다이노",Res.drawable.profile)
+    val assignee = Assignee("다이노", Res.drawable.profile)
     AssigneeLabel(assignee = assignee)
 }

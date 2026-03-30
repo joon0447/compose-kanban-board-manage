@@ -15,6 +15,7 @@ import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.runComposeUiTest
 import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
+import kotlin.test.Test
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import org.junit.Before
@@ -22,7 +23,6 @@ import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.component.workspace.WorkSpace
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.taskcard.Assignee
-import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
 class WorkSpaceTest {

@@ -1,5 +1,6 @@
 package woowacourse.kanban.board.fixture
 
+import java.util.UUID
 import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
 import kotlinx.collections.immutable.ImmutableList
@@ -11,7 +12,6 @@ import woowacourse.kanban.board.model.taskcard.TaskDescription
 import woowacourse.kanban.board.model.taskcard.TaskTag
 import woowacourse.kanban.board.model.taskcard.TaskTags
 import woowacourse.kanban.board.model.taskcard.TaskTitle
-import java.util.UUID
 
 object TaskCardDataFixture {
     fun create(

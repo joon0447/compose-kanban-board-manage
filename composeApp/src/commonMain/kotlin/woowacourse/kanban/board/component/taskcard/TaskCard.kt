@@ -102,7 +102,7 @@ private fun TaskCardEmptyDescriptionPreview() {
             taskDescription = TaskDescription(value = ""),
             taskTags = TaskTags(value = listOf(TaskTag(value = "컴포넌트")).toImmutableList()),
             status = Status.PROGRESS,
-            assignee = Assignee("다이노",Res.drawable.profile),
+            assignee = Assignee("다이노", Res.drawable.profile),
         ),
     )
 }
@@ -116,7 +116,7 @@ private fun TaskCardEmptyTagPreview() {
             taskDescription = TaskDescription(value = "세로 스크롤"),
             taskTags = TaskTags(value = listOf<TaskTag>().toImmutableList()),
             status = Status.PROGRESS,
-            assignee = Assignee("다이노",Res.drawable.profile),
+            assignee = Assignee("다이노", Res.drawable.profile),
         ),
     )
 }
@@ -130,7 +130,7 @@ private fun TaskCardEmptyTagAndDescriptionPreview() {
             taskDescription = TaskDescription(value = ""),
             taskTags = TaskTags(value = listOf<TaskTag>().toImmutableList()),
             status = Status.PROGRESS,
-            assignee = Assignee("다이노",Res.drawable.profile),
+            assignee = Assignee("다이노", Res.drawable.profile),
         ),
     )
 }
@@ -144,7 +144,7 @@ private fun TaskCardLongTitlePreview() {
             taskDescription = TaskDescription(value = ""),
             taskTags = TaskTags(value = listOf<TaskTag>().toImmutableList()),
             status = Status.PROGRESS,
-            assignee = Assignee("다이노",Res.drawable.profile),
+            assignee = Assignee("다이노", Res.drawable.profile),
         ),
     )
 }
@@ -166,7 +166,7 @@ private fun TaskCardLongDescriptionPreview() {
             ),
             taskTags = TaskTags(value = listOf<TaskTag>().toImmutableList()),
             status = Status.PROGRESS,
-            assignee = Assignee("다이노",Res.drawable.profile),
+            assignee = Assignee("다이노", Res.drawable.profile),
         ),
     )
 }

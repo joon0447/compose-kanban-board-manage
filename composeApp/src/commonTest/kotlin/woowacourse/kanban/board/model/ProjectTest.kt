@@ -1,5 +1,7 @@
 package woowacourse.kanban.board.model
 
+import kotlin.test.Test
+import kotlin.test.assertTrue
 import kotlinx.collections.immutable.immutableListOf
 import kotlinx.collections.immutable.toImmutableList
 import org.assertj.core.api.Assertions.assertThat
@@ -8,12 +10,9 @@ import woowacourse.kanban.board.fixture.TaskCardDataFixture
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.TaskCardData
-import kotlin.test.Test
-import kotlin.test.assertTrue
-
 
 class ProjectTest {
-    private lateinit var project : Project
+    private lateinit var project: Project
     private lateinit var todoTask: TaskCardData
     private lateinit var progressTask: TaskCardData
     private lateinit var reviewTask: TaskCardData
@@ -23,7 +22,7 @@ class ProjectTest {
     fun setUp() {
         project = Project(
             title = "테스트 프로젝트",
-            initialTasks =  listOf<TaskCardData>().toImmutableList()
+            initialTasks = listOf<TaskCardData>().toImmutableList()
         )
         todoTask = TaskCardDataFixture.create(status = Status.TODO)
         progressTask = TaskCardDataFixture.create(status = Status.PROGRESS)

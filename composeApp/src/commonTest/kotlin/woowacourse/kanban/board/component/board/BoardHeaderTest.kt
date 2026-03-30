@@ -6,9 +6,9 @@ import androidx.compose.ui.test.assertTextContains
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.runComposeUiTest
+import kotlin.test.Test
 import org.assertj.core.api.Assertions.assertThat
 import woowacourse.kanban.board.component.ComponentText
-import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
 class BoardHeaderTest {

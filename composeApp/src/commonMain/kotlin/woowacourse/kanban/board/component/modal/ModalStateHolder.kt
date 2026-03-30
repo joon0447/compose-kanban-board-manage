@@ -24,11 +24,12 @@ class ModalState(
 
     val isTaskTitleValid by derivedStateOf { TaskTitle.Companion.isTitleValid(title) }
     val isTaskTagsValid by derivedStateOf {
-        TaskTag.Companion.isTagValid(tags) && TaskTags.Companion.isTagsValid(
-            TaskTag.Companion.extractedTags(
-                tags
+        TaskTag.Companion.isTagValid(tags) &&
+            TaskTags.Companion.isTagsValid(
+                TaskTag.Companion.extractedTags(
+                    tags
+                )
             )
-        )
     }
 }
 

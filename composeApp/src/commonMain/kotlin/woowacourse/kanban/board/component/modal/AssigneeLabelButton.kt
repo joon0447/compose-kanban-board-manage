@@ -75,8 +75,8 @@ fun AssigneeLabelButton(
 @Composable
 private fun AssigneeLabelButtonNotChoicePreview() {
     AssigneeLabelButton(
-        currentState = Assignee("다이노",Res.drawable.profile),
-        myState = Assignee("페임스",Res.drawable.profile),
+        currentState = Assignee("다이노", Res.drawable.profile),
+        myState = Assignee("페임스", Res.drawable.profile),
         onClick = {}
     )
 }
@@ -85,8 +85,8 @@ private fun AssigneeLabelButtonNotChoicePreview() {
 @Composable
 private fun AssigneeLabelButtonChoicePreview() {
     AssigneeLabelButton(
-        currentState = Assignee("페임스",Res.drawable.profile),
-        myState = Assignee("페임스",Res.drawable.profile),
+        currentState = Assignee("페임스", Res.drawable.profile),
+        myState = Assignee("페임스", Res.drawable.profile),
         onClick = {}
     )
 }

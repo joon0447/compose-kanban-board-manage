@@ -148,5 +148,3 @@ private fun SideBarContentsPreview() {
         onChangeProject = {},
     )
 }
-
-
