@@ -16,7 +16,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.component.sample.ProfilePreviewData
+import woowacourse.kanban.board.model.modal.ModalType
 import woowacourse.kanban.board.model.modal.TextInputState
 import woowacourse.kanban.board.model.taskcard.Assignee
 import woowacourse.kanban.board.model.taskcard.TaskCardData
@@ -30,6 +32,7 @@ fun Modal(
     assignees: ImmutableList<Assignee>,
     onClickClose: () -> Unit,
     onClickTaskCreate: (TaskCardData) -> Unit,
+    modalType: ModalType ,
     modifier: Modifier = Modifier,
 ) {
     val modalState = rememberModalState(assignees)
@@ -48,6 +51,11 @@ fun Modal(
         isError = modalState.isTaskTagsValid.not(),
     )
 
+    val headerLabel = when (modalType) {
+        is ModalType.Create -> ComponentText.CREATE_MODAL_HEADER_LABEL
+        is ModalType.Edit -> ComponentText.EDIT_MODAL_HEADER_LABEL
+    }
+
     Card(
         modifier = modifier
             .width(800.dp)
@@ -64,6 +72,7 @@ fun Modal(
             verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {
             Header(
+                label = headerLabel,
                 onClickClose = onClickClose,
             )
             HorizontalDivider()
@@ -92,17 +101,34 @@ fun Modal(
                     onClickTaskCreate(data)
                 },
                 isButtonEnabled = modalState.isTaskTitleValid && modalState.isTaskTagsValid,
+                modalType = modalType,
             )
         }
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, widthDp = 1000, heightDp = 1000)
 @Composable
-private fun ModalPreview() {
+private fun CreateModalPreview() {
     val profiles = ProfilePreviewData().values.toImmutableList()
     Modal(
         assignees = profiles,
+        modalType = ModalType.Create,
+        onClickClose = {},
+        onClickTaskCreate = {},
+    )
+}
+
+@Preview(showBackground = true, widthDp = 1000, heightDp = 1000)
+@Composable
+private fun EditModalPreview() {
+    val profiles = ProfilePreviewData().values.toImmutableList()
+    Modal(
+        assignees = profiles,
+        modalType = ModalType.Edit(
+            onDelete = {},
+            onUpdate = {},
+        ),
         onClickClose = {},
         onClickTaskCreate = {},
     )

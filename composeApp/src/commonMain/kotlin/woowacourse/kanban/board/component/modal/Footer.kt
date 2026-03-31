@@ -23,13 +23,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import woowacourse.kanban.board.Blue50
 import woowacourse.kanban.board.Gray20
+import woowacourse.kanban.board.Purple40
+import woowacourse.kanban.board.Red70
 import woowacourse.kanban.board.component.ComponentText
+import woowacourse.kanban.board.model.modal.ModalType
 
 @Composable
 fun Footer(
     onClickClose: () -> Unit,
     onClickTaskCreate: () -> Unit,
     isButtonEnabled: Boolean,
+    modalType: ModalType,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -51,12 +55,21 @@ fun Footer(
                 onClick = onClickClose,
             )
             Spacer(modifier = Modifier.width(12.dp))
-            FooterButton(
-                enabled = isButtonEnabled,
-                containerColor = Blue50,
-                text = ComponentText.CREATE_BUTTON,
-                onClick = onClickTaskCreate,
-            )
+            when(modalType) {
+                is ModalType.Create -> {
+                    FooterButton(
+                        enabled = isButtonEnabled,
+                        containerColor = Blue50,
+                        text = ComponentText.CREATE_BUTTON,
+                        onClick = onClickTaskCreate,
+                    )
+                }
+                is ModalType.Edit -> {
+                    EditModalFooterButtons(
+                        isButtonEnabled = isButtonEnabled
+                    )
+                }
+            }
         }
     }
 }
@@ -88,12 +101,51 @@ private fun FooterButton(
     }
 }
 
+@Composable
+private fun EditModalFooterButtons(
+    isButtonEnabled: Boolean,
+    modifier: Modifier = Modifier,
+) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+    ) {
+        FooterButton(
+            enabled = true,
+            containerColor = Red70,
+            text = ComponentText.DELETE_BUTTON,
+            onClick = {},
+        )
+        FooterButton(
+            enabled = isButtonEnabled,
+            containerColor = Purple40,
+            text = ComponentText.EDIT_BUTTON,
+            onClick = {},
+        )
+    }
+}
+
 @Preview(showBackground = true)
 @Composable
-private fun FooterPreview() {
+private fun CreateFooterPreview() {
     Footer(
         onClickClose = {},
         onClickTaskCreate = {},
         isButtonEnabled = true,
+        modalType = ModalType.Create
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun EditFooterPreview() {
+    Footer(
+        onClickClose = {},
+        onClickTaskCreate = {},
+        isButtonEnabled = true,
+        modalType = ModalType.Edit(
+            onDelete = {},
+            onUpdate = {},
+        ),
     )
 }

@@ -1,7 +1,8 @@
 package woowacourse.kanban.board.component
 
 object ComponentText {
-    const val HEADER_LABEL = "새 태스크 생성"
+    const val CREATE_MODAL_HEADER_LABEL = "새 태스크 생성"
+    const val EDIT_MODAL_HEADER_LABEL = "기존 태스크 수정"
     const val TITLE_LABEL = "제목 *"
     const val TITLE_PLACEHOLDER = "태스크 제목을 입력하세요"
     const val TITLE_ERROR = "제목이 비어있으면 안됩니다."
@@ -20,6 +21,8 @@ object ComponentText {
     const val ASSIGNEE_LABEL_BUTTON_LABEL = "담당자"
     const val CANCEL_BUTTON = "취소"
     const val CREATE_BUTTON = "생성"
+    const val EDIT_BUTTON = "수정"
+    const val DELETE_BUTTON = "삭제"
 
     const val SIDEBAR_HEADER_TITLE = "프로젝트"
     const val SIDEBAR_HEADER_SUBTITLE = "4주차 미션 보드"

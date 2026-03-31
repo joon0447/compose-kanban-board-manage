@@ -18,6 +18,7 @@ import woowacourse.kanban.board.component.board.Board
 import woowacourse.kanban.board.component.modal.Modal
 import woowacourse.kanban.board.component.sample.ProfilePreviewData
 import woowacourse.kanban.board.component.sample.ProjectPreviewData
+import woowacourse.kanban.board.model.modal.ModalType
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.taskcard.Assignee
 
@@ -49,19 +50,41 @@ fun WorkSpace(
         }
     }
 
-    if (workSpaceState.isShowModal) {
+    if (workSpaceState.isShowCreateModal) {
         Dialog(
-            onDismissRequest = { workSpaceState.closeModal() },
+            onDismissRequest = { workSpaceState.closeCreateModal() },
             properties = DialogProperties(
                 usePlatformDefaultWidth = false,
             ),
         ) {
             Modal(
                 assignees = assignees,
-                onClickClose = { workSpaceState.closeModal() },
+                onClickClose = { workSpaceState.closeCreateModal() },
                 onClickTaskCreate = { task ->
                     workSpaceState.onTaskAdded(task)
                 },
+                modalType = ModalType.Create
+            )
+        }
+    }
+
+    if (workSpaceState.isShowEditModal) {
+        Dialog(
+            onDismissRequest = { workSpaceState.closeCreateModal() },
+            properties = DialogProperties(
+                usePlatformDefaultWidth = false,
+            ),
+        ) {
+            Modal(
+                assignees = assignees,
+                onClickClose = { workSpaceState.closeEditModal() },
+                onClickTaskCreate = { task ->
+                    workSpaceState.onTaskAdded(task)
+                },
+                modalType = ModalType.Edit(
+                    onUpdate = {},
+                    onDelete = {},
+                )
             )
         }
     }
@@ -83,7 +106,7 @@ fun WorkSpace(
                 Board(
                     project = selectedProject,
                     onShowMoveSnackBar = { workSpaceState.showMoveSnackBar() },
-                    onShowCreateTaskModal = { workSpaceState.showModal() },
+                    onShowCreateTaskModal = { workSpaceState.showCreateModal() },
                 )
             }
         }

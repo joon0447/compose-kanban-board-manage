@@ -17,7 +17,8 @@ class WorkSpaceState(
     var selectedProject by mutableStateOf(projects.firstOrNull())
     var shouldShowAddSnackbar by mutableStateOf(false)
     var shouldShowMoveSnackbar by mutableStateOf(false)
-    var isShowModal by mutableStateOf(false)
+    var isShowCreateModal by mutableStateOf(false)
+    var isShowEditModal by mutableStateOf(false)
 
     fun showAddSnackBar() {
         shouldShowAddSnackbar = true
@@ -35,19 +36,27 @@ class WorkSpaceState(
         shouldShowMoveSnackbar = false
     }
 
-    fun showModal() {
-        isShowModal = true
+    fun showCreateModal() {
+        isShowCreateModal = true
     }
 
-    fun closeModal() {
-        isShowModal = false
+    fun showEditModal() {
+        isShowEditModal = true
+    }
+
+    fun closeCreateModal() {
+        isShowCreateModal = false
+    }
+
+    fun closeEditModal() {
+        isShowEditModal = false
     }
 
     fun onTaskAdded(task: TaskCardData) {
         val project = selectedProject ?: return
         project.addCard(task)
         showAddSnackBar()
-        closeModal()
+        closeCreateModal()
     }
 }
 

@@ -21,6 +21,7 @@ import woowacourse.kanban.board.component.ComponentText
 
 @Composable
 fun Header(
+    label: String,
     onClickClose: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -32,7 +33,7 @@ fun Header(
             .fillMaxWidth(),
     ) {
         Text(
-            text = ComponentText.HEADER_LABEL,
+            text = label,
             fontSize = 20.sp,
             color = Color.Black,
             fontWeight = FontWeight.Bold,
@@ -50,6 +51,7 @@ fun Header(
 @Composable
 private fun HeaderPreview() {
     Header(
+        label = ComponentText.CREATE_MODAL_HEADER_LABEL,
         onClickClose = {},
     )
 }

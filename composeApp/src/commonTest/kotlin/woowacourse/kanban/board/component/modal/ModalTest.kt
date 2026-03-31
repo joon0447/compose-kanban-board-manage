@@ -14,13 +14,14 @@ import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.runComposeUiTest
 import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
-import kotlin.test.Test
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import woowacourse.kanban.board.component.ComponentText
+import woowacourse.kanban.board.model.modal.ModalType
 import woowacourse.kanban.board.model.taskcard.Assignee
+import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
 class ModalTest {
@@ -42,6 +43,7 @@ class ModalTest {
                 assignees = assignees,
                 onClickClose = {},
                 onClickTaskCreate = {},
+                modalType = ModalType.Create
             )
         }
         onNodeWithText(ComponentText.CREATE_BUTTON).assertIsNotEnabled()
@@ -54,6 +56,7 @@ class ModalTest {
                 assignees = assignees,
                 onClickClose = {},
                 onClickTaskCreate = {},
+                modalType = ModalType.Create
             )
         }
         onNodeWithText(ComponentText.TITLE_PLACEHOLDER).performTextInput("하이")
@@ -67,6 +70,7 @@ class ModalTest {
                 assignees = assignees,
                 onClickClose = {},
                 onClickTaskCreate = {},
+                modalType = ModalType.Create
             )
         }
         onNodeWithText(ComponentText.TITLE_PLACEHOLDER).performTextInput("하이")
@@ -82,6 +86,7 @@ class ModalTest {
                 assignees = assignees,
                 onClickClose = {},
                 onClickTaskCreate = {},
+                modalType = ModalType.Create
             )
         }
         onAllNodes(isEditable())[0].performTextInput("하이")
@@ -98,6 +103,7 @@ class ModalTest {
                 assignees = assignees,
                 onClickClose = { close = true },
                 onClickTaskCreate = {},
+                modalType = ModalType.Create
             )
         }
         onNodeWithContentDescription("닫기").performClick()
@@ -112,6 +118,7 @@ class ModalTest {
                 assignees = assignees,
                 onClickClose = { close = true },
                 onClickTaskCreate = {},
+                modalType = ModalType.Create
             )
         }
         onNodeWithText(ComponentText.CANCEL_BUTTON).performSemanticsAction(SemanticsActions.OnClick)
@@ -126,6 +133,7 @@ class ModalTest {
                 assignees = assignees,
                 onClickClose = { },
                 onClickTaskCreate = { create = true },
+                modalType = ModalType.Create
             )
         }
         onAllNodes(isEditable())[0].performTextInput("하이")
