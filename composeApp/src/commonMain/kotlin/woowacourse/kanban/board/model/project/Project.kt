@@ -24,10 +24,11 @@ data class Project(
 
     fun addTask(data: TaskCardData) = tasks.add(data)
 
-    fun removeTaskById(id: String?) {
-        val task = id?.let { findTaskById(id) } ?: return
-        if(task.status.isCanDelete().not()) return
+    fun deleteTaskById(id: String?): Boolean {
+        val task = id?.let { findTaskById(id) } ?: return false
+        if(task.status.isCanDelete().not()) return false
         tasks.remove(task)
+        return true
     }
 
     fun calculateDoneRate(): Float {

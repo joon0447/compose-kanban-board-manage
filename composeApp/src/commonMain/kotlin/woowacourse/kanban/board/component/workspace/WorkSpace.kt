@@ -43,8 +43,10 @@ fun WorkSpace(
     val editModalType = ModalType.Edit(
         onDelete = {
             val taskId = workSpaceState.currentEditTask?.id
-            workSpaceState.selectedProject?.removeTaskById(taskId)
+            val deleteResult = workSpaceState.selectedProject?.deleteTaskById(taskId) ?: false
             workSpaceState.closeEditModal()
+            if (deleteResult) workSpaceState.showDeleteSuccessSnackBar()
+            else workSpaceState.showDeleteFailedSnackBar()
         },
         onUpdate = {
 
@@ -68,6 +70,26 @@ fun WorkSpace(
                 withDismissAction = true,
             )
             workSpaceState.hideMoveSnackBar()
+        }
+    }
+
+    LaunchedEffect(workSpaceState.shouldShowDeleteSuccessSnackbar) {
+        if (workSpaceState.shouldShowDeleteSuccessSnackbar) {
+            workSpaceState.snackbarHostState.showSnackbar(
+                message = ComponentText.BOARD_TASK_DELETE_SUCCESS_SNACKBAR,
+                withDismissAction = true,
+            )
+            workSpaceState.hideDeleteSuccessSnackBar()
+        }
+    }
+
+    LaunchedEffect(workSpaceState.shouldShowDeleteFailedSnackbar) {
+        if (workSpaceState.shouldShowDeleteFailedSnackbar) {
+            workSpaceState.snackbarHostState.showSnackbar(
+                message = ComponentText.BOARD_TASK_DELETE_FAILED_SNACKBAR,
+                withDismissAction = true,
+            )
+            workSpaceState.hideDeleteFailedSnackBar()
         }
     }
 

@@ -119,7 +119,7 @@ class ProjectTest {
         val task = TaskCardDataFixture.create(status = Status.TODO)
         project.addTask(task)
         assertThat(project.todoTasks).contains(task)
-        project.removeTaskById(task.id)
+        project.deleteTaskById(task.id)
         assertThat(project.todoTasks).doesNotContain(task)
     }
 
@@ -128,7 +128,7 @@ class ProjectTest {
         val task = TaskCardDataFixture.create(status = Status.PROGRESS)
         project.addTask(task)
         assertThat(project.progressTasks).contains(task)
-        project.removeTaskById(task.id)
+        project.deleteTaskById(task.id)
         assertThat(project.progressTasks).doesNotContain(task)
     }
 
@@ -137,7 +137,7 @@ class ProjectTest {
         val task = TaskCardDataFixture.create(status = Status.REVIEW)
         project.addTask(task)
         assertThat(project.reviewTasks).contains(task)
-        project.removeTaskById(task.id)
+        project.deleteTaskById(task.id)
         assertThat(project.reviewTasks).contains(task)
     }
 
@@ -146,7 +146,7 @@ class ProjectTest {
         val task = TaskCardDataFixture.create(status = Status.DONE)
         project.addTask(task)
         assertThat(project.doneTasks).contains(task)
-        project.removeTaskById(task.id)
+        project.deleteTaskById(task.id)
         assertThat(project.doneTasks).contains(task)
     }
 }
