@@ -14,7 +14,8 @@ import woowacourse.kanban.board.model.taskcard.TaskCardData
 @Composable
 fun Board(
     project: Project,
-    onShowMoveSnackBar: () -> Unit,
+    onShowMoveSuccessSnackBar: () -> Unit,
+    onShowMoveFailedSnackbar: () -> Unit,
     onShowCreateTaskModal: () -> Unit,
     onShowEditTaskModal: (TaskCardData) -> Unit,
     modifier: Modifier = Modifier,
@@ -32,8 +33,9 @@ fun Board(
         )
         TaskColumnSection(
             project = project,
-            onMoveSnackBar = { onShowMoveSnackBar() },
-            onShowEditTaskModal = onShowEditTaskModal
+            onMoveSuccessSnackBar = { onShowMoveSuccessSnackBar() },
+            onShowEditTaskModal = onShowEditTaskModal,
+            onMoveFailedSnackBar = onShowMoveFailedSnackbar
         )
     }
 }
@@ -45,9 +47,10 @@ private fun BoardPreview() {
     MaterialTheme {
         Board(
             project = project,
-            onShowMoveSnackBar = { },
+            onShowMoveSuccessSnackBar = { },
             onShowCreateTaskModal = { },
             onShowEditTaskModal = { },
+            onShowMoveFailedSnackbar = {}
         )
     }
 }

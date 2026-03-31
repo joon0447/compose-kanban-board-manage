@@ -58,7 +58,8 @@ import woowacourse.kanban.board.model.taskcard.TaskTitle
 @Composable
 fun TaskColumnSection(
     project: Project,
-    onMoveSnackBar: () -> Unit,
+    onMoveSuccessSnackBar: () -> Unit,
+    onMoveFailedSnackBar: () -> Unit,
     onShowEditTaskModal: (TaskCardData) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -91,8 +92,9 @@ fun TaskColumnSection(
                     draggedTaskId?.let { id ->
                         val task = project.findTaskById(id)
                         if (task != null && targetStatus != null && task.status != targetStatus) {
-                            project.updateTaskStatus(id, targetStatus)
-                            onMoveSnackBar()
+                            val updateResult = project.updateTaskStatus(id, targetStatus)
+                            if(updateResult) onMoveSuccessSnackBar()
+                            else onMoveFailedSnackBar()
                         }
                     }
 
@@ -302,8 +304,9 @@ private fun TaskColumnSectionPreview() {
         MaterialTheme {
             TaskColumnSection(
                 project = project,
-                onMoveSnackBar = {},
+                onMoveSuccessSnackBar = {},
                 onShowEditTaskModal = {},
+                onMoveFailedSnackBar = {},
             )
         }
     }

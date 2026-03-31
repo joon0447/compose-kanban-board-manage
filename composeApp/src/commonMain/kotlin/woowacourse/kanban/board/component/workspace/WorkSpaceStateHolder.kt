@@ -16,7 +16,8 @@ class WorkSpaceState(
     val snackbarHostState = SnackbarHostState()
     var selectedProject by mutableStateOf(projects.firstOrNull())
     var shouldShowAddSnackbar by mutableStateOf(false)
-    var shouldShowMoveSnackbar by mutableStateOf(false)
+    var shouldShowMoveSuccessSnackbar by mutableStateOf(false)
+    var shouldShowMoveFailedSnackbar by mutableStateOf(false)
     var shouldShowDeleteSuccessSnackbar by mutableStateOf(false)
     var shouldShowDeleteFailedSnackbar by mutableStateOf(false)
     var isShowCreateModal by mutableStateOf(false)
@@ -31,12 +32,20 @@ class WorkSpaceState(
         shouldShowAddSnackbar = false
     }
 
-    fun showMoveSnackBar() {
-        shouldShowMoveSnackbar = true
+    fun showMoveSuccessSnackBar() {
+        shouldShowMoveSuccessSnackbar = true
     }
 
-    fun hideMoveSnackBar() {
-        shouldShowMoveSnackbar = false
+    fun hideMoveSuccessSnackBar() {
+        shouldShowMoveSuccessSnackbar = false
+    }
+
+    fun showMoveFailedSnackBar() {
+        shouldShowMoveFailedSnackbar = true
+    }
+
+    fun hideMoveFailedSnackBar() {
+        shouldShowMoveFailedSnackbar = false
     }
 
     fun showDeleteSuccessSnackBar() {

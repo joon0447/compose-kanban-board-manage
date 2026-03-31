@@ -37,7 +37,7 @@ fun WorkSpace(
             workSpaceState.selectedProject?.addTask(data)
             workSpaceState.closeCreateModal()
             workSpaceState.showAddSnackBar()
-        }
+        },
     )
 
     val editModalType = ModalType.Edit(
@@ -63,13 +63,23 @@ fun WorkSpace(
         }
     }
 
-    LaunchedEffect(workSpaceState.shouldShowMoveSnackbar) {
-        if (workSpaceState.shouldShowMoveSnackbar) {
+    LaunchedEffect(workSpaceState.shouldShowMoveSuccessSnackbar) {
+        if (workSpaceState.shouldShowMoveSuccessSnackbar) {
             workSpaceState.snackbarHostState.showSnackbar(
-                message = ComponentText.BOARD_TASK_MOVE_SNACKBAR,
+                message = ComponentText.BOARD_TASK_MOVE_SUCCESS_SNACKBAR,
                 withDismissAction = true,
             )
-            workSpaceState.hideMoveSnackBar()
+            workSpaceState.hideMoveSuccessSnackBar()
+        }
+    }
+
+    LaunchedEffect(workSpaceState.shouldShowMoveFailedSnackbar) {
+        if (workSpaceState.shouldShowMoveFailedSnackbar) {
+            workSpaceState.snackbarHostState.showSnackbar(
+                message = ComponentText.BOARD_TASK_MOVE_FAILED_SNACKBAR,
+                withDismissAction = true,
+            )
+            workSpaceState.hideMoveFailedSnackBar()
         }
     }
 
@@ -106,7 +116,7 @@ fun WorkSpace(
                     workSpaceState.closeCreateModal()
                 },
                 modalType = createModalType,
-                modalState = modalState
+                modalState = modalState,
             )
         }
     }
@@ -126,7 +136,7 @@ fun WorkSpace(
                     workSpaceState.closeEditModal()
                 },
                 modalType = editModalType,
-                modalState = modalState
+                modalState = modalState,
             )
         }
     }
@@ -147,11 +157,12 @@ fun WorkSpace(
                 )
                 Board(
                     project = selectedProject,
-                    onShowMoveSnackBar = { workSpaceState.showMoveSnackBar() },
+                    onShowMoveSuccessSnackBar = { workSpaceState.showMoveSuccessSnackBar() },
+                    onShowMoveFailedSnackbar = { workSpaceState.showMoveFailedSnackBar() },
                     onShowCreateTaskModal = { workSpaceState.showCreateModal() },
                     onShowEditTaskModal = { taskCardData ->
                         workSpaceState.showEditModal(taskCardData)
-                    }
+                    },
                 )
             }
         }

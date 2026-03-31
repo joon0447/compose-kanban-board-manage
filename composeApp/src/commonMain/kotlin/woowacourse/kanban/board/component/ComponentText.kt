@@ -33,5 +33,7 @@ object ComponentText {
     const val BOARD_TASK_CREATE_SNACKBAR = "새로운 태스크가 추가되었습니다."
     const val BOARD_TASK_DELETE_SUCCESS_SNACKBAR = "태스크가 삭제되었습니다."
     const val BOARD_TASK_DELETE_FAILED_SNACKBAR = "해당 상태에서는 태스크 삭제가 불가능합니다."
-    const val BOARD_TASK_MOVE_SNACKBAR = "태스크가 이동되었습니다."
+    const val BOARD_TASK_MOVE_SUCCESS_SNACKBAR = "태스크가 이동되었습니다."
+    const val BOARD_TASK_MOVE_FAILED_SNACKBAR = "해당 상태로 옮길 수 없습니다."
+
 }
