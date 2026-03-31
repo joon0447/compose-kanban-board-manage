@@ -26,7 +26,8 @@ class TaskColumnSectionTest {
         setContent {
             TaskColumnSection(
                 project = project,
-                onMoveSnackBar = {}
+                onMoveSnackBar = {},
+                onShowEditTaskModal = {}
             )
         }
 
@@ -49,7 +50,8 @@ class TaskColumnSectionTest {
         setContent {
             TaskColumnSection(
                 project = project,
-                onMoveSnackBar = {}
+                onMoveSnackBar = {},
+                onShowEditTaskModal = {}
             )
         }
 
@@ -71,7 +73,8 @@ class TaskColumnSectionTest {
         setContent {
             TaskColumnSection(
                 project = project,
-                onMoveSnackBar = {}
+                onMoveSnackBar = {},
+                onShowEditTaskModal = {}
             )
         }
 

@@ -59,6 +59,7 @@ import woowacourse.kanban.board.model.taskcard.TaskTitle
 fun TaskColumnSection(
     project: Project,
     onMoveSnackBar: () -> Unit,
+    onShowEditTaskModal: (TaskCardData) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var currentDragPosition by remember { mutableStateOf<Offset?>(null) }
@@ -99,6 +100,7 @@ fun TaskColumnSection(
                     currentDragPosition = null
                     draggedTaskId = null
                 },
+                onShowEditTaskModal = onShowEditTaskModal,
                 onTaskDragCancel = {
                     currentDragPosition = null
                     draggedTaskId = null
@@ -115,6 +117,7 @@ fun TaskColumnSection(
 private fun TaskColumn(
     status: Status,
     tasks: ImmutableList<TaskCardData>,
+    onShowEditTaskModal: (TaskCardData) -> Unit,
     modifier: Modifier = Modifier,
     getIsDropTarget: () -> Boolean = { false },
     onBoundsChanged: (Rect) -> Unit = {},
@@ -164,6 +167,7 @@ private fun TaskColumn(
                         onDragChange = onTaskDragChange,
                         onDragEnd = onTaskDragEnd,
                         onDragCancel = onTaskDragCancel,
+                        onShowEditTaskModal = onShowEditTaskModal
                     )
                 }
             }
@@ -249,6 +253,7 @@ private fun TaskColumnTodoPreview() {
     TaskColumn(
         tasks = tasks,
         status = Status.TODO,
+        onShowEditTaskModal = {}
     )
 }
 
@@ -267,6 +272,7 @@ private fun TaskColumnProgressPreview() {
     TaskColumn(
         tasks = tasks,
         status = Status.PROGRESS,
+        onShowEditTaskModal = {}
     )
 }
 
@@ -285,6 +291,7 @@ private fun TaskColumnDonePreview() {
     TaskColumn(
         tasks = tasks,
         status = Status.DONE,
+        onShowEditTaskModal = {}
     )
 }
 
@@ -297,6 +304,7 @@ private fun TaskColumnSectionPreview() {
             TaskColumnSection(
                 project = project,
                 onMoveSnackBar = {},
+                onShowEditTaskModal = {},
             )
         }
     }

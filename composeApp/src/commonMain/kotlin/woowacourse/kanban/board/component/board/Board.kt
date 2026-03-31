@@ -9,12 +9,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import woowacourse.kanban.board.Gray80
 import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.model.project.Project
+import woowacourse.kanban.board.model.taskcard.TaskCardData
 
 @Composable
 fun Board(
     project: Project,
     onShowMoveSnackBar: () -> Unit,
     onShowCreateTaskModal: () -> Unit,
+    onShowEditTaskModal: (TaskCardData) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -31,6 +33,7 @@ fun Board(
         TaskColumnSection(
             project = project,
             onMoveSnackBar = { onShowMoveSnackBar() },
+            onShowEditTaskModal = onShowEditTaskModal
         )
     }
 }
@@ -44,6 +47,7 @@ private fun BoardPreview() {
             project = project,
             onShowMoveSnackBar = { },
             onShowCreateTaskModal = { },
+            onShowEditTaskModal = { },
         )
     }
 }

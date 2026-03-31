@@ -1,7 +1,9 @@
 package woowacourse.kanban.board.model.modal
 
 sealed class ModalType {
-    object Create : ModalType()
+    data class Create(
+        val onCreate: () -> Unit,
+    ) : ModalType()
 
     data class Edit(
         val onDelete: () -> Unit,

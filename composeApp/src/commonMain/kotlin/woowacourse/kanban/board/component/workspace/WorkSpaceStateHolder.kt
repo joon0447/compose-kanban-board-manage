@@ -19,6 +19,7 @@ class WorkSpaceState(
     var shouldShowMoveSnackbar by mutableStateOf(false)
     var isShowCreateModal by mutableStateOf(false)
     var isShowEditModal by mutableStateOf(false)
+    var currentEditTask by mutableStateOf<TaskCardData?>(null)
 
     fun showAddSnackBar() {
         shouldShowAddSnackbar = true
@@ -40,7 +41,8 @@ class WorkSpaceState(
         isShowCreateModal = true
     }
 
-    fun showEditModal() {
+    fun showEditModal(taskCardData: TaskCardData) {
+        currentEditTask = taskCardData
         isShowEditModal = true
     }
 

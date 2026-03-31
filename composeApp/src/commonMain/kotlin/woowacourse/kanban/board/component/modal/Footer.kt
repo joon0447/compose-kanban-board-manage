@@ -55,7 +55,7 @@ fun Footer(
                 onClick = onClickClose,
             )
             Spacer(modifier = Modifier.width(12.dp))
-            when(modalType) {
+            when (modalType) {
                 is ModalType.Create -> {
                     FooterButton(
                         enabled = isButtonEnabled,
@@ -132,7 +132,7 @@ private fun CreateFooterPreview() {
         onClickClose = {},
         onClickTaskCreate = {},
         isButtonEnabled = true,
-        modalType = ModalType.Create
+        modalType = ModalType.Create({})
     )
 }
 

@@ -1,6 +1,7 @@
 package woowacourse.kanban.board.component.taskcard
 
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -41,6 +43,7 @@ import woowacourse.kanban.board.model.taskcard.TaskTitle
 fun TaskCard(
     data: TaskCardData,
     modifier: Modifier = Modifier,
+    onShowEditTaskModal: (TaskCardData) -> Unit = {},
     onDragStart: () -> Unit = {},
     onDragChange: (Offset) -> Unit = {},
     onDragEnd: () -> Unit = {},
@@ -61,12 +64,13 @@ fun TaskCard(
                     onDragCancel = { onDragCancel() },
                 )
             }
-            .width(286.dp),
+            .width(286.dp)
+            .clip(RoundedCornerShape(15.dp))
+            .border(1.dp, Gray70, RoundedCornerShape(15.dp))
+            .clickable { onShowEditTaskModal(data) },
         colors = CardDefaults.cardColors(
             containerColor = Color.White,
-        ),
-        border = BorderStroke(1.dp, Gray70),
-        shape = RoundedCornerShape(10.dp),
+        )
     ) {
         Column(
             modifier = modifier

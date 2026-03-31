@@ -9,6 +9,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,6 +19,8 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.component.sample.ProfilePreviewData
+import woowacourse.kanban.board.component.workspace.ModalState
+import woowacourse.kanban.board.component.workspace.rememberModalState
 import woowacourse.kanban.board.model.modal.ModalType
 import woowacourse.kanban.board.model.modal.TextInputState
 import woowacourse.kanban.board.model.taskcard.Assignee
@@ -32,10 +35,15 @@ fun Modal(
     assignees: ImmutableList<Assignee>,
     onClickClose: () -> Unit,
     onClickTaskCreate: (TaskCardData) -> Unit,
-    modalType: ModalType ,
+    modalType: ModalType,
+    modalState: ModalState,
     modifier: Modifier = Modifier,
+    data: TaskCardData? = null,
 ) {
-    val modalState = rememberModalState(assignees)
+    LaunchedEffect(data) {
+        if (data != null) modalState.loadData(data)
+        else modalState.clear()
+    }
     val titleInputState = TextInputState(
         value = modalState.title,
         onChange = { modalState.title = it },
@@ -113,9 +121,10 @@ private fun CreateModalPreview() {
     val profiles = ProfilePreviewData().values.toImmutableList()
     Modal(
         assignees = profiles,
-        modalType = ModalType.Create,
+        modalType = ModalType.Create({}),
         onClickClose = {},
         onClickTaskCreate = {},
+        modalState = rememberModalState(profiles)
     )
 }
 
@@ -131,5 +140,6 @@ private fun EditModalPreview() {
         ),
         onClickClose = {},
         onClickTaskCreate = {},
+        modalState = rememberModalState(profiles)
     )
 }

@@ -29,6 +29,7 @@ fun WorkSpace(
     modifier: Modifier = Modifier,
 ) {
     val workSpaceState = rememberWorkSpaceState(projects)
+    val modalState = rememberModalState(assignees)
 
     LaunchedEffect(workSpaceState.shouldShowAddSnackbar) {
         if (workSpaceState.shouldShowAddSnackbar) {
@@ -59,16 +60,20 @@ fun WorkSpace(
         ) {
             Modal(
                 assignees = assignees,
-                onClickClose = { workSpaceState.closeCreateModal() },
+                onClickClose = {
+                    workSpaceState.closeCreateModal()
+                },
                 onClickTaskCreate = { task ->
                     workSpaceState.onTaskAdded(task)
                 },
-                modalType = ModalType.Create
+                modalType = ModalType.Create({}),
+                modalState = modalState
             )
         }
     }
 
     if (workSpaceState.isShowEditModal) {
+        val taskCardData = workSpaceState.currentEditTask
         Dialog(
             onDismissRequest = { workSpaceState.closeCreateModal() },
             properties = DialogProperties(
@@ -76,15 +81,19 @@ fun WorkSpace(
             ),
         ) {
             Modal(
+                data = taskCardData,
                 assignees = assignees,
-                onClickClose = { workSpaceState.closeEditModal() },
+                onClickClose = {
+                    workSpaceState.closeEditModal()
+                },
                 onClickTaskCreate = { task ->
                     workSpaceState.onTaskAdded(task)
                 },
                 modalType = ModalType.Edit(
                     onUpdate = {},
                     onDelete = {},
-                )
+                ),
+                modalState = modalState
             )
         }
     }
@@ -107,6 +116,9 @@ fun WorkSpace(
                     project = selectedProject,
                     onShowMoveSnackBar = { workSpaceState.showMoveSnackBar() },
                     onShowCreateTaskModal = { workSpaceState.showCreateModal() },
+                    onShowEditTaskModal = { taskCardData ->
+                        workSpaceState.showEditModal(taskCardData)
+                    }
                 )
             }
         }
