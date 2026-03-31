@@ -14,7 +14,6 @@ import androidx.compose.ui.test.performTextInput
 import androidx.compose.ui.test.runComposeUiTest
 import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
-import kotlin.test.Test
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import org.assertj.core.api.Assertions.assertThat
@@ -23,6 +22,7 @@ import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.component.workspace.ModalState
 import woowacourse.kanban.board.model.modal.ModalType
 import woowacourse.kanban.board.model.taskcard.Assignee
+import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
 class ModalTest {
@@ -43,7 +43,6 @@ class ModalTest {
             Modal(
                 assignees = assignees,
                 onClickClose = {},
-                onClickTaskCreate = {},
                 modalType = ModalType.Create({}),
                 modalState = ModalState(assignees)
             )
@@ -57,7 +56,6 @@ class ModalTest {
             Modal(
                 assignees = assignees,
                 onClickClose = {},
-                onClickTaskCreate = {},
                 modalType = ModalType.Create({}),
                 modalState = ModalState(assignees)
             )
@@ -72,7 +70,6 @@ class ModalTest {
             Modal(
                 assignees = assignees,
                 onClickClose = {},
-                onClickTaskCreate = {},
                 modalType = ModalType.Create({}),
                 modalState = ModalState(assignees)
             )
@@ -89,7 +86,6 @@ class ModalTest {
             Modal(
                 assignees = assignees,
                 onClickClose = {},
-                onClickTaskCreate = {},
                 modalType = ModalType.Create({}),
                 modalState = ModalState(assignees)
             )
@@ -107,7 +103,6 @@ class ModalTest {
             Modal(
                 assignees = assignees,
                 onClickClose = { close = true },
-                onClickTaskCreate = {},
                 modalType = ModalType.Create({}),
                 modalState = ModalState(assignees)
             )
@@ -123,7 +118,6 @@ class ModalTest {
             Modal(
                 assignees = assignees,
                 onClickClose = { close = true },
-                onClickTaskCreate = {},
                 modalType = ModalType.Create({}),
                 modalState = ModalState(assignees)
             )
@@ -139,8 +133,9 @@ class ModalTest {
             Modal(
                 assignees = assignees,
                 onClickClose = { },
-                onClickTaskCreate = { create = true },
-                modalType = ModalType.Create({}),
+                modalType = ModalType.Create({
+                    create = true
+                }),
                 modalState = ModalState(assignees)
             )
         }

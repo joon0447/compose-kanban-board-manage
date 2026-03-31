@@ -8,5 +8,5 @@ data class TaskCardData(
     val taskDescription: TaskDescription,
     val taskTags: TaskTags,
     val status: Status,
-    val assignee: Assignee,
+    val assignee: Assignee?,
 )

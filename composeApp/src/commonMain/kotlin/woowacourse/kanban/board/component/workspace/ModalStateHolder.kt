@@ -8,9 +8,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.model.taskcard.Assignee
 import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.TaskCardData
+import woowacourse.kanban.board.model.taskcard.TaskDescription
 import woowacourse.kanban.board.model.taskcard.TaskTag
 import woowacourse.kanban.board.model.taskcard.TaskTags
 import woowacourse.kanban.board.model.taskcard.TaskTitle
@@ -25,7 +27,7 @@ class ModalState(
     var description by mutableStateOf("")
     var tags by mutableStateOf("")
     var status by mutableStateOf(Status.TODO)
-    var assignees by mutableStateOf(assignees.first())
+    var assignee by mutableStateOf<Assignee?>(assignees.first())
 
     val isTaskTitleValid by derivedStateOf { TaskTitle.isTitleValid(title) }
     val isTaskTagsValid by derivedStateOf {
@@ -42,7 +44,7 @@ class ModalState(
         description = taskCardData.taskDescription.value
         tags = taskCardData.taskTags.value.joinToString(",") { it.value }
         status = taskCardData.status
-        assignees = taskCardData.assignee
+        assignee = taskCardData.assignee
     }
 
     fun clear() {
@@ -50,7 +52,18 @@ class ModalState(
         description = ""
         tags = ""
         status = Status.TODO
-        assignees = defaultAssignees
+        assignee = defaultAssignees
+    }
+
+    fun toTaskCardData(): TaskCardData {
+        val data = TaskCardData(
+            taskTitle = TaskTitle(value = title),
+            taskDescription = TaskDescription(value = description),
+            taskTags = TaskTags(TaskTag.extractedTags(tags).toImmutableList()),
+            status = status,
+            assignee = assignee,
+        )
+        return data
     }
 }
 

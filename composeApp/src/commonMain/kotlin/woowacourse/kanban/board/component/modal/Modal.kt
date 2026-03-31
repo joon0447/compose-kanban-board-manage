@@ -25,16 +25,11 @@ import woowacourse.kanban.board.model.modal.ModalType
 import woowacourse.kanban.board.model.modal.TextInputState
 import woowacourse.kanban.board.model.taskcard.Assignee
 import woowacourse.kanban.board.model.taskcard.TaskCardData
-import woowacourse.kanban.board.model.taskcard.TaskDescription
-import woowacourse.kanban.board.model.taskcard.TaskTag
-import woowacourse.kanban.board.model.taskcard.TaskTags
-import woowacourse.kanban.board.model.taskcard.TaskTitle
 
 @Composable
 fun Modal(
     assignees: ImmutableList<Assignee>,
     onClickClose: () -> Unit,
-    onClickTaskCreate: (TaskCardData) -> Unit,
     modalType: ModalType,
     modalState: ModalState,
     modifier: Modifier = Modifier,
@@ -64,6 +59,8 @@ fun Modal(
         is ModalType.Edit -> ComponentText.EDIT_MODAL_HEADER_LABEL
     }
 
+
+
     Card(
         modifier = modifier
             .width(800.dp)
@@ -90,24 +87,15 @@ fun Modal(
                 tagsInputState = tagsInputState,
             )
             ButtonSection(
-                state = modalState.status,
-                currentAssignee = modalState.assignees,
+                status = modalState.status,
+                currentAssignee = modalState.assignee,
                 assignees = assignees,
                 onStateClick = { modalState.status = it },
-                onProfileClick = { modalState.assignees = it },
+                onProfileClick = { modalState.assignee = it },
+                onNoAssigneeClick = { modalState.assignee = null },
             )
             Footer(
                 onClickClose = onClickClose,
-                onClickTaskCreate = {
-                    val data = TaskCardData(
-                        taskTitle = TaskTitle(value = modalState.title),
-                        taskDescription = TaskDescription(value = modalState.description),
-                        taskTags = TaskTags(TaskTag.extractedTags(modalState.tags).toImmutableList()),
-                        status = modalState.status,
-                        assignee = modalState.assignees,
-                    )
-                    onClickTaskCreate(data)
-                },
                 isButtonEnabled = modalState.isTaskTitleValid && modalState.isTaskTagsValid,
                 modalType = modalType,
             )
@@ -123,7 +111,6 @@ private fun CreateModalPreview() {
         assignees = profiles,
         modalType = ModalType.Create({}),
         onClickClose = {},
-        onClickTaskCreate = {},
         modalState = rememberModalState(profiles)
     )
 }
@@ -139,7 +126,6 @@ private fun EditModalPreview() {
             onUpdate = {},
         ),
         onClickClose = {},
-        onClickTaskCreate = {},
         modalState = rememberModalState(profiles)
     )
 }

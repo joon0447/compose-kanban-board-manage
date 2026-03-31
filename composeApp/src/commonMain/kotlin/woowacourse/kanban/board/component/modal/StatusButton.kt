@@ -30,11 +30,9 @@ fun StatusButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     val backgroundColor = if (currentStatus == myStatus) Blue80 else Color.Transparent
     val borderColor = if (currentStatus == myStatus) Blue50 else Gray70
     val textColor = if (currentStatus == myStatus) Blue50 else Gray20
-
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(10.dp))
@@ -46,7 +44,6 @@ fun StatusButton(
             .background(color = backgroundColor)
             .clickable { onClick() }
             .padding(horizontal = 30.dp, vertical = 14.dp),
-
     ) {
         Text(
             text = myStatus.toText(),

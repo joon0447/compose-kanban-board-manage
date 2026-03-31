@@ -31,7 +31,6 @@ import woowacourse.kanban.board.model.modal.ModalType
 @Composable
 fun Footer(
     onClickClose: () -> Unit,
-    onClickTaskCreate: () -> Unit,
     isButtonEnabled: Boolean,
     modalType: ModalType,
     modifier: Modifier = Modifier,
@@ -61,7 +60,7 @@ fun Footer(
                         enabled = isButtonEnabled,
                         containerColor = Blue50,
                         text = ComponentText.CREATE_BUTTON,
-                        onClick = onClickTaskCreate,
+                        onClick = modalType.onCreate,
                     )
                 }
                 is ModalType.Edit -> {
@@ -130,7 +129,6 @@ private fun EditModalFooterButtons(
 private fun CreateFooterPreview() {
     Footer(
         onClickClose = {},
-        onClickTaskCreate = {},
         isButtonEnabled = true,
         modalType = ModalType.Create({})
     )
@@ -141,7 +139,6 @@ private fun CreateFooterPreview() {
 private fun EditFooterPreview() {
     Footer(
         onClickClose = {},
-        onClickTaskCreate = {},
         isButtonEnabled = true,
         modalType = ModalType.Edit(
             onDelete = {},

@@ -33,7 +33,7 @@ import woowacourse.kanban.board.model.taskcard.Assignee
 
 @Composable
 fun AssigneeLabelButton(
-    currentState: Assignee,
+    currentState: Assignee?,
     myState: Assignee,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,

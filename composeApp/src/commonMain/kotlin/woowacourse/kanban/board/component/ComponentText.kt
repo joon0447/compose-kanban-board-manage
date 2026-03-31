@@ -19,6 +19,8 @@ object ComponentText {
     const val STATE_BUTTON_REVIEW = "Review"
     const val STATE_BUTTON_DONE = "Done"
     const val ASSIGNEE_LABEL_BUTTON_LABEL = "담당자"
+    const val NO_ASSIGNEE_BUTTON_LABEL = "없음"
+    const val NO_ASSIGNEE_LABEL = "담당자 없음"
     const val CANCEL_BUTTON = "취소"
     const val CREATE_BUTTON = "생성"
     const val EDIT_BUTTON = "수정"

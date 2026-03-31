@@ -31,6 +31,23 @@ fun WorkSpace(
     val workSpaceState = rememberWorkSpaceState(projects)
     val modalState = rememberModalState(assignees)
 
+    val createModalType = ModalType.Create(
+        onCreate = {
+            val data = modalState.toTaskCardData()
+            workSpaceState.selectedProject?.addCard(data)
+            workSpaceState.closeCreateModal()
+        }
+    )
+
+    val editModalType = ModalType.Edit(
+        onDelete = {
+
+        },
+        onUpdate = {
+
+        }
+    )
+
     LaunchedEffect(workSpaceState.shouldShowAddSnackbar) {
         if (workSpaceState.shouldShowAddSnackbar) {
             workSpaceState.snackbarHostState.showSnackbar(
@@ -63,10 +80,7 @@ fun WorkSpace(
                 onClickClose = {
                     workSpaceState.closeCreateModal()
                 },
-                onClickTaskCreate = { task ->
-                    workSpaceState.onTaskAdded(task)
-                },
-                modalType = ModalType.Create({}),
+                modalType = createModalType,
                 modalState = modalState
             )
         }
@@ -86,13 +100,7 @@ fun WorkSpace(
                 onClickClose = {
                     workSpaceState.closeEditModal()
                 },
-                onClickTaskCreate = { task ->
-                    workSpaceState.onTaskAdded(task)
-                },
-                modalType = ModalType.Edit(
-                    onUpdate = {},
-                    onDelete = {},
-                ),
+                modalType = editModalType,
                 modalState = modalState
             )
         }
