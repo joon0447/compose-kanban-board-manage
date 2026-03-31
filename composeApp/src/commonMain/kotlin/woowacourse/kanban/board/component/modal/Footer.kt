@@ -65,7 +65,8 @@ fun Footer(
                 }
                 is ModalType.Edit -> {
                     EditModalFooterButtons(
-                        isButtonEnabled = isButtonEnabled
+                        isButtonEnabled = isButtonEnabled,
+                        onDeleteClick = modalType.onDelete
                     )
                 }
             }
@@ -103,6 +104,7 @@ private fun FooterButton(
 @Composable
 private fun EditModalFooterButtons(
     isButtonEnabled: Boolean,
+    onDeleteClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -110,10 +112,9 @@ private fun EditModalFooterButtons(
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
         FooterButton(
-            enabled = true,
             containerColor = Red70,
             text = ComponentText.DELETE_BUTTON,
-            onClick = {},
+            onClick = { onDeleteClick() },
         )
         FooterButton(
             enabled = isButtonEnabled,

@@ -34,18 +34,21 @@ fun WorkSpace(
     val createModalType = ModalType.Create(
         onCreate = {
             val data = modalState.toTaskCardData()
-            workSpaceState.selectedProject?.addCard(data)
+            workSpaceState.selectedProject?.addTask(data)
             workSpaceState.closeCreateModal()
+            workSpaceState.showAddSnackBar()
         }
     )
 
     val editModalType = ModalType.Edit(
         onDelete = {
-
+            val taskId = workSpaceState.currentEditTask?.id
+            workSpaceState.selectedProject?.removeTaskById(taskId)
+            workSpaceState.closeEditModal()
         },
         onUpdate = {
 
-        }
+        },
     )
 
     LaunchedEffect(workSpaceState.shouldShowAddSnackbar) {

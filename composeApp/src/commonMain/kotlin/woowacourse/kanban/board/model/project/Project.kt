@@ -1,11 +1,11 @@
 package woowacourse.kanban.board.model.project
 
 import androidx.compose.runtime.mutableStateListOf
-import java.util.UUID
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.TaskCardData
+import java.util.UUID
 
 data class Project(
     val title: String,
@@ -22,7 +22,13 @@ data class Project(
     val reviewTasks get() = tasks.filter { it.status == Status.REVIEW }.toImmutableList()
     val doneTasks get() = tasks.filter { it.status == Status.DONE }.toImmutableList()
 
-    fun addCard(data: TaskCardData) = tasks.add(data)
+    fun addTask(data: TaskCardData) = tasks.add(data)
+
+    fun removeTaskById(id: String?) {
+        val task = id?.let { findTaskById(id) } ?: return
+        if(task.status.isCanDelete().not()) return
+        tasks.remove(task)
+    }
 
     fun calculateDoneRate(): Float {
         if (allTasksCount == 0) return 0f

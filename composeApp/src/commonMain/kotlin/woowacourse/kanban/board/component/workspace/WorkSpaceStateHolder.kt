@@ -56,7 +56,7 @@ class WorkSpaceState(
 
     fun onTaskAdded(task: TaskCardData) {
         val project = selectedProject ?: return
-        project.addCard(task)
+        project.addTask(task)
         showAddSnackBar()
         closeCreateModal()
     }
