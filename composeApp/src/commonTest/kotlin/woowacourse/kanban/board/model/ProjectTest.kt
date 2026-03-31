@@ -1,7 +1,5 @@
 package woowacourse.kanban.board.model
 
-import kotlin.test.Test
-import kotlin.test.assertTrue
 import kotlinx.collections.immutable.immutableListOf
 import kotlinx.collections.immutable.toImmutableList
 import org.assertj.core.api.Assertions.assertThat
@@ -10,6 +8,8 @@ import woowacourse.kanban.board.fixture.TaskCardDataFixture
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.TaskCardData
+import kotlin.test.Test
+import kotlin.test.assertTrue
 
 class ProjectTest {
     private lateinit var project: Project
@@ -36,7 +36,7 @@ class ProjectTest {
             id = "테스트",
             status = Status.TODO
         )
-        project.addCard(taskCardData)
+        project.addTask(taskCardData)
         project.updateTaskStatus("테스트", Status.PROGRESS)
         assertThat(project.todoTasks.size).isEqualTo(0)
         assertThat(project.progressTasks.size).isEqualTo(1)
@@ -59,44 +59,44 @@ class ProjectTest {
 
     @Test
     fun `Todo TaskCardData를 추가하면 todoTasks에 저장된다`() {
-        project.addCard(todoTask)
+        project.addTask(todoTask)
         assertThat(project.todoTasks).contains(todoTask)
     }
 
     @Test
     fun `Progress TaskCardData를 추가하면 progressTasks에 저장된다`() {
-        project.addCard(progressTask)
+        project.addTask(progressTask)
         assertThat(project.progressTasks).contains(progressTask)
     }
 
     @Test
     fun `Review TaskCardData를 추가하면 reviewTasks에 저장된다`() {
-        project.addCard(reviewTask)
+        project.addTask(reviewTask)
         assertThat(project.reviewTasks).contains(reviewTask)
     }
 
     @Test
     fun `Done TaskCardData를 추가하면 doneTasks에 저장된다`() {
-        project.addCard(doneTask)
+        project.addTask(doneTask)
         assertThat(project.doneTasks).contains(doneTask)
     }
 
     @Test
     fun `4개 업무 중 2개를 완료했을 때 완료율은 50%로 계산된다`() {
-        project.addCard(TaskCardDataFixture.create(status = Status.DONE))
-        project.addCard(TaskCardDataFixture.create(status = Status.DONE))
-        project.addCard(TaskCardDataFixture.create(status = Status.REVIEW))
-        project.addCard(TaskCardDataFixture.create(status = Status.PROGRESS))
+        project.addTask(TaskCardDataFixture.create(status = Status.DONE))
+        project.addTask(TaskCardDataFixture.create(status = Status.DONE))
+        project.addTask(TaskCardDataFixture.create(status = Status.REVIEW))
+        project.addTask(TaskCardDataFixture.create(status = Status.PROGRESS))
 
         assertThat(project.calculateDoneRate()).isEqualTo(0.50f)
     }
 
     @Test
     fun `진행 상태가 모두 다른 4개 업무가 등록되면 totalTasks는 4으로 계산된다`() {
-        project.addCard(todoTask)
-        project.addCard(doneTask)
-        project.addCard(progressTask)
-        project.addCard(reviewTask)
+        project.addTask(todoTask)
+        project.addTask(doneTask)
+        project.addTask(progressTask)
+        project.addTask(reviewTask)
         assertThat(project.allTasksCount).isEqualTo(4)
     }
 
@@ -107,10 +107,46 @@ class ProjectTest {
 
     @Test
     fun `3개 업무 중 0개를 완료했을 때 완료율은 0%으로 계산된다`() {
-        project.addCard(TaskCardDataFixture.create(status = Status.PROGRESS))
-        project.addCard(TaskCardDataFixture.create(status = Status.REVIEW))
-        project.addCard(TaskCardDataFixture.create(status = Status.TODO))
+        project.addTask(TaskCardDataFixture.create(status = Status.PROGRESS))
+        project.addTask(TaskCardDataFixture.create(status = Status.REVIEW))
+        project.addTask(TaskCardDataFixture.create(status = Status.TODO))
 
         assertThat(project.calculateDoneRate()).isEqualTo(0.0f)
+    }
+
+    @Test
+    fun `To do 상태의 task를 삭제할 수 있다`() {
+        val task = TaskCardDataFixture.create(status = Status.TODO)
+        project.addTask(task)
+        assertThat(project.todoTasks).contains(task)
+        project.removeTask(task)
+        assertThat(project.todoTasks).doesNotContain(task)
+    }
+
+    @Test
+    fun `In Progress 상태의 task를 삭제할 수 있다`() {
+        val task = TaskCardDataFixture.create(status = Status.PROGRESS)
+        project.addTask(task)
+        assertThat(project.progressTasks).contains(task)
+        project.removeTask(task)
+        assertThat(project.progressTasks).doesNotContain(task)
+    }
+
+    @Test
+    fun `Review 상태의 task는 삭제를 시도해도 삭제를 할 수 없다`() {
+        val task = TaskCardDataFixture.create(status = Status.REVIEW)
+        project.addTask(task)
+        assertThat(project.reviewTasks).contains(task)
+        project.removeTask(task)
+        assertThat(project.reviewTasks).contains(task)
+    }
+
+    @Test
+    fun `Donne 상태의 task는 삭제를 시도해도 삭제를 할 수 없다`() {
+        val task = TaskCardDataFixture.create(status = Status.DONE)
+        project.addTask(task)
+        assertThat(project.doneTasks).contains(task)
+        project.removeTask(task)
+        assertThat(project.doneTasks).contains(task)
     }
 }
