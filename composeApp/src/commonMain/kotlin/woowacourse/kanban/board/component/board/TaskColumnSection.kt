@@ -88,8 +88,6 @@ fun TaskColumnSection(
                     val dropPosition = currentDragPosition ?: return@TaskColumn
                     val targetStatus = columnBounds.entries
                         .firstOrNull { (_, rect) -> rect.contains(dropPosition) }?.key
-                    println(status)
-                    println(targetStatus)
                     draggedTaskId?.let { id ->
                         val task = project.findTaskById(id)
                         if (task != null && targetStatus != null && task.status != targetStatus) {

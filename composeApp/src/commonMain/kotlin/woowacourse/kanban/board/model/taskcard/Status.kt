@@ -15,4 +15,11 @@ enum class Status {
         TODO -> true
         PROGRESS, REVIEW, DONE -> false
     }
+
+    fun availableMoveStatuses(): List<Status> = when(this) {
+        TODO -> listOf(PROGRESS)
+        PROGRESS -> listOf(TODO, REVIEW)
+        REVIEW -> listOf(PROGRESS, DONE)
+        DONE -> listOf(TODO)
+    }
 }
