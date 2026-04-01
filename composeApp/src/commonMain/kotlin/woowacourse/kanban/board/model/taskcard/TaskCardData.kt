@@ -1,7 +1,7 @@
 package woowacourse.kanban.board.model.taskcard
 
-import woowacourse.kanban.board.model.project.MoveResult
 import java.util.UUID
+import woowacourse.kanban.board.model.project.MoveResult
 
 data class TaskCardData(
     val id: String = UUID.randomUUID().toString(),

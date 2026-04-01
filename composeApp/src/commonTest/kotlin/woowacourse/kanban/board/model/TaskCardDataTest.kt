@@ -2,6 +2,7 @@ package woowacourse.kanban.board.model
 
 import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
+import kotlin.test.Test
 import kotlinx.collections.immutable.toImmutableList
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
@@ -13,7 +14,6 @@ import woowacourse.kanban.board.model.taskcard.TaskDescription
 import woowacourse.kanban.board.model.taskcard.TaskTag
 import woowacourse.kanban.board.model.taskcard.TaskTags
 import woowacourse.kanban.board.model.taskcard.TaskTitle
-import kotlin.test.Test
 
 class TaskCardDataTest {
 

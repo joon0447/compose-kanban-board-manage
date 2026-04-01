@@ -90,8 +90,9 @@ fun Modal(
             )
             Footer(
                 onClickClose = onClickClose,
-                isButtonEnabled = modalState.isTaskTitleValid && modalState.isTaskTagsValid
-                        && modalState.isTaskAssigneeValid,
+                isButtonEnabled = modalState.isTaskTitleValid &&
+                    modalState.isTaskTagsValid &&
+                    modalState.isTaskAssigneeValid,
                 modalType = modalType,
             )
         }

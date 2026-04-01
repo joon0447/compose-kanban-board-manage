@@ -98,13 +98,6 @@ class WorkSpaceState(
     fun closeEditModal() {
         isShowEditModal = false
     }
-
-    fun onTaskAdded(task: TaskCardData) {
-        val project = selectedProject ?: return
-        project.addTask(task)
-        closeCreateModal()
-        showAddSnackBar()
-    }
 }
 
 @Composable
