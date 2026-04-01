@@ -51,7 +51,7 @@ fun WorkSpace(
         onUpdate = {
             val taskId = workSpaceState.currentEditTask?.id
             val data = modalState.toTaskCardData()
-            if(taskId != null) {
+            if (taskId != null) {
                 workSpaceState.selectedProject?.updateTaskData(taskId, data)
             }
             workSpaceState.closeEditModal()
@@ -128,7 +128,6 @@ fun WorkSpace(
             workSpaceState.hideEditSnackBar()
         }
     }
-
 
     if (workSpaceState.isShowCreateModal) {
         Dialog(

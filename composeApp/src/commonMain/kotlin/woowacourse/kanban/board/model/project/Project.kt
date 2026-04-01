@@ -26,7 +26,7 @@ data class Project(
 
     fun deleteTaskById(id: String?): Boolean {
         val task = id?.let { findTaskById(id) } ?: return false
-        if(task.status.isCanDelete().not()) return false
+        if (task.status.isCanDelete().not()) return false
         tasks.remove(task)
         return true
     }
@@ -43,8 +43,8 @@ data class Project(
         if (idx == -1) return MoveResult.INVALID_MOVE
 
         val availableMoveStatuses = tasks[idx].status.availableMoveStatuses()
-        if(availableMoveStatuses.contains(targetStatus)) {
-            if(targetStatus == Status.PROGRESS && tasks[idx].assignee == null) return MoveResult.NO_ASSIGNEE
+        if (availableMoveStatuses.contains(targetStatus)) {
+            if (targetStatus == Status.PROGRESS && tasks[idx].assignee == null) return MoveResult.NO_ASSIGNEE
             tasks[idx] = tasks[idx].copy(status = targetStatus)
             return MoveResult.SUCCESS
         }
