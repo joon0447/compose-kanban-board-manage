@@ -12,6 +12,7 @@ object ComponentText {
     const val TAG_PLACEHOLDER = "태그를 쉼표로 구분하여 입력하세요 (예: 버그, 긴급)"
     const val TAG_SUPPORTING = "5자 이내에 태그를 최대 5개까지 등록할 수 있습니다."
     const val TAG_ERROR = "태그 형식이 올바르지 않습니다."
+    const val ASSIGNEE_ERROR = "담당자를 지정해야 합니다."
 
     const val STATE_BUTTON_LABEL = "상태"
     const val STATE_BUTTON_TODO = "To Do"

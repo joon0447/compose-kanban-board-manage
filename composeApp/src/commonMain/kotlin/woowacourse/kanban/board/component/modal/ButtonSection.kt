@@ -28,19 +28,18 @@ import woowacourse.kanban.board.Blue50
 import woowacourse.kanban.board.Blue80
 import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.Gray70
+import woowacourse.kanban.board.Red50
 import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.component.sample.ProfilePreviewData
+import woowacourse.kanban.board.component.workspace.ModalState
+import woowacourse.kanban.board.component.workspace.rememberModalState
 import woowacourse.kanban.board.model.taskcard.Assignee
 import woowacourse.kanban.board.model.taskcard.Status
 
 @Composable
 fun ButtonSection(
-    status: Status,
-    currentAssignee: Assignee?,
+    modalState: ModalState,
     assignees: ImmutableList<Assignee>,
-    onStateClick: (Status) -> Unit,
-    onProfileClick: (Assignee) -> Unit,
-    onNoAssigneeClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -63,9 +62,9 @@ fun ButtonSection(
             Status.entries.forEach { it ->
                 StatusButton(
                     modifier = modifier.weight(1f),
-                    currentStatus = status,
+                    currentStatus = modalState.status,
                     myStatus = it,
-                    onClick = { onStateClick(it) },
+                    onClick = { modalState.status = it },
                 )
             }
         }
@@ -80,19 +79,25 @@ fun ButtonSection(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
-            if (status.isAvailableEmptyAssignee()) {
+            if (modalState.status.isAvailableEmptyAssignee()) {
                 NoAssigneeLabelButton(
-                    currentAssignee = currentAssignee,
-                    onClick = onNoAssigneeClick,
+                    currentAssignee = modalState.assignee,
+                    onClick = { modalState.assignee = null },
                 )
             }
             assignees.forEach { profile ->
                 AssigneeLabelButton(
-                    currentState = currentAssignee,
+                    currentState = modalState.assignee,
                     myState = profile,
-                    onClick = { onProfileClick(profile) },
+                    onClick = { modalState.assignee = profile },
                 )
             }
+        }
+        if (modalState.isTaskAssigneeValid.not()) {
+            Text(
+                text = ComponentText.ASSIGNEE_ERROR,
+                color = Red50,
+            )
         }
     }
 }
@@ -135,11 +140,7 @@ private fun NoAssigneeLabelButton(
 private fun ButtonSectionTodoStatusPreview() {
     val profiles = ProfilePreviewData().values.toImmutableList()
     ButtonSection(
-        status = Status.TODO,
-        currentAssignee = profiles[0],
         assignees = profiles,
-        onStateClick = { },
-        onProfileClick = {},
-        onNoAssigneeClick = {},
+        modalState = rememberModalState(profiles),
     )
 }

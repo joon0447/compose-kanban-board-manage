@@ -85,16 +85,13 @@ fun Modal(
                 tagsInputState = tagsInputState,
             )
             ButtonSection(
-                status = modalState.status,
-                currentAssignee = modalState.assignee,
                 assignees = assignees,
-                onStateClick = { modalState.status = it },
-                onProfileClick = { modalState.assignee = it },
-                onNoAssigneeClick = { modalState.assignee = null },
+                modalState = modalState
             )
             Footer(
                 onClickClose = onClickClose,
-                isButtonEnabled = modalState.isTaskTitleValid && modalState.isTaskTagsValid,
+                isButtonEnabled = modalState.isTaskTitleValid && modalState.isTaskTagsValid
+                        && modalState.isTaskAssigneeValid,
                 modalType = modalType,
             )
         }
