@@ -54,7 +54,7 @@ fun WorkSpace(
             if (taskId != null) {
                 workSpaceState.selectedProject?.tryUpdateTaskData(
                     id = taskId,
-                    taskCardData = data,
+                    updateTaskCardData = data,
                 )
             }
             workSpaceState.closeEditModal()

@@ -41,20 +41,17 @@ data class Project(
     fun tryMoveTaskStatus(id: String, targetStatus: Status): MoveResult {
         val idx = tasks.indexOfFirst { it.id == id }
         if (idx == -1) return MoveResult.INVALID_MOVE
-
-        val availableMoveStatuses = tasks[idx].status.availableMoveStatuses()
-        if (availableMoveStatuses.contains(targetStatus)) {
-            if (targetStatus == Status.PROGRESS && tasks[idx].assignee == null) return MoveResult.NO_ASSIGNEE
+        val moveResult = tasks[idx].isTaskStatusUpdateAvailable(targetStatus)
+        if (moveResult == MoveResult.SUCCESS) {
             val updatedTask = tasks[idx].updateTaskStatus(targetStatus)
             tasks[idx] = updatedTask
-            return MoveResult.SUCCESS
         }
-        return MoveResult.INVALID_MOVE
+        return moveResult
     }
 
-    fun tryUpdateTaskData(id: String, taskCardData: TaskCardData): Boolean {
+    fun tryUpdateTaskData(id: String, updateTaskCardData: TaskCardData): Boolean {
         val taskData = findTaskById(id) ?: return false
-        val newData = taskData.updateData(taskCardData)
+        val newData = taskData.updateData(updateTaskCardData)
         val idx = tasks.indexOfFirst { it.id == id }
         if (idx == -1) return false
         tasks[idx] = newData
