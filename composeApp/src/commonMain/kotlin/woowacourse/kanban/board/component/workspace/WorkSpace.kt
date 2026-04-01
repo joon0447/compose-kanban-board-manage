@@ -49,7 +49,13 @@ fun WorkSpace(
             else workSpaceState.showDeleteFailedSnackBar()
         },
         onUpdate = {
-
+            val taskId = workSpaceState.currentEditTask?.id
+            val data = modalState.toTaskCardData()
+            if(taskId != null) {
+                workSpaceState.selectedProject?.updateTaskData(taskId, data)
+            }
+            workSpaceState.closeEditModal()
+            workSpaceState.showEditSnackBar()
         },
     )
 
@@ -110,6 +116,16 @@ fun WorkSpace(
                 withDismissAction = true,
             )
             workSpaceState.hideNoAssigneeMoveSnackBar()
+        }
+    }
+
+    LaunchedEffect(workSpaceState.shouldShowEditSnackbar) {
+        if (workSpaceState.shouldShowEditSnackbar) {
+            workSpaceState.snackbarHostState.showSnackbar(
+                message = ComponentText.BOARD_TASK_EDIT_SNACKBAR,
+                withDismissAction = true,
+            )
+            workSpaceState.hideEditSnackBar()
         }
     }
 

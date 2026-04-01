@@ -21,6 +21,7 @@ class WorkSpaceState(
     var shouldShowNoAssigneeMoveSnackbar by mutableStateOf(false)
     var shouldShowDeleteSuccessSnackbar by mutableStateOf(false)
     var shouldShowDeleteFailedSnackbar by mutableStateOf(false)
+    var shouldShowEditSnackbar by mutableStateOf(false)
     var isShowCreateModal by mutableStateOf(false)
     var isShowEditModal by mutableStateOf(false)
     var currentEditTask by mutableStateOf<TaskCardData?>(null)
@@ -71,6 +72,14 @@ class WorkSpaceState(
 
     fun hideNoAssigneeMoveSnackBar() {
         shouldShowNoAssigneeMoveSnackbar = false
+    }
+
+    fun showEditSnackBar() {
+        shouldShowEditSnackbar = true
+    }
+
+    fun hideEditSnackBar() {
+        shouldShowEditSnackbar = false
     }
 
     fun showCreateModal() {

@@ -51,6 +51,27 @@ data class Project(
         return MoveResult.INVALID_MOVE
     }
 
+    fun updateTaskData(id: String, taskCardData: TaskCardData): Boolean {
+        val taskData = findTaskById(id) ?: return false
+        val newData = taskData.updateData(
+            taskTitle = taskCardData.taskTitle,
+            taskDescription = taskCardData.taskDescription,
+            status = taskCardData.status,
+            assignee = taskCardData.assignee,
+            taskTags = taskCardData.taskTags,
+        )
+        val idx = tasks.indexOfFirst { it.id == id }
+        if (idx == -1) return false
+        tasks[idx] = tasks[idx].copy(
+            taskTitle = newData.taskTitle,
+            taskDescription = newData.taskDescription,
+            status = newData.status,
+            assignee = newData.assignee,
+            taskTags = newData.taskTags
+        )
+        return true
+    }
+
     fun getTasksByStatus(status: Status): ImmutableList<TaskCardData> = when (status) {
         Status.TODO -> todoTasks
         Status.PROGRESS -> progressTasks

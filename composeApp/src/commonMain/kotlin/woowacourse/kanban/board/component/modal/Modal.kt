@@ -59,8 +59,6 @@ fun Modal(
         is ModalType.Edit -> ComponentText.EDIT_MODAL_HEADER_LABEL
     }
 
-
-
     Card(
         modifier = modifier
             .width(800.dp)

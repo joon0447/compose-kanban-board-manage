@@ -36,4 +36,5 @@ object ComponentText {
     const val BOARD_TASK_MOVE_SUCCESS_SNACKBAR = "태스크가 이동되었습니다."
     const val BOARD_TASK_MOVE_FAILED_SNACKBAR = "해당 상태로 옮길 수 없습니다."
     const val BOARD_TASK_MOVE_NO_ASSIGNEE_SNACKBAR = "담당자를 지정해야 상태를 옮길 수 있습니다."
+    const val BOARD_TASK_EDIT_SNACKBAR = "태스크가 수정되었습니다."
 }
