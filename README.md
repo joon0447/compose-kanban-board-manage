@@ -12,7 +12,7 @@
   - In Progress → To Do, Review
   - Review → In Progress, Done
   - Done → To Do
-- [ ] 담당자 미지정 상태에서 To do -> In Progress 전이 불가
+- [x] 담당자 미지정 상태에서 To do -> In Progress 전이 불가
 
 ### UI 로직
 - [x] Board에 Review를 추가한다.
@@ -22,4 +22,4 @@
 - [x] 태스크 삭제가 가능, 불가능할 때 각각 스낵바를 출력한다.
 - [ ] 태스크 수정 시 스낵바를 출력한다.
 - [x] 태스크 상태 전이가 불가능할 때 스낵바를 출력한다.
-- [ ] 담당자를 지정하지 않고 To do → In Progress 전이를 시도할 때 스낵바를 출력한다.
+- [x] 담당자를 지정하지 않고 To do → In Progress 전이를 시도할 때 스낵바를 출력한다.

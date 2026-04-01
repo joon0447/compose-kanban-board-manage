@@ -18,6 +18,7 @@ class WorkSpaceState(
     var shouldShowAddSnackbar by mutableStateOf(false)
     var shouldShowMoveSuccessSnackbar by mutableStateOf(false)
     var shouldShowMoveFailedSnackbar by mutableStateOf(false)
+    var shouldShowNoAssigneeMoveSnackbar by mutableStateOf(false)
     var shouldShowDeleteSuccessSnackbar by mutableStateOf(false)
     var shouldShowDeleteFailedSnackbar by mutableStateOf(false)
     var isShowCreateModal by mutableStateOf(false)
@@ -62,6 +63,14 @@ class WorkSpaceState(
 
     fun hideDeleteFailedSnackBar() {
         shouldShowDeleteFailedSnackbar = false
+    }
+
+    fun showNoAssigneeMoveSnackBar() {
+        shouldShowNoAssigneeMoveSnackbar = true
+    }
+
+    fun hideNoAssigneeMoveSnackBar() {
+        shouldShowNoAssigneeMoveSnackbar = false
     }
 
     fun showCreateModal() {

@@ -103,6 +103,17 @@ fun WorkSpace(
         }
     }
 
+    LaunchedEffect(workSpaceState.shouldShowNoAssigneeMoveSnackbar) {
+        if (workSpaceState.shouldShowNoAssigneeMoveSnackbar) {
+            workSpaceState.snackbarHostState.showSnackbar(
+                message = ComponentText.BOARD_TASK_MOVE_NO_ASSIGNEE_SNACKBAR,
+                withDismissAction = true,
+            )
+            workSpaceState.hideNoAssigneeMoveSnackBar()
+        }
+    }
+
+
     if (workSpaceState.isShowCreateModal) {
         Dialog(
             onDismissRequest = { workSpaceState.closeCreateModal() },
@@ -163,6 +174,7 @@ fun WorkSpace(
                     onShowEditTaskModal = { taskCardData ->
                         workSpaceState.showEditModal(taskCardData)
                     },
+                    onShowNoAssigneeSnackbar = { workSpaceState.showNoAssigneeMoveSnackBar() },
                 )
             }
         }

@@ -38,15 +38,17 @@ data class Project(
 
     fun findTaskById(id: String): TaskCardData? = tasks.firstOrNull { it.id == id }
 
-    fun updateTaskStatus(id: String, targetStatus: Status): Boolean {
+    fun updateTaskStatus(id: String, targetStatus: Status): MoveResult {
         val idx = tasks.indexOfFirst { it.id == id }
-        if (idx == -1) return false
+        if (idx == -1) return MoveResult.INVALID_MOVE
+
         val availableMoveStatuses = tasks[idx].status.availableMoveStatuses()
         if(availableMoveStatuses.contains(targetStatus)) {
+            if(targetStatus == Status.PROGRESS && tasks[idx].assignee == null) return MoveResult.NO_ASSIGNEE
             tasks[idx] = tasks[idx].copy(status = targetStatus)
-            return true
+            return MoveResult.SUCCESS
         }
-        return false
+        return MoveResult.INVALID_MOVE
     }
 
     fun getTasksByStatus(status: Status): ImmutableList<TaskCardData> = when (status) {

@@ -46,6 +46,7 @@ import woowacourse.kanban.board.component.extension.toHeaderColor
 import woowacourse.kanban.board.component.extension.toText
 import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.component.taskcard.TaskCard
+import woowacourse.kanban.board.model.project.MoveResult
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.taskcard.Assignee
 import woowacourse.kanban.board.model.taskcard.Status
@@ -60,6 +61,7 @@ fun TaskColumnSection(
     project: Project,
     onMoveSuccessSnackBar: () -> Unit,
     onMoveFailedSnackBar: () -> Unit,
+    onMoveNoAssigneeSnackBar: () -> Unit,
     onShowEditTaskModal: (TaskCardData) -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -93,11 +95,13 @@ fun TaskColumnSection(
                         val task = project.findTaskById(id)
                         if (task != null && targetStatus != null && task.status != targetStatus) {
                             val updateResult = project.updateTaskStatus(id, targetStatus)
-                            if(updateResult) onMoveSuccessSnackBar()
-                            else onMoveFailedSnackBar()
+                            when(updateResult) {
+                                MoveResult.SUCCESS -> onMoveSuccessSnackBar()
+                                MoveResult.INVALID_MOVE -> onMoveFailedSnackBar()
+                                MoveResult.NO_ASSIGNEE -> onMoveNoAssigneeSnackBar()
+                            }
                         }
                     }
-
                     currentDragPosition = null
                     draggedTaskId = null
                 },
@@ -307,6 +311,7 @@ private fun TaskColumnSectionPreview() {
                 onMoveSuccessSnackBar = {},
                 onShowEditTaskModal = {},
                 onMoveFailedSnackBar = {},
+                onMoveNoAssigneeSnackBar = {},
             )
         }
     }

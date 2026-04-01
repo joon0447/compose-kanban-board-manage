@@ -16,6 +16,7 @@ fun Board(
     project: Project,
     onShowMoveSuccessSnackBar: () -> Unit,
     onShowMoveFailedSnackbar: () -> Unit,
+    onShowNoAssigneeSnackbar: () -> Unit,
     onShowCreateTaskModal: () -> Unit,
     onShowEditTaskModal: (TaskCardData) -> Unit,
     modifier: Modifier = Modifier,
@@ -35,7 +36,8 @@ fun Board(
             project = project,
             onMoveSuccessSnackBar = { onShowMoveSuccessSnackBar() },
             onShowEditTaskModal = onShowEditTaskModal,
-            onMoveFailedSnackBar = onShowMoveFailedSnackbar
+            onMoveFailedSnackBar = onShowMoveFailedSnackbar,
+            onMoveNoAssigneeSnackBar = onShowNoAssigneeSnackbar,
         )
     }
 }
@@ -50,7 +52,8 @@ private fun BoardPreview() {
             onShowMoveSuccessSnackBar = { },
             onShowCreateTaskModal = { },
             onShowEditTaskModal = { },
-            onShowMoveFailedSnackbar = {}
+            onShowMoveFailedSnackbar = {},
+            onShowNoAssigneeSnackbar = {},
         )
     }
 }
