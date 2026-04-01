@@ -1,7 +1,5 @@
 package woowacourse.kanban.board.model
 
-import kotlin.test.Test
-import kotlin.test.assertTrue
 import kotlinx.collections.immutable.immutableListOf
 import kotlinx.collections.immutable.toImmutableList
 import org.assertj.core.api.Assertions.assertThat
@@ -10,6 +8,8 @@ import woowacourse.kanban.board.fixture.TaskCardDataFixture
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.TaskCardData
+import kotlin.test.Test
+import kotlin.test.assertTrue
 
 class ProjectTest {
     private lateinit var project: Project
@@ -37,7 +37,7 @@ class ProjectTest {
             status = Status.TODO
         )
         project.addTask(taskCardData)
-        project.updateTaskStatus("테스트", Status.PROGRESS)
+        project.tryMoveTaskStatus("테스트", Status.PROGRESS)
         assertThat(project.todoTasks.size).isEqualTo(0)
         assertThat(project.progressTasks.size).isEqualTo(1)
     }
@@ -153,7 +153,7 @@ class ProjectTest {
         val task = TaskCardDataFixture.create(status = Status.TODO)
         project.addTask(task)
         assertThat(project.todoTasks).contains(task)
-        project.updateTaskStatus(task.id, Status.REVIEW)
+        project.tryMoveTaskStatus(task.id, Status.REVIEW)
         assertThat(project.todoTasks).contains(task)
         assertThat(project.reviewTasks).doesNotContain(task)
     }
@@ -162,7 +162,7 @@ class ProjectTest {
     fun `To do 상태의 task를 Done 상태로 업데이트 할 수 없다`() {
         project.addTask(todoTask)
         assertThat(project.todoTasks).contains(todoTask)
-        project.updateTaskStatus(todoTask.id, Status.DONE)
+        project.tryMoveTaskStatus(todoTask.id, Status.DONE)
         assertThat(project.todoTasks).contains(todoTask)
         assertThat(project.doneTasks).doesNotContain(todoTask)
     }
@@ -171,7 +171,7 @@ class ProjectTest {
     fun `Progress 상태의 task를 Done 상태로 업데이트 할 수 없다`() {
         project.addTask(progressTask)
         assertThat(project.progressTasks).contains(progressTask)
-        project.updateTaskStatus(progressTask.id, Status.DONE)
+        project.tryMoveTaskStatus(progressTask.id, Status.DONE)
         assertThat(project.progressTasks).contains(progressTask)
         assertThat(project.doneTasks).doesNotContain(progressTask)
     }
@@ -180,7 +180,7 @@ class ProjectTest {
     fun `Review 상태의 task를 To do 상태로 업데이트 할 수 없다`() {
         project.addTask(reviewTask)
         assertThat(project.reviewTasks).contains(reviewTask)
-        project.updateTaskStatus(reviewTask.id, Status.TODO)
+        project.tryMoveTaskStatus(reviewTask.id, Status.TODO)
         assertThat(project.reviewTasks).contains(reviewTask)
         assertThat(project.todoTasks).doesNotContain(reviewTask)
     }
@@ -189,7 +189,7 @@ class ProjectTest {
     fun `Done 상태의 task를 Review 상태로 업데이트 할 수 없다`() {
         project.addTask(doneTask)
         assertThat(project.doneTasks).contains(doneTask)
-        project.updateTaskStatus(doneTask.id, Status.REVIEW)
+        project.tryMoveTaskStatus(doneTask.id, Status.REVIEW)
         assertThat(project.doneTasks).contains(doneTask)
         assertThat(project.reviewTasks).doesNotContain(doneTask)
     }
@@ -197,7 +197,7 @@ class ProjectTest {
     @Test
     fun `To do 상태의 task를 In Progress 상태로 업데이트 할 수 있다`() {
         project.addTask(todoTask)
-        project.updateTaskStatus(todoTask.id, Status.PROGRESS)
+        project.tryMoveTaskStatus(todoTask.id, Status.PROGRESS)
         assertThat(project.todoTasks).doesNotContain(todoTask)
         val updated = project.findTaskById(todoTask.id)
         assertThat(updated?.status).isEqualTo(Status.PROGRESS)
@@ -206,7 +206,7 @@ class ProjectTest {
     @Test
     fun `In Progress 상태의 task를 To Do 상태로 업데이트 할 수 있다`() {
         project.addTask(progressTask)
-        project.updateTaskStatus(progressTask.id, Status.TODO)
+        project.tryMoveTaskStatus(progressTask.id, Status.TODO)
         assertThat(project.progressTasks).doesNotContain(progressTask)
         val updated = project.findTaskById(progressTask.id)
         assertThat(updated?.status).isEqualTo(Status.TODO)
@@ -215,7 +215,7 @@ class ProjectTest {
     @Test
     fun `In Progress 상태의 task를 Review 상태로 업데이트 할 수 있다`() {
         project.addTask(progressTask)
-        project.updateTaskStatus(progressTask.id, Status.REVIEW)
+        project.tryMoveTaskStatus(progressTask.id, Status.REVIEW)
         assertThat(project.progressTasks).doesNotContain(progressTask)
         val updated = project.findTaskById(progressTask.id)
         assertThat(updated?.status).isEqualTo(Status.REVIEW)
@@ -224,7 +224,7 @@ class ProjectTest {
     @Test
     fun `Review 상태의 task를 In Progress 상태로 업데이트 할 수 있다`() {
         project.addTask(reviewTask)
-        project.updateTaskStatus(reviewTask.id, Status.PROGRESS)
+        project.tryMoveTaskStatus(reviewTask.id, Status.PROGRESS)
         assertThat(project.progressTasks).doesNotContain(reviewTask)
         val updated = project.findTaskById(reviewTask.id)
         assertThat(updated?.status).isEqualTo(Status.PROGRESS)
@@ -233,7 +233,7 @@ class ProjectTest {
     @Test
     fun `Review 상태의 task를 Done 상태로 업데이트 할 수 있다`() {
         project.addTask(reviewTask)
-        project.updateTaskStatus(reviewTask.id, Status.DONE)
+        project.tryMoveTaskStatus(reviewTask.id, Status.DONE)
         assertThat(project.progressTasks).doesNotContain(reviewTask)
         val updated = project.findTaskById(reviewTask.id)
         assertThat(updated?.status).isEqualTo(Status.DONE)
@@ -242,7 +242,7 @@ class ProjectTest {
     @Test
     fun `Done 상태의 task를 To do 상태로 업데이트 할 수 있다`() {
         project.addTask(doneTask)
-        project.updateTaskStatus(doneTask.id, Status.TODO)
+        project.tryMoveTaskStatus(doneTask.id, Status.TODO)
         assertThat(project.doneTasks).doesNotContain(doneTask)
         val updated = project.findTaskById(doneTask.id)
         assertThat(updated?.status).isEqualTo(Status.TODO)

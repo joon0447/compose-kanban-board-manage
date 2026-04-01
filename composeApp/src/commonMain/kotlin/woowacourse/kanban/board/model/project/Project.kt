@@ -38,37 +38,26 @@ data class Project(
 
     fun findTaskById(id: String): TaskCardData? = tasks.firstOrNull { it.id == id }
 
-    fun updateTaskStatus(id: String, targetStatus: Status): MoveResult {
+    fun tryMoveTaskStatus(id: String, targetStatus: Status): MoveResult {
         val idx = tasks.indexOfFirst { it.id == id }
         if (idx == -1) return MoveResult.INVALID_MOVE
 
         val availableMoveStatuses = tasks[idx].status.availableMoveStatuses()
         if (availableMoveStatuses.contains(targetStatus)) {
             if (targetStatus == Status.PROGRESS && tasks[idx].assignee == null) return MoveResult.NO_ASSIGNEE
-            tasks[idx] = tasks[idx].copy(status = targetStatus)
+            val updatedTask = tasks[idx].updateTaskStatus(targetStatus)
+            tasks[idx] = updatedTask
             return MoveResult.SUCCESS
         }
         return MoveResult.INVALID_MOVE
     }
 
-    fun updateTaskData(id: String, taskCardData: TaskCardData): Boolean {
+    fun tryUpdateTaskData(id: String, taskCardData: TaskCardData): Boolean {
         val taskData = findTaskById(id) ?: return false
-        val newData = taskData.updateData(
-            taskTitle = taskCardData.taskTitle,
-            taskDescription = taskCardData.taskDescription,
-            status = taskCardData.status,
-            assignee = taskCardData.assignee,
-            taskTags = taskCardData.taskTags,
-        )
+        val newData = taskData.updateData(taskCardData)
         val idx = tasks.indexOfFirst { it.id == id }
         if (idx == -1) return false
-        tasks[idx] = tasks[idx].copy(
-            taskTitle = newData.taskTitle,
-            taskDescription = newData.taskDescription,
-            status = newData.status,
-            assignee = newData.assignee,
-            taskTags = newData.taskTags
-        )
+        tasks[idx] = newData
         return true
     }
 

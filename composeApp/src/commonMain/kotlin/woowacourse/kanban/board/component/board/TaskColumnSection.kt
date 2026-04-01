@@ -94,7 +94,7 @@ fun TaskColumnSection(
                     draggedTaskId?.let { id ->
                         val task = project.findTaskById(id)
                         if (task != null && targetStatus != null && task.status != targetStatus) {
-                            val updateResult = project.updateTaskStatus(id, targetStatus)
+                            val updateResult = project.tryMoveTaskStatus(id, targetStatus)
                             when (updateResult) {
                                 MoveResult.SUCCESS -> onMoveSuccessSnackBar()
                                 MoveResult.INVALID_MOVE -> onMoveFailedSnackBar()

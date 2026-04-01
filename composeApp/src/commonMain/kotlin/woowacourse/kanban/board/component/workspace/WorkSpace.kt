@@ -52,7 +52,10 @@ fun WorkSpace(
             val taskId = workSpaceState.currentEditTask?.id
             val data = modalState.toTaskCardData()
             if (taskId != null) {
-                workSpaceState.selectedProject?.updateTaskData(taskId, data)
+                workSpaceState.selectedProject?.tryUpdateTaskData(
+                    id = taskId,
+                    taskCardData = data,
+                )
             }
             workSpaceState.closeEditModal()
             workSpaceState.showEditSnackBar()

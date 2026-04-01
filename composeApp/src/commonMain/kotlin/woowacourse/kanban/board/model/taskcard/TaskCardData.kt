@@ -10,19 +10,19 @@ data class TaskCardData(
     val status: Status,
     val assignee: Assignee?,
 ) {
-    fun updateData(
-        taskTitle: TaskTitle,
-        taskDescription: TaskDescription,
-        taskTags: TaskTags,
-        status: Status,
-        assignee: Assignee?,
-    ): TaskCardData {
+    fun updateTaskStatus(targetStatus: Status): TaskCardData {
         return this.copy(
-            taskTitle = taskTitle,
-            taskDescription = taskDescription,
-            taskTags = taskTags,
-            status = status,
-            assignee = assignee,
+            status = targetStatus
+        )
+    }
+
+    fun updateData(taskCardData: TaskCardData): TaskCardData {
+        return this.copy(
+            taskTitle = taskCardData.taskTitle,
+            taskDescription = taskCardData.taskDescription,
+            taskTags = taskCardData.taskTags,
+            status = taskCardData.status,
+            assignee = taskCardData.assignee,
         )
     }
 }
