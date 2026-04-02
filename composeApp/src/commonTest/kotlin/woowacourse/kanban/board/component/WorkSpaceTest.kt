@@ -1,28 +1,38 @@
 package woowacourse.kanban.board.component
 
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.ExperimentalTestApi
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.isEditable
+import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performMouseInput
 import androidx.compose.ui.test.performSemanticsAction
+import androidx.compose.ui.test.performTextClearance
 import androidx.compose.ui.test.performTextInput
+import androidx.compose.ui.test.printToLog
 import androidx.compose.ui.test.runComposeUiTest
+import androidx.compose.ui.unit.Density
 import kanbanboard.composeapp.generated.resources.Res
 import kanbanboard.composeapp.generated.resources.profile
-import kotlin.test.Test
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import org.junit.Before
 import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.component.workspace.WorkSpace
+import woowacourse.kanban.board.fixture.TaskCardDataFixture
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.taskcard.Assignee
+import woowacourse.kanban.board.model.taskcard.Status
+import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
 class WorkSpaceTest {
@@ -35,7 +45,7 @@ class WorkSpaceTest {
         projects = ProjectPreviewData().values.toImmutableList()
         assignees = listOf(
             Assignee("다이노", Res.drawable.profile),
-            Assignee("페임스", Res.drawable.profile)
+            Assignee("페임스", Res.drawable.profile),
         ).toImmutableList()
     }
 
@@ -44,7 +54,7 @@ class WorkSpaceTest {
         setContent {
             WorkSpace(
                 projects = projects,
-                assignees = assignees
+                assignees = assignees,
             )
         }
         onAllNodesWithText("Compose1").assertCountEquals(2)
@@ -58,7 +68,7 @@ class WorkSpaceTest {
         setContent {
             WorkSpace(
                 projects = projects,
-                assignees = assignees
+                assignees = assignees,
             )
         }
         onNodeWithText(ComponentText.BOARD_TASK_CREATE_BUTTON).performClick()
@@ -70,7 +80,7 @@ class WorkSpaceTest {
         setContent {
             WorkSpace(
                 projects = projects,
-                assignees = assignees
+                assignees = assignees,
             )
         }
         onNodeWithText(ComponentText.BOARD_TASK_CREATE_BUTTON).performClick()
@@ -84,7 +94,7 @@ class WorkSpaceTest {
         setContent {
             WorkSpace(
                 projects = projects,
-                assignees = assignees
+                assignees = assignees,
             )
         }
         onNodeWithText(ComponentText.BOARD_TASK_CREATE_BUTTON).performClick()
@@ -98,7 +108,7 @@ class WorkSpaceTest {
         setContent {
             WorkSpace(
                 projects = projects,
-                assignees = assignees
+                assignees = assignees,
             )
         }
         onNodeWithText(ComponentText.BOARD_TASK_CREATE_BUTTON).performClick()
@@ -113,7 +123,7 @@ class WorkSpaceTest {
         setContent {
             WorkSpace(
                 projects = projects,
-                assignees = assignees
+                assignees = assignees,
             )
         }
         onNodeWithText(ComponentText.BOARD_TASK_CREATE_BUTTON).performClick()
@@ -121,5 +131,205 @@ class WorkSpaceTest {
         onAllNodes(isEditable())[0].performTextInput("테스트에용")
         onAllNodes(hasText(ComponentText.CREATE_BUTTON))[0].performSemanticsAction(SemanticsActions.OnClick)
         onNodeWithText(ComponentText.BOARD_TASK_CREATE_SNACKBAR).assertIsDisplayed()
+    }
+
+    @Test
+    fun `TODO 태스크 카드를 삭제하면 삭제 성공 스낵바가 출력된다`() = runComposeUiTest {
+        val project = listOf(
+            Project(
+                initialTasks = listOf(
+                    TaskCardDataFixture.create(
+                        title = "이거누르세요태스크카드에요",
+                        status = Status.TODO,
+                    ),
+                ).toImmutableList(),
+                title = "프로젝트",
+            ),
+        ).toImmutableList()
+        setContent {
+            CompositionLocalProvider(
+                LocalDensity provides Density(
+                    density = 0.1f,
+                ),
+            ) {
+                WorkSpace(
+                    projects = project,
+                    assignees = assignees,
+                )
+            }
+        }
+        onNodeWithText("이거누르세요태스크카드에요").performClick()
+        waitForIdle()
+        onNodeWithText("삭제").performClick()
+        waitForIdle()
+        onNodeWithText(ComponentText.BOARD_TASK_DELETE_SUCCESS_SNACKBAR).assertIsDisplayed()
+    }
+
+    @Test
+    fun `IN PROGRESS 태스크 카드를 삭제하면 삭제 성공 스낵바가 출력된다`() = runComposeUiTest {
+        val project = listOf(
+            Project(
+                initialTasks = listOf(
+                    TaskCardDataFixture.create(
+                        title = "이거누르세요태스크카드에요",
+                        status = Status.PROGRESS,
+                    ),
+                ).toImmutableList(),
+                title = "프로젝트",
+            ),
+        ).toImmutableList()
+        setContent {
+            CompositionLocalProvider(
+                LocalDensity provides Density(
+                    density = 0.1f,
+                ),
+            ) {
+                WorkSpace(
+                    projects = project,
+                    assignees = assignees,
+                )
+            }
+        }
+        onNodeWithText("이거누르세요태스크카드에요").performClick()
+        waitForIdle()
+        onNodeWithText("삭제").performClick()
+        waitForIdle()
+        onNodeWithText(ComponentText.BOARD_TASK_DELETE_SUCCESS_SNACKBAR).assertIsDisplayed()
+    }
+
+    @Test
+    fun `REVIEW 태스크 카드를 삭제하면 삭제 실패 스낵바가 출력된다`() = runComposeUiTest {
+        val project = listOf(
+            Project(
+                initialTasks = listOf(
+                    TaskCardDataFixture.create(
+                        title = "이거누르세요태스크카드에요",
+                        status = Status.REVIEW,
+                    ),
+                ).toImmutableList(),
+                title = "프로젝트",
+            ),
+        ).toImmutableList()
+        setContent {
+            CompositionLocalProvider(
+                LocalDensity provides Density(
+                    density = 0.1f,
+                ),
+            ) {
+                WorkSpace(
+                    projects = project,
+                    assignees = assignees,
+                )
+            }
+        }
+        onNodeWithText("이거누르세요태스크카드에요").performClick()
+        waitForIdle()
+        onNodeWithText("삭제").performClick()
+        waitForIdle()
+        onNodeWithText(ComponentText.BOARD_TASK_DELETE_FAILED_SNACKBAR).assertIsDisplayed()
+    }
+
+    @Test
+    fun `DONE 태스크 카드를 삭제하면 삭제 실패 스낵바가 출력된다`() = runComposeUiTest {
+        val project = listOf(
+            Project(
+                initialTasks = listOf(
+                    TaskCardDataFixture.create(
+                        title = "이거누르세요태스크카드에요",
+                        status = Status.DONE,
+                    ),
+                ).toImmutableList(),
+                title = "프로젝트",
+            ),
+        ).toImmutableList()
+        setContent {
+            CompositionLocalProvider(
+                LocalDensity provides Density(
+                    density = 0.1f,
+                ),
+            ) {
+                WorkSpace(
+                    projects = project,
+                    assignees = assignees,
+                )
+            }
+        }
+        onNodeWithText("이거누르세요태스크카드에요").performClick()
+        waitForIdle()
+        onNodeWithText("삭제").performClick()
+        waitForIdle()
+        onNodeWithText(ComponentText.BOARD_TASK_DELETE_FAILED_SNACKBAR).assertIsDisplayed()
+    }
+
+    @Test
+    fun `태스크 카드를 수정하면 수정 스낵바가 출력된다`() = runComposeUiTest {
+        val project = listOf(
+            Project(
+                initialTasks = listOf(
+                    TaskCardDataFixture.create(
+                        title = "이거누르세요태스크카드에요",
+                        status = Status.DONE,
+                    ),
+                ).toImmutableList(),
+                title = "프로젝트",
+            ),
+        ).toImmutableList()
+        setContent {
+            CompositionLocalProvider(
+                LocalDensity provides Density(
+                    density = 0.1f,
+                ),
+            ) {
+                WorkSpace(
+                    projects = project,
+                    assignees = assignees,
+                )
+            }
+        }
+        onNodeWithText("이거누르세요태스크카드에요").performClick()
+        waitForIdle()
+        onAllNodes(isEditable())[0].performClick()
+        onAllNodes(isEditable())[0].performTextClearance()
+        onAllNodes(isEditable())[0].performTextInput("제목을수정했어용")
+        onAllNodes(isRoot())[1].printToLog("TREE_DIALOG")
+        onNodeWithText("수정").performClick()
+        waitForIdle()
+        onNodeWithText(ComponentText.BOARD_TASK_EDIT_SNACKBAR).assertIsDisplayed()
+        onNodeWithText("제목을수정했어용").assertIsDisplayed()
+    }
+
+    @Test
+    fun `태스크 카드의 상태 이동이 성공하면 이동 성공 스낵바가 출력된다`() = runComposeUiTest {
+        val project = listOf(
+            Project(
+                initialTasks = listOf(
+                    TaskCardDataFixture.create(
+                        title = "이거누르세요태스크카드에요",
+                        status = Status.REVIEW,
+                    ),
+                ).toImmutableList(),
+                title = "프로젝트",
+            ),
+        ).toImmutableList()
+        setContent {
+            CompositionLocalProvider(
+                LocalDensity provides Density(
+                    density = 0.1f,
+                ),
+            ) {
+                WorkSpace(
+                    projects = project,
+                    assignees = assignees,
+                )
+            }
+        }
+        onNodeWithText("이거누르세요태스크카드에요")
+            .performMouseInput {
+                moveTo(center)
+                press()
+                moveBy(Offset(x = 300f, y = 0f))
+                release()
+            }
+        onNodeWithText(ComponentText.BOARD_TASK_MOVE_SUCCESS_SNACKBAR).assertExists()
     }
 }
