@@ -21,6 +21,7 @@ import woowacourse.kanban.board.component.sample.ProjectPreviewData
 import woowacourse.kanban.board.model.modal.ModalType
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.taskcard.Assignee
+import woowacourse.kanban.board.model.workspace.SnackbarType
 
 @Composable
 fun WorkSpace(
@@ -36,7 +37,7 @@ fun WorkSpace(
             val data = modalState.toTaskCardData()
             workSpaceState.selectedProject?.addTask(data)
             workSpaceState.closeCreateModal()
-            workSpaceState.showAddSnackBar()
+            workSpaceState.showSnackBar(SnackbarType.ADD)
         },
     )
 
@@ -45,8 +46,8 @@ fun WorkSpace(
             val taskId = workSpaceState.currentEditTask?.id
             val deleteResult = workSpaceState.selectedProject?.deleteTaskById(taskId) ?: false
             workSpaceState.closeEditModal()
-            if (deleteResult) workSpaceState.showDeleteSuccessSnackBar()
-            else workSpaceState.showDeleteFailedSnackBar()
+            if (deleteResult) workSpaceState.showSnackBar(SnackbarType.DELETE_SUCCESS)
+            else workSpaceState.showSnackBar(SnackbarType.DELETE_FAILED)
         },
         onUpdate = {
             val taskId = workSpaceState.currentEditTask?.id
@@ -58,78 +59,26 @@ fun WorkSpace(
                 )
             }
             workSpaceState.closeEditModal()
-            workSpaceState.showEditSnackBar()
+            workSpaceState.showSnackBar(SnackbarType.EDIT)
         },
     )
 
-    LaunchedEffect(workSpaceState.shouldShowAddSnackbar) {
-        if (workSpaceState.shouldShowAddSnackbar) {
-            workSpaceState.snackbarHostState.showSnackbar(
-                message = ComponentText.BOARD_TASK_CREATE_SNACKBAR,
-                withDismissAction = true,
-            )
-            workSpaceState.hideAddSnackBar()
+    LaunchedEffect(workSpaceState.shouldShowSnackbar) {
+        val snackbarText = when (workSpaceState.shouldShowSnackbar) {
+            null -> return@LaunchedEffect
+            SnackbarType.ADD -> ComponentText.BOARD_TASK_CREATE_SNACKBAR
+            SnackbarType.EDIT -> ComponentText.BOARD_TASK_EDIT_SNACKBAR
+            SnackbarType.MOVE_SUCCESS -> ComponentText.BOARD_TASK_MOVE_SUCCESS_SNACKBAR
+            SnackbarType.MOVE_FAILED -> ComponentText.BOARD_TASK_MOVE_FAILED_SNACKBAR
+            SnackbarType.MOVE_NO_ASSIGNEE -> ComponentText.BOARD_TASK_MOVE_NO_ASSIGNEE_SNACKBAR
+            SnackbarType.DELETE_SUCCESS -> ComponentText.BOARD_TASK_DELETE_SUCCESS_SNACKBAR
+            SnackbarType.DELETE_FAILED -> ComponentText.BOARD_TASK_DELETE_FAILED_SNACKBAR
         }
-    }
-
-    LaunchedEffect(workSpaceState.shouldShowMoveSuccessSnackbar) {
-        if (workSpaceState.shouldShowMoveSuccessSnackbar) {
-            workSpaceState.snackbarHostState.showSnackbar(
-                message = ComponentText.BOARD_TASK_MOVE_SUCCESS_SNACKBAR,
-                withDismissAction = true,
-            )
-            workSpaceState.hideMoveSuccessSnackBar()
-        }
-    }
-
-    LaunchedEffect(workSpaceState.shouldShowMoveFailedSnackbar) {
-        if (workSpaceState.shouldShowMoveFailedSnackbar) {
-            workSpaceState.snackbarHostState.showSnackbar(
-                message = ComponentText.BOARD_TASK_MOVE_FAILED_SNACKBAR,
-                withDismissAction = true,
-            )
-            workSpaceState.hideMoveFailedSnackBar()
-        }
-    }
-
-    LaunchedEffect(workSpaceState.shouldShowDeleteSuccessSnackbar) {
-        if (workSpaceState.shouldShowDeleteSuccessSnackbar) {
-            workSpaceState.snackbarHostState.showSnackbar(
-                message = ComponentText.BOARD_TASK_DELETE_SUCCESS_SNACKBAR,
-                withDismissAction = true,
-            )
-            workSpaceState.hideDeleteSuccessSnackBar()
-        }
-    }
-
-    LaunchedEffect(workSpaceState.shouldShowDeleteFailedSnackbar) {
-        if (workSpaceState.shouldShowDeleteFailedSnackbar) {
-            workSpaceState.snackbarHostState.showSnackbar(
-                message = ComponentText.BOARD_TASK_DELETE_FAILED_SNACKBAR,
-                withDismissAction = true,
-            )
-            workSpaceState.hideDeleteFailedSnackBar()
-        }
-    }
-
-    LaunchedEffect(workSpaceState.shouldShowNoAssigneeMoveSnackbar) {
-        if (workSpaceState.shouldShowNoAssigneeMoveSnackbar) {
-            workSpaceState.snackbarHostState.showSnackbar(
-                message = ComponentText.BOARD_TASK_MOVE_NO_ASSIGNEE_SNACKBAR,
-                withDismissAction = true,
-            )
-            workSpaceState.hideNoAssigneeMoveSnackBar()
-        }
-    }
-
-    LaunchedEffect(workSpaceState.shouldShowEditSnackbar) {
-        if (workSpaceState.shouldShowEditSnackbar) {
-            workSpaceState.snackbarHostState.showSnackbar(
-                message = ComponentText.BOARD_TASK_EDIT_SNACKBAR,
-                withDismissAction = true,
-            )
-            workSpaceState.hideEditSnackBar()
-        }
+        workSpaceState.snackbarHostState.showSnackbar(
+            message = snackbarText,
+            withDismissAction = true,
+        )
+        workSpaceState.hideSnackbar()
     }
 
     if (workSpaceState.isShowCreateModal) {
@@ -186,13 +135,13 @@ fun WorkSpace(
                 )
                 Board(
                     project = selectedProject,
-                    onShowMoveSuccessSnackBar = { workSpaceState.showMoveSuccessSnackBar() },
-                    onShowMoveFailedSnackbar = { workSpaceState.showMoveFailedSnackBar() },
+                    onShowMoveSuccessSnackBar = { workSpaceState.showSnackBar(SnackbarType.MOVE_SUCCESS) },
+                    onShowMoveFailedSnackbar = { workSpaceState.showSnackBar(SnackbarType.MOVE_FAILED) },
                     onShowCreateTaskModal = { workSpaceState.showCreateModal() },
                     onShowEditTaskModal = { taskCardData ->
                         workSpaceState.showEditModal(taskCardData)
                     },
-                    onShowNoAssigneeSnackbar = { workSpaceState.showNoAssigneeMoveSnackBar() },
+                    onShowNoAssigneeSnackbar = { workSpaceState.showSnackBar(SnackbarType.MOVE_NO_ASSIGNEE) },
                 )
             }
         }

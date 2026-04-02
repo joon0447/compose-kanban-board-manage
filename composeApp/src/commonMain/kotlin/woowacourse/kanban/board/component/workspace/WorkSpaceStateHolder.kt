@@ -9,77 +9,24 @@ import androidx.compose.runtime.setValue
 import kotlinx.collections.immutable.ImmutableList
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.taskcard.TaskCardData
+import woowacourse.kanban.board.model.workspace.SnackbarType
 
 class WorkSpaceState(
     val projects: ImmutableList<Project>,
 ) {
     val snackbarHostState = SnackbarHostState()
     var selectedProject by mutableStateOf(projects.firstOrNull())
-    var shouldShowAddSnackbar by mutableStateOf(false)
-    var shouldShowMoveSuccessSnackbar by mutableStateOf(false)
-    var shouldShowMoveFailedSnackbar by mutableStateOf(false)
-    var shouldShowNoAssigneeMoveSnackbar by mutableStateOf(false)
-    var shouldShowDeleteSuccessSnackbar by mutableStateOf(false)
-    var shouldShowDeleteFailedSnackbar by mutableStateOf(false)
-    var shouldShowEditSnackbar by mutableStateOf(false)
+    var shouldShowSnackbar by mutableStateOf<SnackbarType?>(null)
     var isShowCreateModal by mutableStateOf(false)
     var isShowEditModal by mutableStateOf(false)
     var currentEditTask by mutableStateOf<TaskCardData?>(null)
 
-    fun showAddSnackBar() {
-        shouldShowAddSnackbar = true
+    fun showSnackBar(snackbarType: SnackbarType) {
+        shouldShowSnackbar = snackbarType
     }
 
-    fun hideAddSnackBar() {
-        shouldShowAddSnackbar = false
-    }
-
-    fun showMoveSuccessSnackBar() {
-        shouldShowMoveSuccessSnackbar = true
-    }
-
-    fun hideMoveSuccessSnackBar() {
-        shouldShowMoveSuccessSnackbar = false
-    }
-
-    fun showMoveFailedSnackBar() {
-        shouldShowMoveFailedSnackbar = true
-    }
-
-    fun hideMoveFailedSnackBar() {
-        shouldShowMoveFailedSnackbar = false
-    }
-
-    fun showDeleteSuccessSnackBar() {
-        shouldShowDeleteSuccessSnackbar = true
-    }
-
-    fun hideDeleteSuccessSnackBar() {
-        shouldShowDeleteSuccessSnackbar = false
-    }
-
-    fun showDeleteFailedSnackBar() {
-        shouldShowDeleteFailedSnackbar = true
-    }
-
-    fun hideDeleteFailedSnackBar() {
-        shouldShowDeleteFailedSnackbar = false
-    }
-
-    fun showNoAssigneeMoveSnackBar() {
-        shouldShowNoAssigneeMoveSnackbar = true
-    }
-
-    fun hideNoAssigneeMoveSnackBar() {
-        shouldShowNoAssigneeMoveSnackbar = false
-    }
-
-    fun showEditSnackBar() {
-        shouldShowEditSnackbar = true
-    }
-
-    fun hideEditSnackBar() {
-        shouldShowEditSnackbar = false
+    fun hideSnackbar() {
+        shouldShowSnackbar = null
     }
 
     fun showCreateModal() {
