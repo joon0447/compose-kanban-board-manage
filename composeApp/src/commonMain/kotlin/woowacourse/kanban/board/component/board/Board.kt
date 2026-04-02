@@ -30,11 +30,11 @@ fun Board(
             doneRate = project.calculateDoneRate(),
             doneTasks = project.doneTasks.size,
             totalTasks = project.allTasksCount,
-            onClickCreateTask = { onShowCreateTaskModal() },
+            onClickCreateTask = onShowCreateTaskModal,
         )
         TaskColumnSection(
             project = project,
-            onMoveSuccessSnackBar = { onShowMoveSuccessSnackBar() },
+            onMoveSuccessSnackBar = onShowMoveSuccessSnackBar,
             onShowEditTaskModal = onShowEditTaskModal,
             onMoveFailedSnackBar = onShowMoveFailedSnackbar,
             onMoveNoAssigneeSnackBar = onShowNoAssigneeSnackbar,
