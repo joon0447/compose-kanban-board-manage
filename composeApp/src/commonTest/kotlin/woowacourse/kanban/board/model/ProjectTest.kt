@@ -225,7 +225,7 @@ class ProjectTest {
     fun `Review 상태의 task를 In Progress 상태로 업데이트 할 수 있다`() {
         project.addTask(reviewTask)
         project.tryMoveTaskStatus(reviewTask.id, Status.PROGRESS)
-        assertThat(project.progressTasks).doesNotContain(reviewTask)
+        assertThat(project.reviewTasks).doesNotContain(reviewTask)
         val updated = project.findTaskById(reviewTask.id)
         assertThat(updated?.status).isEqualTo(Status.PROGRESS)
     }
