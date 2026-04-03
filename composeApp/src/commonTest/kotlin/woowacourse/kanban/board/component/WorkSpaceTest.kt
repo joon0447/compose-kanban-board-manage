@@ -40,6 +40,19 @@ class WorkSpaceTest {
     private lateinit var projects: ImmutableList<Project>
     private lateinit var assignees: ImmutableList<Assignee>
 
+    private fun createProject(status: Status, title: String) =
+        listOf(
+            Project(
+                initialTasks = listOf(
+                    TaskCardDataFixture.create(
+                        title = title,
+                        status = status,
+                    ),
+                ).toImmutableList(),
+                title = "프로젝트",
+            ),
+        ).toImmutableList()
+
     @Before
     fun setUp() {
         projects = ProjectPreviewData().values.toImmutableList()
@@ -134,18 +147,11 @@ class WorkSpaceTest {
     }
 
     @Test
-    fun `TODO 태스크 카드를 삭제하면 삭제 성공 스낵바가 출력된다`() = runComposeUiTest {
-        val project = listOf(
-            Project(
-                initialTasks = listOf(
-                    TaskCardDataFixture.create(
-                        title = "이거누르세요태스크카드에요",
-                        status = Status.TODO,
-                    ),
-                ).toImmutableList(),
-                title = "프로젝트",
-            ),
-        ).toImmutableList()
+    fun `TODO 태스크 카드를 삭제 시도하면 삭제 성공 스낵바가 출력된다`() = runComposeUiTest {
+        val project = createProject(
+            status = Status.TODO,
+            title = "이거누르세요태스크카드에요"
+        )
         setContent {
             CompositionLocalProvider(
                 LocalDensity provides Density(
@@ -166,18 +172,37 @@ class WorkSpaceTest {
     }
 
     @Test
-    fun `IN PROGRESS 태스크 카드를 삭제하면 삭제 성공 스낵바가 출력된다`() = runComposeUiTest {
-        val project = listOf(
-            Project(
-                initialTasks = listOf(
-                    TaskCardDataFixture.create(
-                        title = "이거누르세요태스크카드에요",
-                        status = Status.PROGRESS,
-                    ),
-                ).toImmutableList(),
-                title = "프로젝트",
-            ),
-        ).toImmutableList()
+    fun `TODO 태스크 카드를 삭제 시도하면 보드에서 해당 태스크 카드가 삭제된다`() = runComposeUiTest {
+        val project = createProject(
+            status = Status.TODO,
+            title = "이거누르세요태스크카드에요"
+        )
+        setContent {
+            CompositionLocalProvider(
+                LocalDensity provides Density(
+                    density = 0.1f,
+                ),
+            ) {
+                WorkSpace(
+                    projects = project,
+                    assignees = assignees,
+                )
+            }
+        }
+        onNodeWithText("이거누르세요태스크카드에요").assertIsDisplayed()
+        onNodeWithText("이거누르세요태스크카드에요").performClick()
+        waitForIdle()
+        onNodeWithText("삭제").performClick()
+        waitForIdle()
+        onNodeWithText("이거누르세요태스크카드에요").assertDoesNotExist()
+    }
+
+    @Test
+    fun `IN PROGRESS 태스크 카드를 삭제 시도하면 삭제 성공 스낵바가 출력된다`() = runComposeUiTest {
+        val project = createProject(
+            status = Status.PROGRESS,
+            title = "이거누르세요태스크카드에요"
+        )
         setContent {
             CompositionLocalProvider(
                 LocalDensity provides Density(
@@ -198,18 +223,37 @@ class WorkSpaceTest {
     }
 
     @Test
-    fun `REVIEW 태스크 카드를 삭제하면 삭제 실패 스낵바가 출력된다`() = runComposeUiTest {
-        val project = listOf(
-            Project(
-                initialTasks = listOf(
-                    TaskCardDataFixture.create(
-                        title = "이거누르세요태스크카드에요",
-                        status = Status.REVIEW,
-                    ),
-                ).toImmutableList(),
-                title = "프로젝트",
-            ),
-        ).toImmutableList()
+    fun `IN PROGRESS 태스크 카드를 삭제 시도하면 보드에서 해당 태스크 카드가 삭제된다`() = runComposeUiTest {
+        val project = createProject(
+            status = Status.PROGRESS,
+            title = "이거누르세요태스크카드에요"
+        )
+        setContent {
+            CompositionLocalProvider(
+                LocalDensity provides Density(
+                    density = 0.1f,
+                ),
+            ) {
+                WorkSpace(
+                    projects = project,
+                    assignees = assignees,
+                )
+            }
+        }
+        onNodeWithText("이거누르세요태스크카드에요").assertIsDisplayed()
+        onNodeWithText("이거누르세요태스크카드에요").performClick()
+        waitForIdle()
+        onNodeWithText("삭제").performClick()
+        waitForIdle()
+        onNodeWithText("이거누르세요태스크카드에요").assertDoesNotExist()
+    }
+
+    @Test
+    fun `REVIEW 태스크 카드를 삭제 시도하면 삭제 실패 스낵바가 출력된다`() = runComposeUiTest {
+        val project = createProject(
+            status = Status.REVIEW,
+            title = "이거누르세요태스크카드에요"
+        )
         setContent {
             CompositionLocalProvider(
                 LocalDensity provides Density(
@@ -230,18 +274,37 @@ class WorkSpaceTest {
     }
 
     @Test
-    fun `DONE 태스크 카드를 삭제하면 삭제 실패 스낵바가 출력된다`() = runComposeUiTest {
-        val project = listOf(
-            Project(
-                initialTasks = listOf(
-                    TaskCardDataFixture.create(
-                        title = "이거누르세요태스크카드에요",
-                        status = Status.DONE,
-                    ),
-                ).toImmutableList(),
-                title = "프로젝트",
-            ),
-        ).toImmutableList()
+    fun `Review 태스크 카드를 삭제 시도하면 보드에서 해당 태스크 카드가 삭제되지 않는다`() = runComposeUiTest {
+        val project = createProject(
+            status = Status.REVIEW,
+            title = "이거누르세요태스크카드에요"
+        )
+        setContent {
+            CompositionLocalProvider(
+                LocalDensity provides Density(
+                    density = 0.1f,
+                ),
+            ) {
+                WorkSpace(
+                    projects = project,
+                    assignees = assignees,
+                )
+            }
+        }
+        onNodeWithText("이거누르세요태스크카드에요").assertIsDisplayed()
+        onNodeWithText("이거누르세요태스크카드에요").performClick()
+        waitForIdle()
+        onNodeWithText("삭제").performClick()
+        waitForIdle()
+        onNodeWithText("이거누르세요태스크카드에요").assertIsDisplayed()
+    }
+
+    @Test
+    fun `DONE 태스크 카드를 삭제 시도하면 삭제 실패 스낵바가 출력된다`() = runComposeUiTest {
+        val project = createProject(
+            status = Status.DONE,
+            title = "이거누르세요태스크카드에요"
+        )
         setContent {
             CompositionLocalProvider(
                 LocalDensity provides Density(
@@ -259,21 +322,40 @@ class WorkSpaceTest {
         onNodeWithText("삭제").performClick()
         waitForIdle()
         onNodeWithText(ComponentText.BOARD_TASK_DELETE_FAILED_SNACKBAR).assertIsDisplayed()
+    }
+
+    @Test
+    fun `Done 태스크 카드를 삭제 시도하면 보드에서 해당 태스크 카드가 삭제되지 않는다`() = runComposeUiTest {
+        val project = createProject(
+            status = Status.DONE,
+            title = "이거누르세요태스크카드에요"
+        )
+        setContent {
+            CompositionLocalProvider(
+                LocalDensity provides Density(
+                    density = 0.1f,
+                ),
+            ) {
+                WorkSpace(
+                    projects = project,
+                    assignees = assignees,
+                )
+            }
+        }
+        onNodeWithText("이거누르세요태스크카드에요").assertIsDisplayed()
+        onNodeWithText("이거누르세요태스크카드에요").performClick()
+        waitForIdle()
+        onNodeWithText("삭제").performClick()
+        waitForIdle()
+        onNodeWithText("이거누르세요태스크카드에요").assertIsDisplayed()
     }
 
     @Test
     fun `태스크 카드를 수정하면 수정 스낵바가 출력된다`() = runComposeUiTest {
-        val project = listOf(
-            Project(
-                initialTasks = listOf(
-                    TaskCardDataFixture.create(
-                        title = "이거누르세요태스크카드에요",
-                        status = Status.DONE,
-                    ),
-                ).toImmutableList(),
-                title = "프로젝트",
-            ),
-        ).toImmutableList()
+        val project = createProject(
+            status = Status.DONE,
+            title = "이거누르세요태스크카드에요"
+        )
         setContent {
             CompositionLocalProvider(
                 LocalDensity provides Density(
@@ -300,17 +382,10 @@ class WorkSpaceTest {
 
     @Test
     fun `태스크 카드의 상태 이동이 성공하면 이동 성공 스낵바가 출력된다`() = runComposeUiTest {
-        val project = listOf(
-            Project(
-                initialTasks = listOf(
-                    TaskCardDataFixture.create(
-                        title = "이거누르세요태스크카드에요",
-                        status = Status.REVIEW,
-                    ),
-                ).toImmutableList(),
-                title = "프로젝트",
-            ),
-        ).toImmutableList()
+        val project = createProject(
+            status = Status.REVIEW,
+            title = "이거누르세요태스크카드에요"
+        )
         setContent {
             CompositionLocalProvider(
                 LocalDensity provides Density(
