@@ -1,7 +1,5 @@
 package woowacourse.kanban.board.model
 
-import kotlin.test.Test
-import kotlin.test.assertTrue
 import kotlinx.collections.immutable.immutableListOf
 import kotlinx.collections.immutable.toImmutableList
 import org.assertj.core.api.Assertions.assertThat
@@ -10,6 +8,8 @@ import woowacourse.kanban.board.fixture.TaskCardDataFixture
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.TaskCardData
+import kotlin.test.Test
+import kotlin.test.assertTrue
 
 class ProjectTest {
     private lateinit var project: Project
@@ -234,7 +234,7 @@ class ProjectTest {
     fun `Review 상태의 task를 Done 상태로 업데이트 할 수 있다`() {
         project.addTask(reviewTask)
         project.tryMoveTaskStatus(reviewTask.id, Status.DONE)
-        assertThat(project.progressTasks).doesNotContain(reviewTask)
+        assertThat(project.reviewTasks).doesNotContain(reviewTask)
         val updated = project.findTaskById(reviewTask.id)
         assertThat(updated?.status).isEqualTo(Status.DONE)
     }
