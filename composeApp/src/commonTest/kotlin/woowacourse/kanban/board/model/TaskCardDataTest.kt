@@ -34,7 +34,9 @@ class TaskCardDataTest {
             status = todoTask.status,
             assignee = todoTask.assignee,
         )
-        val updatedData = todoTask.updateData(updateTaskCardData)
+        val updatedData = todoTask.updateData(
+            updateTaskCardData = updateTaskCardData,
+        )
         assertThat(updatedData.taskTitle).isEqualTo(TaskTitle("수정수정"))
     }
 
@@ -47,7 +49,9 @@ class TaskCardDataTest {
             status = todoTask.status,
             assignee = todoTask.assignee,
         )
-        val updatedData = todoTask.updateData(updateTaskCardData)
+        val updatedData = todoTask.updateData(
+            updateTaskCardData = updateTaskCardData,
+        )
         assertThat(updatedData.taskDescription).isEqualTo(TaskDescription("설명수정했어요"))
     }
 
@@ -61,7 +65,9 @@ class TaskCardDataTest {
             status = todoTask.status,
             assignee = todoTask.assignee,
         )
-        val updatedData = todoTask.updateData(updateTaskCardData)
+        val updatedData = todoTask.updateData(
+            updateTaskCardData = updateTaskCardData,
+        )
         assertThat(updatedData.taskTags).isEqualTo(updatedTags)
     }
 
@@ -74,7 +80,9 @@ class TaskCardDataTest {
             status = Status.PROGRESS,
             assignee = todoTask.assignee,
         )
-        val updatedData = todoTask.updateData(updateTaskCardData)
+        val updatedData = todoTask.updateData(
+            updateTaskCardData = updateTaskCardData,
+        )
         assertThat(updatedData.status).isEqualTo(Status.PROGRESS)
     }
 
@@ -88,7 +96,9 @@ class TaskCardDataTest {
             status = todoTask.status,
             assignee = newAssignee,
         )
-        val updatedData = todoTask.updateData(updateTaskCardData)
+        val updatedData = todoTask.updateData(
+            updateTaskCardData = updateTaskCardData,
+        )
         assertThat(updatedData.assignee).isEqualTo(newAssignee)
     }
 

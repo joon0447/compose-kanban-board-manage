@@ -27,7 +27,9 @@ data class TaskCardData(
         }
     }
 
-    fun updateData(updateTaskCardData: TaskCardData): TaskCardData {
+    fun updateData(
+        updateTaskCardData: TaskCardData,
+    ): TaskCardData {
         return this.copy(
             taskTitle = updateTaskCardData.taskTitle,
             taskDescription = updateTaskCardData.taskDescription,

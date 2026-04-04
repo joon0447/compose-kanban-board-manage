@@ -52,12 +52,14 @@ data class Project(
         return moveResult
     }
 
-    fun tryUpdateTaskData(id: String, updateTaskCardData: TaskCardData): Boolean {
-        val taskData = findTaskById(id) ?: return false
-        val newData = taskData.updateData(updateTaskCardData)
+    fun tryUpdateTaskData(
+        id: String,
+        updateTaskCardData: TaskCardData,
+    ): Boolean {
         val idx = tasks.indexOfFirst { it.id == id }
         if (idx == -1) return false
-        tasks[idx] = newData
+        val taskData = findTaskById(id) ?: return false
+        tasks[idx] = taskData.updateData(updateTaskCardData = updateTaskCardData)
         return true
     }
 

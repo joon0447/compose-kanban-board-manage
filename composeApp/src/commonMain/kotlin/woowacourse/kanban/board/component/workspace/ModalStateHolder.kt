@@ -32,16 +32,20 @@ class ModalState(
     val isTaskTitleValid by derivedStateOf { TaskTitle.isTitleValid(title) }
     val isTaskTagsValid by derivedStateOf {
         TaskTag.isTagValid(tags) &&
-            TaskTags.isTagsValid(
-                TaskTag.extractedTags(
-                    tags,
-                ),
-            )
+                TaskTags.isTagsValid(
+                    TaskTag.extractedTags(
+                        tags,
+                    ),
+                )
     }
 
     val isTaskAssigneeValid by derivedStateOf {
         if (status != Status.TODO && assignee == null) false
         else true
+    }
+
+    val isFormValid by derivedStateOf {
+        isTaskTitleValid && isTaskAssigneeValid && isTaskTagsValid
     }
 
     fun loadData(taskCardData: TaskCardData) {
