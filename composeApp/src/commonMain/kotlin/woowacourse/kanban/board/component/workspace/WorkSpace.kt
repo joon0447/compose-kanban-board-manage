@@ -5,20 +5,26 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
+import woowacourse.kanban.board.Blue50
 import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.component.board.Board
+import woowacourse.kanban.board.component.modal.EditModalFooterButtons
+import woowacourse.kanban.board.component.modal.FooterButton
 import woowacourse.kanban.board.component.modal.Modal
 import woowacourse.kanban.board.component.sample.ProfilePreviewData
 import woowacourse.kanban.board.component.sample.ProjectPreviewData
-import woowacourse.kanban.board.model.modal.ModalType
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.taskcard.Assignee
 import woowacourse.kanban.board.model.workspace.SnackbarType
@@ -31,37 +37,6 @@ fun WorkSpace(
 ) {
     val workSpaceState = rememberWorkSpaceState(projects)
     val modalState = rememberModalState(assignees)
-
-    val createModalType = ModalType.Create(
-        onCreate = {
-            val data = modalState.toTaskCardData()
-            workSpaceState.selectedProject?.addTask(data)
-            workSpaceState.closeCreateModal()
-            workSpaceState.showSnackBar(SnackbarType.ADD)
-        },
-    )
-
-    val editModalType = ModalType.Edit(
-        onDelete = {
-            val taskId = workSpaceState.currentEditTask?.id
-            val deleteResult = workSpaceState.selectedProject?.deleteTaskById(taskId) ?: false
-            workSpaceState.closeEditModal()
-            if (deleteResult) workSpaceState.showSnackBar(SnackbarType.DELETE_SUCCESS)
-            else workSpaceState.showSnackBar(SnackbarType.DELETE_FAILED)
-        },
-        onUpdate = {
-            val taskId = workSpaceState.currentEditTask?.id
-            val data = modalState.toTaskCardData()
-            if (taskId != null) {
-                workSpaceState.selectedProject?.tryUpdateTaskData(
-                    id = taskId,
-                    updateTaskCardData = data,
-                )
-            }
-            workSpaceState.closeEditModal()
-            workSpaceState.showSnackBar(SnackbarType.EDIT)
-        },
-    )
 
     LaunchedEffect(workSpaceState.shouldShowSnackbar) {
         val snackbarText = when (workSpaceState.shouldShowSnackbar) {
@@ -93,7 +68,29 @@ fun WorkSpace(
                 onClickClose = {
                     workSpaceState.closeCreateModal()
                 },
-                modalType = createModalType,
+                title = {
+                    Text(
+                        text = ComponentText.CREATE_MODAL_HEADER_LABEL,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black,
+                    )
+                },
+                footerButtonSection = {
+                    FooterButton(
+                        enabled = modalState.isTaskTitleValid &&
+                                modalState.isTaskTagsValid &&
+                                modalState.isTaskAssigneeValid,
+                        containerColor = Blue50,
+                        text = ComponentText.CREATE_BUTTON,
+                        onClick = {
+                            val data = modalState.toTaskCardData()
+                            workSpaceState.selectedProject?.addTask(data)
+                            workSpaceState.closeCreateModal()
+                            workSpaceState.showSnackBar(SnackbarType.ADD)
+                        },
+                    )
+                },
                 modalState = modalState,
             )
         }
@@ -113,7 +110,40 @@ fun WorkSpace(
                 onClickClose = {
                     workSpaceState.closeEditModal()
                 },
-                modalType = editModalType,
+                title = {
+                    Text(
+                        text = ComponentText.EDIT_MODAL_HEADER_LABEL,
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black,
+                    )
+                },
+                footerButtonSection = {
+                    EditModalFooterButtons(
+                        isButtonEnabled = modalState.isTaskTitleValid &&
+                                modalState.isTaskTagsValid &&
+                                modalState.isTaskAssigneeValid,
+                        onDeleteClick = {
+                            val taskId = workSpaceState.currentEditTask?.id
+                            val deleteResult = workSpaceState.selectedProject?.deleteTaskById(taskId) ?: false
+                            workSpaceState.closeEditModal()
+                            if (deleteResult) workSpaceState.showSnackBar(SnackbarType.DELETE_SUCCESS)
+                            else workSpaceState.showSnackBar(SnackbarType.DELETE_FAILED)
+                        },
+                        onEditClick = {
+                            val taskId = workSpaceState.currentEditTask?.id
+                            val data = modalState.toTaskCardData()
+                            if (taskId != null) {
+                                workSpaceState.selectedProject?.tryUpdateTaskData(
+                                    id = taskId,
+                                    updateTaskCardData = data,
+                                )
+                            }
+                            workSpaceState.closeEditModal()
+                            workSpaceState.showSnackBar(SnackbarType.EDIT)
+                        },
+                    )
+                },
                 modalState = modalState,
             )
         }

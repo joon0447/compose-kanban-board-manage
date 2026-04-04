@@ -17,11 +17,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
-import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.component.sample.ProfilePreviewData
 import woowacourse.kanban.board.component.workspace.ModalState
 import woowacourse.kanban.board.component.workspace.rememberModalState
-import woowacourse.kanban.board.model.modal.ModalType
 import woowacourse.kanban.board.model.modal.TextInputState
 import woowacourse.kanban.board.model.taskcard.Assignee
 import woowacourse.kanban.board.model.taskcard.TaskCardData
@@ -30,7 +28,8 @@ import woowacourse.kanban.board.model.taskcard.TaskCardData
 fun Modal(
     assignees: ImmutableList<Assignee>,
     onClickClose: () -> Unit,
-    modalType: ModalType,
+    title: @Composable () -> Unit,
+    footerButtonSection: @Composable () -> Unit,
     modalState: ModalState,
     modifier: Modifier = Modifier,
     data: TaskCardData? = null,
@@ -54,11 +53,6 @@ fun Modal(
         isError = modalState.isTaskTagsValid.not(),
     )
 
-    val headerLabel = when (modalType) {
-        is ModalType.Create -> ComponentText.CREATE_MODAL_HEADER_LABEL
-        is ModalType.Edit -> ComponentText.EDIT_MODAL_HEADER_LABEL
-    }
-
     Card(
         modifier = modifier
             .width(800.dp)
@@ -75,7 +69,7 @@ fun Modal(
             verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {
             Header(
-                label = headerLabel,
+                title = title,
                 onClickClose = onClickClose,
             )
             HorizontalDivider()
@@ -90,10 +84,7 @@ fun Modal(
             )
             Footer(
                 onClickClose = onClickClose,
-                isButtonEnabled = modalState.isTaskTitleValid &&
-                    modalState.isTaskTagsValid &&
-                    modalState.isTaskAssigneeValid,
-                modalType = modalType,
+                footerButtonSection = footerButtonSection,
             )
         }
     }
@@ -105,8 +96,9 @@ private fun CreateModalPreview() {
     val profiles = ProfilePreviewData().values.toImmutableList()
     Modal(
         assignees = profiles,
-        modalType = ModalType.Create({}),
         onClickClose = {},
+        title = {},
+        footerButtonSection = {},
         modalState = rememberModalState(profiles)
     )
 }
@@ -117,10 +109,8 @@ private fun EditModalPreview() {
     val profiles = ProfilePreviewData().values.toImmutableList()
     Modal(
         assignees = profiles,
-        modalType = ModalType.Edit(
-            onDelete = {},
-            onUpdate = {},
-        ),
+        title = {},
+        footerButtonSection = {},
         onClickClose = {},
         modalState = rememberModalState(profiles)
     )
