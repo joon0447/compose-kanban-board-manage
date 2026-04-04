@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.ExperimentalTestApi
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertIsNotEnabled
 import androidx.compose.ui.test.isEditable
@@ -26,7 +27,9 @@ import org.junit.Before
 import woowacourse.kanban.board.Blue50
 import woowacourse.kanban.board.component.ComponentText
 import woowacourse.kanban.board.component.workspace.rememberModalState
+import woowacourse.kanban.board.fixture.TaskCardDataFixture
 import woowacourse.kanban.board.model.taskcard.Assignee
+import woowacourse.kanban.board.model.taskcard.TaskTag
 import kotlin.test.Test
 
 @OptIn(ExperimentalTestApi::class)
@@ -34,6 +37,7 @@ class ModalTest {
 
     private lateinit var assignees: ImmutableList<Assignee>
     private lateinit var createModalTitle: @Composable () -> Unit
+    private lateinit var editModalTitle: @Composable () -> Unit
 
     @Before
     fun setUp() {
@@ -45,6 +49,15 @@ class ModalTest {
         createModalTitle = {
             Text(
                 text = ComponentText.CREATE_MODAL_HEADER_LABEL,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.Black,
+            )
+        }
+
+        editModalTitle = {
+            Text(
+                text = ComponentText.EDIT_MODAL_HEADER_LABEL,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
@@ -232,5 +245,35 @@ class ModalTest {
         onAllNodes(isEditable())[0].performTextInput("하이")
         onNodeWithText(ComponentText.CREATE_BUTTON).performSemanticsAction(SemanticsActions.OnClick)
         assertThat(create).isTrue()
+    }
+
+    @Test
+    fun `수정 모달을 열면 수정할 태스크 데이터가 입력되어 있다`() = runComposeUiTest {
+        val taskCardData = TaskCardDataFixture.create(
+            title = "수정태스크",
+            taskDescription = "수정할 태스크의 설명입니다",
+            tags = listOf(TaskTag(value = "태그3")).toImmutableList(),
+        )
+        setContent {
+            val modalState = rememberModalState(assignees)
+            Modal(
+                assignees = assignees,
+                onClickClose = { },
+                title = editModalTitle,
+                footerButtonSection = {
+                    EditModalFooterButtons(
+                        isButtonEnabled = modalState.isFormValid,
+                        onDeleteClick = {},
+                        onEditClick = {},
+                    )
+                },
+                data = taskCardData,
+                modalState = modalState,
+            )
+        }
+
+        onNodeWithText("수정태스크").assertIsDisplayed()
+        onNodeWithText("수정할 태스크의 설명입니다").assertIsDisplayed()
+        onNodeWithText("태그3").assertIsDisplayed()
     }
 }
