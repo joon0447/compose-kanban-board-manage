@@ -1,7 +1,7 @@
 package woowacourse.kanban.board.model.taskcard
 
-import java.util.UUID
 import woowacourse.kanban.board.model.project.MoveResult
+import java.util.UUID
 
 data class TaskCardData(
     val id: String = UUID.randomUUID().toString(),
@@ -13,17 +13,18 @@ data class TaskCardData(
 ) {
     fun isTaskStatusUpdateAvailable(targetStatus: Status): MoveResult {
         val availableUpdateStatuses = this.status.availableUpdateStatuses()
-        if (availableUpdateStatuses.contains(targetStatus)) {
-            if (targetStatus == Status.PROGRESS && this.assignee == null) return MoveResult.NO_ASSIGNEE
-            return MoveResult.SUCCESS
-        }
+        if (this.assignee == null) return MoveResult.NO_ASSIGNEE
+        if (availableUpdateStatuses.contains(targetStatus)) return MoveResult.SUCCESS
         return MoveResult.INVALID_MOVE
     }
 
-    fun updateTaskStatus(targetStatus: Status): TaskCardData {
-        return this.copy(
-            status = targetStatus
-        )
+    fun updateTaskStatus(moveResult: MoveResult, targetStatus: Status): TaskCardData {
+        return when (moveResult) {
+            MoveResult.SUCCESS -> this.copy(status = targetStatus)
+            MoveResult.NO_ASSIGNEE,
+            MoveResult.INVALID_MOVE,
+                -> this
+        }
     }
 
     fun updateData(updateTaskCardData: TaskCardData): TaskCardData {

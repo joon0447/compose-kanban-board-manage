@@ -1,11 +1,11 @@
 package woowacourse.kanban.board.model.project
 
 import androidx.compose.runtime.mutableStateListOf
-import java.util.UUID
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.model.taskcard.Status
 import woowacourse.kanban.board.model.taskcard.TaskCardData
+import java.util.UUID
 
 data class Project(
     val title: String,
@@ -43,7 +43,10 @@ data class Project(
         if (idx == -1) return MoveResult.INVALID_MOVE
         val moveResult = tasks[idx].isTaskStatusUpdateAvailable(targetStatus)
         if (moveResult == MoveResult.SUCCESS) {
-            val updatedTask = tasks[idx].updateTaskStatus(targetStatus)
+            val updatedTask = tasks[idx].updateTaskStatus(
+                moveResult = moveResult,
+                targetStatus = targetStatus,
+            )
             tasks[idx] = updatedTask
         }
         return moveResult
