@@ -38,6 +38,11 @@ fun WorkSpace(
     val workSpaceState = rememberWorkSpaceState(projects)
     val modalState = rememberModalState(assignees)
 
+    LaunchedEffect(assignees) {
+        if (assignees.isEmpty()) return@LaunchedEffect
+        modalState.assignees = assignees
+    }
+
     LaunchedEffect(workSpaceState.shouldShowSnackbar) {
         val snackbarText = when (workSpaceState.shouldShowSnackbar) {
             null -> return@LaunchedEffect
@@ -134,7 +139,7 @@ fun WorkSpace(
                                     id = taskId,
                                     updateTaskCardData = data,
                                 )
-                                if (updateResult == true){
+                                if (updateResult == true) {
                                     workSpaceState.showSnackBar(SnackbarType.EDIT)
                                     workSpaceState.closeEditModal()
                                 }

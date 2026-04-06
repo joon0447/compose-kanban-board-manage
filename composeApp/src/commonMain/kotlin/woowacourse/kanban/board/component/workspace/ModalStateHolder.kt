@@ -21,12 +21,11 @@ import woowacourse.kanban.board.model.taskcard.TaskTitle
 class ModalState(
     assignees: ImmutableList<Assignee>,
 ) {
-    private val defaultAssignees = assignees.first()
-
     var title by mutableStateOf("")
     var description by mutableStateOf("")
     var tags by mutableStateOf("")
     var status by mutableStateOf(Status.TODO)
+    var assignees by mutableStateOf(assignees)
     var assignee by mutableStateOf<Assignee?>(assignees.first())
 
     val isTaskTitleValid by derivedStateOf { TaskTitle.isTitleValid(title) }
@@ -61,7 +60,7 @@ class ModalState(
         description = ""
         tags = ""
         status = Status.TODO
-        assignee = defaultAssignees
+        assignee = assignees.first()
     }
 
     fun toTaskCardData(): TaskCardData {
