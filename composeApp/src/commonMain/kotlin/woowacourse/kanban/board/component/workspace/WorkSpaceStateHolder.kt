@@ -21,6 +21,36 @@ class WorkSpaceState(
     var isShowEditModal by mutableStateOf(false)
     var currentEditTask by mutableStateOf<TaskCardData?>(null)
 
+    fun addTask(modalState: ModalState) {
+        val data = modalState.toTaskCardData()
+        selectedProject?.addTask(data)
+        closeCreateModal()
+        showSnackBar(SnackbarType.ADD)
+    }
+
+    fun deleteTask() {
+        val taskId = currentEditTask?.id
+        val isDeleteSuccess = selectedProject?.deleteTaskById(taskId) ?: false
+        closeEditModal()
+        if (isDeleteSuccess) showSnackBar(SnackbarType.DELETE_SUCCESS)
+        else showSnackBar(SnackbarType.DELETE_FAILED)
+    }
+
+    fun editTask(modalState: ModalState) {
+        val taskId = currentEditTask?.id
+        val data = modalState.toTaskCardData()
+        if (taskId != null && modalState.isFormValid) {
+            val updateResult = selectedProject?.tryUpdateTaskData(
+                id = taskId,
+                updateTaskCardData = data,
+            )
+            if (updateResult == true) {
+                showSnackBar(SnackbarType.EDIT)
+                closeEditModal()
+            }
+        }
+    }
+
     fun showSnackBar(snackbarType: SnackbarType) {
         shouldShowSnackbar = snackbarType
     }
