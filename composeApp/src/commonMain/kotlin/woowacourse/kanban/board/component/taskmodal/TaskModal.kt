@@ -1,4 +1,4 @@
-package woowacourse.kanban.board.component.modal
+package woowacourse.kanban.board.component.taskmodal
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,12 +20,12 @@ import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.component.sample.ProfilePreviewData
 import woowacourse.kanban.board.component.workspace.ModalState
 import woowacourse.kanban.board.component.workspace.rememberModalState
-import woowacourse.kanban.board.model.modal.TextInputState
+import woowacourse.kanban.board.model.taskmodal.TextInputState
 import woowacourse.kanban.board.model.taskcard.Assignee
 import woowacourse.kanban.board.model.taskcard.TaskCardData
 
 @Composable
-fun Modal(
+fun TaskModal(
     assignees: ImmutableList<Assignee>,
     onClickClose: () -> Unit,
     title: @Composable () -> Unit,
@@ -68,21 +68,21 @@ fun Modal(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(24.dp),
         ) {
-            Header(
+            TaskModalHeader(
                 title = title,
                 onClickClose = onClickClose,
             )
             HorizontalDivider()
-            TextInputSection(
+            TaskModalTextInputSection(
                 titleInputState = titleInputState,
                 descriptionInputState = descriptionInputState,
                 tagsInputState = tagsInputState,
             )
-            ButtonSection(
+            TaskModalButtonSection(
                 assignees = assignees,
                 modalState = modalState
             )
-            Footer(
+            TaskModalFooter(
                 onClickClose = onClickClose,
                 footerButtonSection = footerButtonSection,
             )
@@ -92,9 +92,9 @@ fun Modal(
 
 @Preview(showBackground = true, widthDp = 1000, heightDp = 1000)
 @Composable
-private fun CreateModalPreview() {
+private fun CreateTaskModalPreview() {
     val profiles = ProfilePreviewData().values.toImmutableList()
-    Modal(
+    TaskModal(
         assignees = profiles,
         onClickClose = {},
         title = {},
@@ -105,9 +105,9 @@ private fun CreateModalPreview() {
 
 @Preview(showBackground = true, widthDp = 1000, heightDp = 1000)
 @Composable
-private fun EditModalPreview() {
+private fun EditTaskModalPreview() {
     val profiles = ProfilePreviewData().values.toImmutableList()
-    Modal(
+    TaskModal(
         assignees = profiles,
         title = {},
         footerButtonSection = {},

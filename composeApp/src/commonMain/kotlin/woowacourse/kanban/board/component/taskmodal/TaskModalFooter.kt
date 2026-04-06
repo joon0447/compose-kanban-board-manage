@@ -1,4 +1,4 @@
-package woowacourse.kanban.board.component.modal
+package woowacourse.kanban.board.component.taskmodal
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,7 +19,7 @@ import woowacourse.kanban.board.Gray20
 import woowacourse.kanban.board.component.ComponentText
 
 @Composable
-fun Footer(
+fun TaskModalFooter(
     onClickClose: () -> Unit,
     footerButtonSection: @Composable () -> Unit,
     modifier: Modifier = Modifier,
@@ -36,7 +36,7 @@ fun Footer(
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.End,
         ) {
-            FooterButton(
+            TaskModalFooterButton(
                 containerColor = Color.Transparent,
                 contentColor = Gray20,
                 text = ComponentText.CANCEL_BUTTON,
@@ -50,11 +50,11 @@ fun Footer(
 
 @Preview(showBackground = true)
 @Composable
-private fun CreateFooterButtonEnabledPreview() {
-    Footer(
+private fun CreateTaskModalTaskModalFooterButtonEnabledPreview() {
+    TaskModalFooter(
         onClickClose = {},
         footerButtonSection = {
-            FooterButton(
+            TaskModalFooterButton(
                 enabled = true,
                 containerColor = Blue50,
                 text = ComponentText.CREATE_BUTTON,
@@ -66,11 +66,11 @@ private fun CreateFooterButtonEnabledPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun CreateFooterButtonDisabledPreview() {
-    Footer(
+private fun CreateTaskModalTaskModalFooterButtonDisabledPreview() {
+    TaskModalFooter(
         onClickClose = {},
         footerButtonSection = {
-            FooterButton(
+            TaskModalFooterButton(
                 enabled = false,
                 containerColor = Blue50,
                 text = ComponentText.CREATE_BUTTON,
@@ -82,8 +82,8 @@ private fun CreateFooterButtonDisabledPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun EditFooterButtonEnabledPreview() {
-    Footer(
+private fun EditTaskModalFooterButtonEnabledPreview() {
+    TaskModalFooter(
         onClickClose = {},
         footerButtonSection = {
             EditModalFooterButtons(
@@ -97,8 +97,8 @@ private fun EditFooterButtonEnabledPreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun EditFooterButtonDisabledPreview() {
-    Footer(
+private fun EditTaskModalFooterButtonDisabledPreview() {
+    TaskModalFooter(
         onClickClose = {},
         footerButtonSection = {
             EditModalFooterButtons(

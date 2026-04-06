@@ -1,4 +1,4 @@
-package woowacourse.kanban.board.component.modal
+package woowacourse.kanban.board.component.taskmodal
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -32,7 +32,7 @@ import woowacourse.kanban.board.Gray70
 import woowacourse.kanban.board.model.taskcard.Assignee
 
 @Composable
-fun AssigneeLabelButton(
+fun TaskAssigneeLabelButton(
     currentState: Assignee?,
     myState: Assignee,
     onClick: () -> Unit,
@@ -73,8 +73,8 @@ fun AssigneeLabelButton(
 
 @Preview(showBackground = true)
 @Composable
-private fun AssigneeLabelButtonNotChoicePreview() {
-    AssigneeLabelButton(
+private fun TaskAssigneeLabelButtonNotChoicePreview() {
+    TaskAssigneeLabelButton(
         currentState = Assignee("다이노", Res.drawable.profile),
         myState = Assignee("페임스", Res.drawable.profile),
         onClick = {}
@@ -83,8 +83,8 @@ private fun AssigneeLabelButtonNotChoicePreview() {
 
 @Preview(showBackground = true)
 @Composable
-private fun AssigneeLabelButtonChoicePreview() {
-    AssigneeLabelButton(
+private fun TaskAssigneeLabelButtonChoicePreview() {
+    TaskAssigneeLabelButton(
         currentState = Assignee("페임스", Res.drawable.profile),
         myState = Assignee("페임스", Res.drawable.profile),
         onClick = {}

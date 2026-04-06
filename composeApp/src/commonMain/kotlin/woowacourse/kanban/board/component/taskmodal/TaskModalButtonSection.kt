@@ -1,4 +1,4 @@
-package woowacourse.kanban.board.component.modal
+package woowacourse.kanban.board.component.taskmodal
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -37,7 +37,7 @@ import woowacourse.kanban.board.model.taskcard.Assignee
 import woowacourse.kanban.board.model.taskcard.Status
 
 @Composable
-fun ButtonSection(
+fun TaskModalButtonSection(
     modalState: ModalState,
     assignees: ImmutableList<Assignee>,
     modifier: Modifier = Modifier,
@@ -60,7 +60,7 @@ fun ButtonSection(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             Status.entries.forEach { it ->
-                StatusButton(
+                TaskStatusButton(
                     modifier = modifier.weight(1f),
                     currentStatus = modalState.status,
                     myStatus = it,
@@ -86,7 +86,7 @@ fun ButtonSection(
                 )
             }
             assignees.forEach { profile ->
-                AssigneeLabelButton(
+                TaskAssigneeLabelButton(
                     currentState = modalState.assignee,
                     myState = profile,
                     onClick = { modalState.assignee = profile },
@@ -137,9 +137,9 @@ private fun NoAssigneeLabelButton(
 
 @Composable
 @Preview(showBackground = true)
-private fun ButtonSectionTodoStatusPreview() {
+private fun TaskModalButtonSectionTodoStatusPreview() {
     val profiles = ProfilePreviewData().values.toImmutableList()
-    ButtonSection(
+    TaskModalButtonSection(
         assignees = profiles,
         modalState = rememberModalState(profiles),
     )

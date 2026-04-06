@@ -1,4 +1,4 @@
-package woowacourse.kanban.board.component.modal
+package woowacourse.kanban.board.component.taskmodal
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -69,12 +69,12 @@ class ModalTest {
     fun `초기 상태에서 생성 버튼이 비활성화된다`() = runComposeUiTest {
         setContent {
             val modalState = rememberModalState(assignees)
-            Modal(
+            TaskModal(
                 assignees = assignees,
                 onClickClose = {},
                 title = createModalTitle,
                 footerButtonSection = {
-                    FooterButton(
+                    TaskModalFooterButton(
                         enabled = modalState.isTaskTitleValid &&
                                 modalState.isTaskTagsValid &&
                                 modalState.isTaskAssigneeValid,
@@ -93,12 +93,12 @@ class ModalTest {
     fun `제목을 입력하면 생성 버튼이 활성화된다`() = runComposeUiTest {
         setContent {
             val modalState = rememberModalState(assignees)
-            Modal(
+            TaskModal(
                 assignees = assignees,
                 onClickClose = {},
                 title = createModalTitle,
                 footerButtonSection = {
-                    FooterButton(
+                    TaskModalFooterButton(
                         enabled = modalState.isTaskTitleValid &&
                                 modalState.isTaskTagsValid &&
                                 modalState.isTaskAssigneeValid,
@@ -118,12 +118,12 @@ class ModalTest {
     fun `제목을 입력하고 태그에 ,,을 연속으로 입력하면 생성 버튼이 비활성화된다`() = runComposeUiTest {
         setContent {
             val modalState = rememberModalState(assignees)
-            Modal(
+            TaskModal(
                 assignees = assignees,
                 onClickClose = {},
                 title = createModalTitle,
                 footerButtonSection = {
-                    FooterButton(
+                    TaskModalFooterButton(
                         enabled = modalState.isTaskTitleValid &&
                                 modalState.isTaskTagsValid &&
                                 modalState.isTaskAssigneeValid,
@@ -145,12 +145,12 @@ class ModalTest {
     fun `제목을 입력한 뒤 모두 지우면 생성 버튼이 비활성화된다`() = runComposeUiTest {
         setContent {
             val modalState = rememberModalState(assignees)
-            Modal(
+            TaskModal(
                 assignees = assignees,
                 onClickClose = {},
                 title = createModalTitle,
                 footerButtonSection = {
-                    FooterButton(
+                    TaskModalFooterButton(
                         enabled = modalState.isTaskTitleValid &&
                                 modalState.isTaskTagsValid &&
                                 modalState.isTaskAssigneeValid,
@@ -173,12 +173,12 @@ class ModalTest {
         var close = false
         setContent {
             val modalState = rememberModalState(assignees)
-            Modal(
+            TaskModal(
                 assignees = assignees,
                 onClickClose = { close = true },
                 title = createModalTitle,
                 footerButtonSection = {
-                    FooterButton(
+                    TaskModalFooterButton(
                         enabled = modalState.isTaskTitleValid &&
                                 modalState.isTaskTagsValid &&
                                 modalState.isTaskAssigneeValid,
@@ -199,12 +199,12 @@ class ModalTest {
         var close = false
         setContent {
             val modalState = rememberModalState(assignees)
-            Modal(
+            TaskModal(
                 assignees = assignees,
                 onClickClose = { close = true },
                 title = createModalTitle,
                 footerButtonSection = {
-                    FooterButton(
+                    TaskModalFooterButton(
                         enabled = modalState.isTaskTitleValid &&
                                 modalState.isTaskTagsValid &&
                                 modalState.isTaskAssigneeValid,
@@ -225,12 +225,12 @@ class ModalTest {
         var create = false
         setContent {
             val modalState = rememberModalState(assignees)
-            Modal(
+            TaskModal(
                 assignees = assignees,
                 onClickClose = { },
                 title = createModalTitle,
                 footerButtonSection = {
-                    FooterButton(
+                    TaskModalFooterButton(
                         enabled = modalState.isTaskTitleValid &&
                                 modalState.isTaskTagsValid &&
                                 modalState.isTaskAssigneeValid,
@@ -256,7 +256,7 @@ class ModalTest {
         )
         setContent {
             val modalState = rememberModalState(assignees)
-            Modal(
+            TaskModal(
                 assignees = assignees,
                 onClickClose = { },
                 title = editModalTitle,

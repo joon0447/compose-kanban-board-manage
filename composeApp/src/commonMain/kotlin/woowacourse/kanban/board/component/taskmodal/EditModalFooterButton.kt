@@ -1,4 +1,4 @@
-package woowacourse.kanban.board.component.modal
+package woowacourse.kanban.board.component.taskmodal
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -20,12 +20,12 @@ fun EditModalFooterButtons(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        FooterButton(
+        TaskModalFooterButton(
             containerColor = Red70,
             text = ComponentText.DELETE_BUTTON,
             onClick = { onDeleteClick() },
         )
-        FooterButton(
+        TaskModalFooterButton(
             enabled = isButtonEnabled,
             containerColor = Purple40,
             text = ComponentText.EDIT_BUTTON,

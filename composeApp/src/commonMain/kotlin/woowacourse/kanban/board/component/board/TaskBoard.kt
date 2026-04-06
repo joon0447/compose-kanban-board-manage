@@ -12,7 +12,7 @@ import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.taskcard.TaskCardData
 
 @Composable
-fun Board(
+fun TaskBoard(
     project: Project,
     onShowMoveSuccessSnackBar: () -> Unit,
     onShowMoveFailedSnackbar: () -> Unit,
@@ -25,7 +25,7 @@ fun Board(
         modifier = modifier
             .background(Gray80),
     ) {
-        BoardHeader(
+        TaskBoardHeader(
             title = project.title,
             doneRate = project.calculateDoneRate(),
             doneTasks = project.doneTasks.size,
@@ -44,10 +44,10 @@ fun Board(
 
 @Preview(showBackground = true, widthDp = 1000)
 @Composable
-private fun BoardPreview() {
+private fun TaskBoardPreview() {
     val project = ProjectPreviewData().values.toMutableList()[0]
     MaterialTheme {
-        Board(
+        TaskBoard(
             project = project,
             onShowMoveSuccessSnackBar = { },
             onShowCreateTaskModal = { },

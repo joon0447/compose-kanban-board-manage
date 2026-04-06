@@ -19,12 +19,12 @@ import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.toImmutableList
 import woowacourse.kanban.board.Blue50
 import woowacourse.kanban.board.component.ComponentText
-import woowacourse.kanban.board.component.board.Board
-import woowacourse.kanban.board.component.modal.EditModalFooterButtons
-import woowacourse.kanban.board.component.modal.FooterButton
-import woowacourse.kanban.board.component.modal.Modal
+import woowacourse.kanban.board.component.board.TaskBoard
 import woowacourse.kanban.board.component.sample.ProfilePreviewData
 import woowacourse.kanban.board.component.sample.ProjectPreviewData
+import woowacourse.kanban.board.component.taskmodal.EditModalFooterButtons
+import woowacourse.kanban.board.component.taskmodal.TaskModal
+import woowacourse.kanban.board.component.taskmodal.TaskModalFooterButton
 import woowacourse.kanban.board.model.project.Project
 import woowacourse.kanban.board.model.taskcard.Assignee
 import woowacourse.kanban.board.model.workspace.SnackbarType
@@ -63,7 +63,7 @@ fun WorkSpace(
                 usePlatformDefaultWidth = false,
             ),
         ) {
-            Modal(
+            TaskModal(
                 assignees = assignees,
                 onClickClose = {
                     workSpaceState.closeCreateModal()
@@ -77,7 +77,7 @@ fun WorkSpace(
                     )
                 },
                 footerButtonSection = {
-                    FooterButton(
+                    TaskModalFooterButton(
                         enabled = modalState.isFormValid,
                         containerColor = Blue50,
                         text = ComponentText.CREATE_BUTTON,
@@ -102,7 +102,7 @@ fun WorkSpace(
                 usePlatformDefaultWidth = false,
             ),
         ) {
-            Modal(
+            TaskModal(
                 data = taskCardData,
                 assignees = assignees,
                 onClickClose = {
@@ -156,12 +156,12 @@ fun WorkSpace(
                 modifier = Modifier
                     .padding(paddingValues),
             ) {
-                SideBar(
+                WorkSpaceSideBar(
                     projects = workSpaceState.projects,
                     selectedProject = selectedProject,
                     onChangeProject = { workSpaceState.selectedProject = it },
                 )
-                Board(
+                TaskBoard(
                     project = selectedProject,
                     onShowMoveSuccessSnackBar = { workSpaceState.showSnackBar(SnackbarType.MOVE_SUCCESS) },
                     onShowMoveFailedSnackbar = { workSpaceState.showSnackBar(SnackbarType.MOVE_FAILED) },

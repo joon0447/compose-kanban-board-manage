@@ -1,4 +1,4 @@
-package woowacourse.kanban.board.component.modal
+package woowacourse.kanban.board.component.taskmodal
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -24,7 +24,7 @@ import woowacourse.kanban.board.component.extension.toText
 import woowacourse.kanban.board.model.taskcard.Status
 
 @Composable
-fun StatusButton(
+fun TaskStatusButton(
     currentStatus: Status,
     myStatus: Status,
     onClick: () -> Unit,
